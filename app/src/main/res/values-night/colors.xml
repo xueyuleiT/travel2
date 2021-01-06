@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="c_fafcff">#0f0300</color>
+    <color name="gray_6">#bdc8ce</color>
+    <color name="gray_9">#bdc8ce</color>
+    <color name="gray_3">#bdc8ce</color>
+    <color name="gray_e9eff1">#0a191d</color>
+
+    <color name="bg_menu">#212b31</color>
+    <color name="blue_96c1fa">#bdc8ce</color>
+
+
+    <color name="indicator_normal_color">#071012</color>
+    <color name="indicator_selected_color">#00cccc</color>
+
+    <color name="c_f3f5f6">#0c0a09</color>
+    <color name="c_25c8c8">#bdc8ce</color>
+
+
+</resources>

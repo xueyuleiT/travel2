@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:background="@color/bg_white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:src="@mipmap/icon_bus_line"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
+        <com.jtcxw.glcxw.base.views.TextViewWithoutPadding
+            android:id="@+id/tv_line"
+            android:textSize="16sp"
+            android:textColor="@color/black_263238"
+            android:textStyle="bold"
+            android:text="744"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="开往"
+            android:id="@+id/tv_go_to"
+            android:textColor="@color/green_light"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_to"
+            android:layout_marginLeft="10dp"
+            android:text="中兴路"
+            android:textColor="@color/gray_6"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
+    <include layout="@layout/layout_divider"/>
+
+</LinearLayout>
+
+

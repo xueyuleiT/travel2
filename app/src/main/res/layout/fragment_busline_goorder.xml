@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/gray_e9eff1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <LinearLayout
+            android:background="@color/green_light"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.beiing.weekcalendar.WeekCalendar
+                android:id="@+id/week_calendar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:wc_headerBgColor="#ccc"
+                app:wc_headerHeight="60dp"
+                app:wc_show_week="false"
+                app:wc_calendarHeight="60dp" />
+
+            <RelativeLayout
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/rl_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_calendar"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/icon_calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/iv_arrow"
+                    android:layout_marginTop="5dp"
+                    android:foregroundGravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_calendar"
+                    android:src="@mipmap/icon_calendar_arrow"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"/>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendar"
+                android:alpha="0"
+                android:background="@color/bg_white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mcv_tileHeight="30dp"
+                app:mcv_selectionColor="@color/green_light"
+                app:mcv_showOtherDates="all" />
+
+            <RelativeLayout
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:id="@+id/v_drag"
+                android:alpha="0"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/shape_r2_c_gray"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_above="@+id/tv_commit"
+                android:layout_below="@+id/v_drag"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_r10_cw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/rl_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:background="@drawable/shape_r10_c_e7ebee_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabPaddingStart="0dp"
+                        app:tabPadding="0dp"
+                        app:tabPaddingTop="0dp"
+                        app:tabPaddingBottom="0dp"
+                        app:tabPaddingEnd="0dp"
+                        app:tabBackground="@android:color/transparent"
+                        app:tabRippleColor="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"/>
+
+                </RelativeLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/v_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_commit"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_r10_cgreen"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="16sp"
+                android:text="提交订单"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</layout>

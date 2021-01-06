@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:background="@color/bg_white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:src="@mipmap/icon_station_spot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+       <TextView
+           android:id="@+id/tv_name"
+           android:layout_marginLeft="10dp"
+           android:textSize="16sp"
+           android:text="桂林北路站"
+           android:textColor="@color/black_263238"
+           android:textStyle="bold"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <include layout="@layout/layout_divider"/>
+
+</LinearLayout>
+
+

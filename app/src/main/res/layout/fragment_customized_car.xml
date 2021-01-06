@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/gray_e9eff1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_r10_cw"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@mipmap/icon_trans_start"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <com.jtcxw.glcxw.base.views.ClearEditText
+                    android:id="@+id/et_start"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_263238"
+                    android:textSize="14sp"
+                    android:hint="出发地点"
+                    android:textColorHint="@color/gray_9"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_marginRight="23dp"
+                    android:layout_marginLeft="18dp"
+                    android:orientation="vertical"
+                    android:layout_width="4dp"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:background="@drawable/shape_r2_c_gray"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"/>
+
+                    <View
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/shape_r2_c_gray"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"/>
+
+                    <View
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/shape_r2_c_gray"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/layout_divider"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@mipmap/icon_trans_end"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <com.jtcxw.glcxw.base.views.ClearEditText
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_263238"
+                    android:textSize="14sp"
+                    android:id="@+id/et_end"
+                    android:hint="到达地点"
+                    android:textColorHint="@color/gray_9"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <include
+                android:layout_marginLeft="45dp"
+                layout="@layout/layout_divider"
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"/>
+
+            <LinearLayout
+                android:id="@+id/rl_time"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@mipmap/icon_time_calender"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_263238"
+                    android:textSize="14sp"
+                    android:hint="出发时间"
+                    android:textColorHint="@color/gray_9"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_arrow_right_gray"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:text="发起路线"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/shape_r5_c_green"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+    </LinearLayout>
+</layout>

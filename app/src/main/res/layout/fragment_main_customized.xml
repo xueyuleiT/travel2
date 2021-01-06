@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="main"
+            type="com.jtcxw.glcxw.viewmodel.MainModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <FrameLayout
+                android:id="@+id/host_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </RelativeLayout>
+
+
+
+            <include
+                android:layout_above="@+id/radio_tab"
+                layout="@layout/layout_divider"
+                android:layout_height="1dp"
+                android:layout_width="match_parent"/>
+
+            <RadioGroup
+                android:id="@+id/radio_tab"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <RadioButton
+                    android:checked="true"
+                    android:drawableTop="@drawable/selector_tab_customized_home"
+                    android:id="@+id/rb_tab_home"
+                    style="@style/MainTabStyle"
+                    android:text="定制公交" />
+
+
+                <RadioButton
+                    android:drawableTop="@drawable/selector_tab_customized_school"
+                    android:id="@+id/rb_tab_travel"
+                    style="@style/MainTabStyle"
+                    android:text="校园定制公交" />
+
+
+                <RadioButton
+                    android:drawableTop="@drawable/selector_tab_customized_school"
+                    android:id="@+id/rb_tab_tour"
+                    style="@style/MainTabStyle"
+                    android:text="定制用车" />
+
+                <RadioButton
+                    android:drawableTop="@drawable/selector_tab_customized_order"
+                    android:id="@+id/rb_tab_personal"
+                    style="@style/MainTabStyle"
+                    android:text="我的订单" />
+
+
+            </RadioGroup>
+
+
+    </LinearLayout>
+        </RelativeLayout>
+</layout>

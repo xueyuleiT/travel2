@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="busModel"
+            type="com.jtcxw.glcxw.viewmodel.BusModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.amap.api.maps.MapView
+            android:id="@+id/v_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/tool_bar_transparent"/>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_r15_cw"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:paddingLeft="8dp"
+                android:layout_height="30dp">
+
+                <ImageView
+                    android:src="@mipmap/icon_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:id="@+id/et_search"
+                    android:layout_marginLeft="12dp"
+                    android:textColorHint="@color/gray_9"
+                    android:textColor="@color/gray_3"
+                    android:hint="线路和站点名称查询"
+                    android:imeOptions="actionSearch"
+                    android:textSize="16sp"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:paddingRight="12dp"
+                    android:layout_height="24dp"/>
+
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/coordinator_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <RelativeLayout
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:id="@+id/bottom_sheet"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/shape_r10_cw_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/v_drag"
+                            android:paddingTop="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/shape_r2_c_gray"
+                                android:layout_width="30dp"
+                                android:layout_height="4dp"/>
+
+                            <LinearLayout
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="12dp"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_line"
+                                    android:textSize="18sp"
+                                    android:textColor="@color/black_263238"
+                                    android:textStyle="bold"
+                                    android:text="--路"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tv_price"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:background="@drawable/shape_r10_c_efefef"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="票价:--元"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/green_light"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"/>
+
+                                <ImageView
+                                    android:id="@+id/v_heart"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:gravity="center_vertical"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="12dp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_from"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/black_263238"
+                                    android:textStyle="bold"
+                                    android:text="--路"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <ImageView
+                                    android:layout_marginLeft="12dp"
+                                    android:src="@mipmap/icon_line_to"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tv_to"
+                                    android:layout_marginLeft="12dp"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/black_263238"
+                                    android:textStyle="bold"
+                                    android:text="--路"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tv_line_change"
+                                    android:textStyle="bold"
+                                    android:text="换向"
+                                    android:drawablePadding="5dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black_263238"
+                                    android:textSize="16sp"
+                                    android:drawableLeft="@mipmap/icon_line_change"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="12dp"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_time_start"
+                                    android:textStyle="bold"
+                                    android:gravity="center_vertical"
+                                    android:drawableLeft="@mipmap/icon_start_1"
+                                    android:textSize="12sp"
+                                    android:text="--"
+                                    android:drawablePadding="5dp"
+                                    android:textColor="@color/gray_6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tv_time_end"
+                                    android:text="--"
+                                    android:textStyle="bold"
+                                    android:drawablePadding="5dp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginLeft="12dp"
+                                    android:drawableLeft="@mipmap/icon_end_1"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/gray_6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <View
+                                    android:background="@color/gray_6"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="12dp"
+                                    android:layout_width="1dp"
+                                    android:layout_height="10dp"/>
+
+                                <TextView
+                                    android:id="@+id/tv_wait_time"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/gray_6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <View
+                                    android:visibility="gone"
+                                    android:background="@color/gray_6"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_marginRight="2dp"
+                                    android:layout_width="1dp"
+                                    android:layout_height="10dp"/>
+
+                                <TextView
+                                    android:id="@+id/tv_line_length"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/gray_6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                        <androidx.core.widget.NestedScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <com.jtcxw.glcxw.base.views.BusLineView
+                                android:id="@+id/bus_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </androidx.core.widget.NestedScrollView>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/shape_r10_cw"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

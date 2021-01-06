@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+    <RelativeLayout
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/v_bg"
+            android:background="@mipmap/pic_login_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/tool_bar_transparent"/>
+
+            <com.zss.cardview.CardView
+                android:background="@color/bg_white"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.tencent.smtt.sdk.WebView
+                        android:id="@+id/web_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <ProgressBar
+                        android:layout_centerInParent="true"
+                        android:id="@+id/progress_bar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:indeterminateBehavior="repeat"
+                        android:indeterminateDrawable="@drawable/dialog_loading"
+                        android:indeterminateOnly="true" />
+                </RelativeLayout>
+            </com.zss.cardview.CardView>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</layout>

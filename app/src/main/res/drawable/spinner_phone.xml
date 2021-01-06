@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="10dp" />
+            <solid android:color="@color/c_efefef" />
+        </shape>
+    </item>
+    <item android:right="10dp">
+        <bitmap
+            android:gravity="end"
+            android:src="@mipmap/icon_arrow_triangle_down" />
+    </item>
+</layer-list>

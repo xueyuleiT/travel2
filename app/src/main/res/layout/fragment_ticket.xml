@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/ll_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="@color/black_263238"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="上车凭证"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                android:text="上车请调亮屏幕"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/green_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:textSize="16sp"
+                android:textColor="@color/black_263238"
+                android:text="2020-09-13"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_seat_no"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                android:text="4"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/green_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_toLeftOf="@+id/tv_seat_no"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/black_263238"
+                android:textSize="16sp"
+                android:text="座位号:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/v_qr"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
+        <TextView
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_status"
+            android:textColor="@color/red_ff3737"
+            android:textSize="16sp"
+            android:text="已乘车"
+            android:textStyle="bold"
+            android:layout_width="200dp"
+            android:gravity="center"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/tv_ticket_no"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black_263238"
+            android:text="1029211"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_check"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:background="@drawable/shape_r5_c_green"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:text="点击验票"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_take_num"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black_263238"
+            android:text="当前订单有--位乘客"
+            android:layout_marginBottom="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

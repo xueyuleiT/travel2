@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <include layout="@layout/layout_divider"/>
+
+        <com.jtcxw.glcxw.base.views.ClearEditText
+            android:id="@+id/et_nick"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black_263238"
+            android:textSize="14sp"
+            android:textColorHint="@color/gray_9"
+            android:hint="请输入用户昵称"
+            android:singleLine="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/bg_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/gray_6"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="14sp"
+            android:text="请输入一个让人一眼就能记住的昵称"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

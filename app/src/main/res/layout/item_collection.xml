@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@color/bg_white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:gravity="center_vertical"
+        android:paddingTop="12dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="33dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@mipmap/icon_heart_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/black_263238"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/v_del"
+            android:src="@mipmap/icon_decrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="33dp"/>
+
+
+</LinearLayout>

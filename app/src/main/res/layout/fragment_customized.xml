@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/gray_e9eff1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            android:background="#00000000"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:contentInsetStart="0dp"
+                android:background="#00000000"
+                app:layout_scrollFlags="snap|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+
+                <TextView
+                    android:text="桂林"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@mipmap/icon_arrow_down_black"
+                    android:id="@+id/tv_center_title"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    style="@style/MyToolBar_center_title"
+                    />
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.jtcxw.glcxw.base.views.ClearEditText
+            android:id="@+id/et_search"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:paddingRight="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textColorHint="@color/gray_9"
+            android:hint="线路编号 | 线路名称"
+            android:imeOptions="actionSearch"
+            android:textColor="@color/green_light"
+            android:textCursorDrawable="@drawable/cursor_green_light"
+            android:paddingLeft="10dp"
+            android:drawableLeft="@mipmap/icon_search"
+            android:background="@drawable/shape_r15_cw"
+            android:layout_height="30dp"/>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/swipe_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.scwang.smartrefresh.header.MaterialHeader
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+</layout>

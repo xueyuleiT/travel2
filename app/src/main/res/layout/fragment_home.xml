@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="home"
+            type="com.jtcxw.glcxw.viewmodel.HomeModel" />
+
+    </data>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_bg"
+                android:background="@mipmap/pic_bg"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/cd_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/app_bar_layout"
+                    android:background="@null"
+                    app:layout_behavior="com.jtcxw.glcxw.utils.NoBounsBehavior"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:elevation="0dp">
+
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/ll_top"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="50dp"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <androidx.core.widget.NestedScrollView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                <com.youth.banner.Banner
+                                    android:layout_marginTop="8dp"
+                                    android:id="@+id/banner"
+                                    app:banner_radius="10dp"
+                                    app:banner_height="120dp"
+                                    app:banner_indicator_normal_color="@color/indicator_normal_color"
+                                    app:banner_indicator_selected_color="@color/indicator_selected_color"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="120dp"/>
+                                </androidx.core.widget.NestedScrollView>
+
+                                <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                                    android:layout_marginTop="8dp"
+                                    android:id="@+id/recycler_view"
+                                    android:clipToPadding="false"
+                                    android:overScrollMode="never"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                            <RelativeLayout
+                                android:visibility="gone"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="12dp"
+                                android:background="@drawable/shape_r10_cw"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_top"
+                                    android:drawablePadding="4dp"
+                                    android:gravity="center_vertical"
+                                    android:background="@drawable/gradient_r10_cr"
+                                    android:text="火车票"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:paddingBottom="5dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+
+                                <TextView
+                                    android:textColor="@color/gray_3"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginRight="16dp"
+                                    android:layout_alignParentRight="true"
+                                    android:text="11车013中铺"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <LinearLayout
+                                    android:id="@+id/ll_middle"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginRight="16dp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_below="@+id/tv_top"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:text="上海南"
+                                        android:textStyle="bold"
+                                        android:textSize="12sp"
+                                        android:textColor="@color/gray_3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+
+                                    <TextView
+                                        android:gravity="center"
+                                        android:text="K860次"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/gray_3"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"/>
+
+
+                                    <TextView
+                                        android:text="桂林"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/gray_3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginRight="16dp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_below="@+id/ll_middle"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:text="13:40"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/gray_3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+
+                                    <ImageView
+                                        android:gravity="center"
+                                        android:src="@mipmap/pic_car"
+                                        android:layout_weight="1"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"/>
+
+
+                                    <TextView
+                                        android:text="09:06"
+                                        android:textStyle="bold"
+                                        android:textSize="18sp"
+                                        android:textColor="@color/gray_3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+                            </RelativeLayout>
+
+
+                            <LinearLayout
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/shape_r10_cw"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RadioGroup
+                                    android:id="@+id/rg_hot"
+                                    android:gravity="center_vertical"
+                                    android:paddingTop="12dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+
+                                    <RadioButton
+                                        android:checked="true"
+                                        android:drawableTop="@drawable/selector_hot_spot"
+                                        android:id="@+id/rb_spot"
+                                        android:background="@color/bg_white"
+                                        style="@style/MainTabStyle" />
+
+                                    <View
+                                        android:background="@color/gray_cf"
+                                        android:layout_width="1dp"
+                                        android:layout_height="25dp"/>
+
+                                    <RadioButton
+                                        android:background="@color/bg_white"
+                                        android:drawableTop="@drawable/selector_hot_hotel"
+                                        android:id="@+id/rb_hotel"
+                                        style="@style/MainTabStyle" />
+
+
+                                </RadioGroup>
+
+
+
+                                <androidx.core.widget.NestedScrollView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                <com.youth.banner.Banner
+                                    android:layout_marginTop="20dp"
+                                    android:id="@+id/banner_hot"
+                                    app:banner_lb_radius="10dp"
+                                    app:banner_rb_radius="10dp"
+                                    app:banner_height="100dp"
+                                    app:banner_indicator_normal_color="@color/indicator_normal_color"
+                                    app:banner_indicator_selected_color="@color/indicator_selected_color"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="100dp"/>
+                                </androidx.core.widget.NestedScrollView>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="8dp"/>
+
+                        </LinearLayout>
+
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/tool_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:elevation="0dp"
+                            app:contentInsetStart="0dp"
+                            android:background="#00000000"
+                            app:layout_collapseMode="pin"
+                            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_centerVertical="true"
+                                android:id="@+id/ll_toolbar"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp">
+                                <ImageView
+                                    android:id="@+id/iv_location"
+                                    android:src="@mipmap/icon_location"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"/>
+
+                                <TextView
+                                    android:id="@+id/tv_city"
+                                    android:text="桂林"
+                                    android:layout_marginLeft="8dp"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    style="@style/MyToolBar_title" />
+
+                                <com.jtcxw.glcxw.base.views.ClearEditText
+                                    android:id="@+id/et_search"
+                                    android:layout_marginLeft="8dp"
+                                    android:paddingRight="10dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textSize="16sp"
+                                    android:singleLine="true"
+                                    android:imeOptions="actionSearch"
+                                    android:textColor="@color/green_light"
+                                    android:textCursorDrawable="@drawable/cursor_green_light"
+                                    android:paddingLeft="10dp"
+                                    android:drawableLeft="@mipmap/icon_search"
+                                    android:background="@drawable/shape_r15_cw"
+                                    android:layout_height="0dp"/>
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <ImageView
+                                        android:id="@+id/v_notification"
+                                        android:layout_marginLeft="10dp"
+                                        android:src="@mipmap/icon_notification"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"/>
+
+                                    <TextView
+                                        android:paddingLeft="2.5dp"
+                                        android:paddingRight="2.5dp"
+                                        android:id="@+id/tv_num"
+                                        android:background="@drawable/shape_r7_cw"
+                                        android:layout_toRightOf="@+id/v_notification"
+                                        android:layout_marginLeft="-10dp"
+                                        android:text="0"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/green_light"
+                                        android:textSize="10sp"
+                                        android:gravity="center"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_width="wrap_content"
+                                        android:minWidth="14dp"
+                                        android:layout_height="14dp"/>
+
+                                </RelativeLayout>
+                            </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tv_title"
+                                    android:textStyle="bold"
+                                    android:gravity="center_vertical"
+                                    android:layout_centerInParent="true"
+                                    android:layout_width="wrap_content"
+                                    android:text="桂林出行网"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/white"
+                                    android:layout_height="wrap_content"/>
+                            </RelativeLayout>
+                        </androidx.appcompat.widget.Toolbar>
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout"
+                        android:paddingBottom="2dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        app:tabPaddingStart="0dp"
+                        app:tabTextAppearance="@style/TabText"
+                        app:tabPadding="0dp"
+                        app:tabPaddingTop="0dp"
+                        app:tabPaddingBottom="0dp"
+                        app:tabPaddingEnd="0dp"
+                        app:tabRippleColor="@android:color/transparent"
+                        android:background="@drawable/shape_r10_cw_top"
+                        app:tabIndicator="@drawable/shape_r2_cgreen"
+                        app:tabIndicatorColor="@color/green_light"
+                        app:tabTextColor="@color/gray_9"
+                        app:tabSelectedTextColor="@color/black_263238"
+                        app:tabIndicatorHeight="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/v_pager"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+            <ImageView
+                android:id="@+id/iv_top"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:src="@mipmap/icon_top"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+        </RelativeLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</layout>

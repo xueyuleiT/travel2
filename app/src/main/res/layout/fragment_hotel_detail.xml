@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+
+        <LinearLayout
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_marginTop="180dp"
+                android:orientation="vertical"
+                android:background="@drawable/shape_r10_cw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_scenic_title"
+                        android:layout_centerVertical="true"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black_263238"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/v_heart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </RelativeLayout>
+
+                <include layout="@layout/layout_divider"/>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/tv_location"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black_263238"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@mipmap/icon_bus_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/tv_location_detail"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/gray_9"
+                        android:textSize="12sp"
+                        android:drawablePadding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/iv_location"
+                        android:src="@mipmap/icon_navigation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/shape_r10_cw"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/black_263238"
+                        android:text="酒店介绍"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="right"
+                        android:id="@+id/tv_phone"
+                        android:textSize="14sp"
+                        android:text="--"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/green_light"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@mipmap/icon_telephone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <com.tencent.smtt.sdk.WebView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/web_view"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <include layout="@layout/tool_bar_transparent"/>
+    </RelativeLayout>
+
+</layout>

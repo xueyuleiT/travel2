@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/swipe_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.scwang.smartrefresh.header.MaterialHeader
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <RelativeLayout
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/bg_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.cunoraz.tagview.TagView
+                        xmlns:tagview="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/tag_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        tagview:lineMargin="5dp"
+                        tagview:tagMargin="5dp"
+                        tagview:textPaddingLeft="4dp"
+                        tagview:textPaddingTop="2dp"
+                        tagview:textPaddingRight="4dp"
+                        tagview:textPaddingBottom="2dp" />
+                </RelativeLayout>
+
+                <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                    android:id="@+id/recycler_view"
+                    android:paddingTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
+</layout>

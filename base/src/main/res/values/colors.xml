@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3a75f3</color>
+    <color name="colorPrimaryDark">#fff</color>
+    <color name="gray_9">#999999</color>
+    <color name="gray_6">#666666</color>
+
+    <color name="c_f4fcfc">#F4FCFC</color>
+    <color name="white">#ffffff</color>
+    <color name="back_white">#ffffff</color>
+    <color name="c_efefef">#efefef</color>
+    <color name="black">#000000</color>
+    <color name="black_6">#333333</color>
+    <color name="blue_3a75f3">#3a75f3</color>
+    <color name="blue_5b87ff">#5B87FF</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_33">#33000000</color>
+    <color name="green_light_80">#c800cccc</color>
+    <color name="c_c8c8c8">#c8c8c8</color>
+    <color name="back">#000000</color>
+    <color name="gray_cc">#cccccc</color>
+    <color name="gray_cf">#cfcfcf</color>
+    <color name="red_ff3737">#ff3737</color>
+    <color name="bg_loading">#00000000</color>
+    <color name="ee_333333">#ee333333</color>
+    <color name="e3e3e3">#e3e3e3</color>
+    <color name="c_f0f0f0">#f0f0f0</color>
+    <color name="c_5e7b8e">#5E7B8B</color>
+    <color name="green_light">#00A6A6</color>
+    <color name="black_263238">#263238</color>
+
+    <color name="bg_white">#ffffff</color>
+
+
+
+
+
+</resources>

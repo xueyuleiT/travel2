@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <LinearLayout
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner"
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/spinner_phone_white"
+                android:layout_height="match_parent"/>
+
+            <com.jtcxw.glcxw.base.views.ClearEditText
+                android:background="@drawable/shape_r10_cw"
+                android:id="@+id/et_phone"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginLeft="10dp"
+                android:maxLength="11"
+                android:textCursorDrawable="@drawable/cursor_green_light"
+                android:inputType="phone"
+                android:textColor="@color/black_263238"
+                android:textColorHint="@color/c_c8c8c8"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:hint="请输入手机号"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_marginTop="28dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.jtcxw.glcxw.base.views.ClearEditText
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:id="@+id/et_code"
+                android:textCursorDrawable="@drawable/cursor_green_light"
+                android:background="@drawable/shape_r10_cw"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black_263238"
+                android:textColorHint="@color/c_c8c8c8"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:gravity="center"
+                android:hint="请输入验证码"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <com.jtcxw.glcxw.base.views.TimingTextView
+                android:text="发送验证码"
+                android:id="@+id/tv_time"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:enabled="false"
+                android:background="@drawable/selector_shape_r10_cgreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:id="@+id/btn_next"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="下一步"
+            android:textSize="20sp"
+            android:background="@drawable/shape_r20_cgreen"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+
+    </LinearLayout>
+</layout>

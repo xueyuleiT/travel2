@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nest_view"
+            android:background="@drawable/shape_r10_cw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black_263238"
+                    android:textSize="16sp"
+                    android:drawableLeft="@mipmap/icon_order_to"
+                    android:id="@+id/tv_name"
+                    android:drawablePadding="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/layout_divider"/>
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black_263238"
+                    android:textSize="16sp"
+                    android:drawableLeft="@mipmap/icon_order_start_time"
+                    android:text="选择发车班次"
+                    android:drawablePadding="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/recycler_view"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <include layout="@layout/layout_divider"/>
+
+                <TextView
+                    android:id="@+id/tv_ride_choose"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black_263238"
+                    android:textSize="16sp"
+                    android:drawableLeft="@mipmap/icon_trans_location"
+                    android:text="选择上车点"
+                    android:drawablePadding="15dp"
+                    android:drawableRight="@mipmap/icon_arrow_right_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <include layout="@layout/layout_divider"/>
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_ride"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black_263238"
+                        android:textSize="16sp"
+                        android:drawableLeft="@mipmap/icon_trans_start"
+                        android:drawablePadding="15dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/v_ride"
+                        android:src="@mipmap/icon_trans_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <include layout="@layout/layout_divider"/>
+                <TextView
+                    android:id="@+id/tv_reach_choose"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black_263238"
+                    android:textSize="16sp"
+                    android:drawableLeft="@mipmap/icon_trans_location"
+                    android:text="选择下车点"
+                    android:drawablePadding="15dp"
+                    android:drawableRight="@mipmap/icon_arrow_right_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/layout_divider"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_reach"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black_263238"
+                    android:textSize="16sp"
+                    android:drawableLeft="@mipmap/icon_trans_end"
+                    android:drawablePadding="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/v_reach"
+                        android:src="@mipmap/icon_trans_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <include layout="@layout/layout_divider"/>
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_ride_time"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/black_263238"
+                        android:text="--月--日"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_left_ticket"
+                        android:textSize="14sp"
+                        android:textColor="@color/black_263238"
+                        android:text="余票--张"
+                        android:layout_marginLeft="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:textSize="14sp"
+                        android:textColor="@color/red_ff3737"
+                        android:text="¥--"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/v_decrease"
+                        android:src="@mipmap/icon_decrease"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_ticket_count"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="1"
+                        android:textColor="@color/black_263238"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/v_plus"
+                        android:src="@mipmap/icon_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+                <include layout="@layout/layout_divider"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+</layout>

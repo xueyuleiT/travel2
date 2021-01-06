@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/v_bg"
+                android:background="@mipmap/pic_login_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/pic_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.zss.cardview.CardView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:paddingTop="30dp"
+                    android:paddingBottom="30dp"
+                    android:paddingLeft="28dp"
+                    android:paddingRight="28dp"
+                    android:background="@drawable/shape_r20_cw"
+                    android:id="@+id/ll_layout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:drawableLeft="@mipmap/icon_arrow_circle_right"
+                        android:text="修改密码"
+                        android:textSize="16sp"
+                        android:textColor="@color/green_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="28dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/spinner"
+                            android:gravity="center"
+                            android:layout_width="80dp"
+                            android:spinnerMode="dropdown"
+                            android:background="@drawable/spinner_phone"
+                            android:layout_height="match_parent"/>
+
+                        <com.jtcxw.glcxw.base.views.ClearEditText
+                            android:background="@drawable/shape_r10_cef"
+                            android:id="@+id/et_phone"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:layout_marginLeft="10dp"
+                            android:maxLength="11"
+                            android:textCursorDrawable="@drawable/cursor_green_light"
+                            android:inputType="phone"
+                            android:textColor="@color/black_263238"
+                            android:textColorHint="@color/c_c8c8c8"
+                            android:textSize="14sp"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:hint="请输入手机号"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="28dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.jtcxw.glcxw.base.views.ClearEditText
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:id="@+id/et_code"
+                            android:textCursorDrawable="@drawable/cursor_green_light"
+                            android:background="@drawable/shape_r10_cef"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/black_263238"
+                            android:textColorHint="@color/c_c8c8c8"
+                            android:textSize="14sp"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
+                            android:gravity="center"
+                            android:hint="请输入验证码"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+                        <com.jtcxw.glcxw.base.views.TimingTextView
+                            android:text="发送验证码"
+                            android:id="@+id/tv_time"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:enabled="false"
+                            android:background="@drawable/selector_shape_r10_cgreen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+
+                    <Button
+                        android:id="@+id/btn_next"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:text="下一步"
+                        android:textSize="20sp"
+                        android:enabled="false"
+                        android:background="@drawable/selector_btn_r20"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"/>
+
+
+                </LinearLayout>
+            </com.zss.cardview.CardView>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

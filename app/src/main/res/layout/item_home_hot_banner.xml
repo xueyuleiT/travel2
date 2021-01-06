@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/shape_r10_cef"
+    android:padding="4dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.jtcxw.glcxw.base.views.RoundImageView
+        android:id="@+id/iv"
+        app:corner_radius="10dp"
+        android:src="@mipmap/pic_hot_hotel"
+        android:layout_centerVertical="true"
+        android:layout_width="90dp"
+        android:layout_height="112dp"
+        android:scaleType="centerCrop"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/iv"
+        android:layout_marginLeft="12dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name"
+            android:text="桂林丽泊酒店"
+            android:maxLines="2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:textColor="@color/black_263238"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_marginTop="2dp"
+            android:text="万福广场/汽车"
+            android:maxLines="2"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:textColor="@color/gray_5e7b8b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_like"
+            android:visibility="gone"
+            android:layout_marginTop="2dp"
+            android:src="@mipmap/icon_like"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+

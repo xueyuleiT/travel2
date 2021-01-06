@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_line"
+            android:textSize="18sp"
+            android:textColor="@color/black_263238"
+            android:textStyle="bold"
+            android:text="744路"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/shape_r10_c_efefef"
+            android:layout_marginLeft="10dp"
+            android:text="票价:2元"
+            android:textStyle="bold"
+            android:textColor="@color/green_light"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:textSize="16sp"
+            android:textColor="@color/black_263238"
+            android:textStyle="bold"
+            android:text="aaaa路"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginLeft="12dp"
+            android:src="@mipmap/icon_line_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_to"
+            android:layout_marginLeft="12dp"
+            android:textSize="16sp"
+            android:textColor="@color/black_263238"
+            android:textStyle="bold"
+            android:text="--"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_line_change"
+            android:textStyle="bold"
+            android:text="换向"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black_263238"
+            android:textSize="16sp"
+            android:drawableLeft="@mipmap/icon_line_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:drawableLeft="@mipmap/icon_start_1"
+            android:textSize="12sp"
+            android:text="5:20"
+            android:drawablePadding="5dp"
+            android:textColor="@color/gray_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="23:00"
+            android:textStyle="bold"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@mipmap/icon_end_1"
+            android:textSize="12sp"
+            android:textColor="@color/gray_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:background="@color/gray_6"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="1dp"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/gray_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:background="@color/gray_6"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="1dp"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:text="全程：15.4公里"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/gray_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,148 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    sourceSets {
+        main.jniLibs.srcDirs = ['libs']
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    useLibrary 'org.apache.http.legacy'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {abiFilters "armeabi"}
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+            }
+        }
+
+
+        multiDexEnabled true
+
+    }
+
+    sourceSets.main {
+        jniLibs.srcDir 'src/main/jniLibs'
+        jni.srcDirs = []
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    api 'com.alibaba:arouter-api:1.5.0'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
+
+
+    api "com.google.android.material:material:$rootProject.materialVersion"
+    api "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    api "androidx.recyclerview:recyclerview:$rootProject.recyclerVersion"
+
+    api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+
+    //Navigation
+//    api "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+//    api "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+
+    api 'cn.jiguang.sdk:jpush:3.8.5'  // 此处以JPush 3.8.5 版本为例。
+    api 'cn.jiguang.sdk:jcore:2.5.5'  // 此处以JCore 2.5.5 版本为例。
+
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies.converterGson
+    api rootProject.ext.dependencies.rxjavaAdapter
+    api rootProject.ext.dependencies.gson
+    api rootProject.ext.dependencies.rxandroid
+    api rootProject.ext.dependencies.rxjava
+    api rootProject.ext.dependencies.loggingInterceptor
+    api rootProject.ext.dependencies.okhttp
+    api rootProject.ext.dependencies.rxjava2Adapter
+    api rootProject.ext.dependencies.converterScalars
+    api rootProject.ext.dependencies.supportAppCompatV7
+    api rootProject.ext.dependencies.supportDesign
+    api rootProject.ext.dependencies.supportV4
+    api rootProject.ext.dependencies.annotation
+    api rootProject.ext.dependencies.picker
+    api rootProject.ext.dependencies.sqlcipher
+    api rootProject.ext.dependencies.materialDialogs
+    api rootProject.ext.dependencies.materialDialogsLifecycle
+    api rootProject.ext.dependencies.materialDialogsInput
+    api rootProject.ext.dependencies.multidex
+    api rootProject.ext.dependencies.fragmentationx
+    api rootProject.ext.dependencies.swipeback
+    api rootProject.ext.dependencies.lifecycleExtensions
+    api rootProject.ext.dependencies.lifecycleViewmode
+    api rootProject.ext.dependencies.SmartRefreshLayout
+    api rootProject.ext.dependencies.SmartRefreshHeader
+    api rootProject.ext.dependencies.glide
+    api rootProject.ext.dependencies.toasty
+    api rootProject.ext.dependencies.MultiTypeAdapter
+//    api rootProject.ext.dependencies.crashreportUpgrade
+    api rootProject.ext.dependencies.crashreport
+    api rootProject.ext.dependencies.nativecrashreport
+    api rootProject.ext.dependencies.flycoTabLayout
+    api rootProject.ext.dependencies.asms
+    api rootProject.ext.dependencies.crash
+    api rootProject.ext.dependencies.xxpermissions
+    api rootProject.ext.dependencies.zxing
+    api rootProject.ext.dependencies.PickerView
+    api rootProject.ext.dependencies.DSBridge
+    api rootProject.ext.dependencies.libaction
+    api rootProject.ext.dependencies.greendao
+    api rootProject.ext.dependencies.sqlcipher
+    compileOnly rootProject.ext.dependencies.analytics
+    api rootProject.ext.dependencies.share
+    api project(path: ':cardview')
+    api project(path: ':lib')
+    api project(path: ':router')
+    api project(path: ':tag')
+    api project(path: ':ocr_ui')
+    api project(path: ':weekcalendar')
+}

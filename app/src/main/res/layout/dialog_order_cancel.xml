@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:background="@drawable/shape_r10_cw"
+        android:orientation="vertical"
+        android:layout_marginRight="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_gravity="right"
+            android:src="@mipmap/icon_close_circle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="25dp"
+            android:textColor="@color/black_263238"
+            android:textSize="14sp"
+            android:drawablePadding="10dp"
+            android:text="取消当前订单"
+            android:drawableLeft="@mipmap/icon_bus_notice"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="确  认"
+                android:background="@drawable/shape_r5_c_green"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tv_cancel"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="取  消"
+                android:background="@drawable/shape_r5_gray"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

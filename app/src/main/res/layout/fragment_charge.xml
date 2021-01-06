@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <RelativeLayout
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:background="@color/green_light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_bucket"
+                android:text="钱包余额"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/tv_bucket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_cash"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="0.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:text="元"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/tv_cash"
+                    android:layout_alignBottom="@+id/tv_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_input"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/black_263238"
+                android:text="充值金额"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <com.jtcxw.glcxw.base.views.ClearEditText
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/et_cash"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColorHint="@color/gray_9"
+                android:hint="请输入金额"
+                android:background="@drawable/shape_r2_cw_b1"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:layout_weight="1.3"
+                android:layout_width="0dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/red_ff3737"
+                android:textSize="18sp"
+                android:textCursorDrawable="@drawable/cursor_green_light"
+                android:layout_height="40dp"/>
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/tv_confirm"
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:text="确定"
+                android:textSize="14sp"
+                android:textColor="@color/black_263238"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

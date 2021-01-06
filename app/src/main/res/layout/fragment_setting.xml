@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <LinearLayout
+            android:id="@+id/ll_real_name"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_real_name"
+                android:gravity="center_vertical"
+                android:text="实名认证"
+                android:textSize="14sp"
+                android:textColor="@color/black_263238"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_auth"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9"
+                android:drawableRight="@mipmap/icon_arrow_right_gray"
+                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <include layout="@layout/layout_divider"/>
+        <LinearLayout
+            android:id="@+id/rl_phone"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/bg_white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:text="手机号"
+                android:textSize="14sp"
+                android:textColor="@color/black_263238"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9"
+                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <include layout="@layout/layout_divider"/>
+        <TextView
+            android:id="@+id/tv_pwd"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:text="密码设置"
+            android:textSize="14sp"
+            android:textColor="@color/black_263238"
+            android:layout_width="match_parent"
+            android:drawableRight="@mipmap/icon_arrow_right_gray"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_service"
+            android:layout_marginTop="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:text="客服中心"
+            android:textSize="14sp"
+            android:drawableRight="@mipmap/icon_arrow_right_gray"
+            android:textColor="@color/black_263238"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include layout="@layout/layout_divider"/>
+
+
+        <TextView
+            android:id="@+id/tv_about"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:text="关于桂林出行网"
+            android:textSize="14sp"
+            android:drawableRight="@mipmap/icon_arrow_right_gray"
+            android:textColor="@color/black_263238"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include layout="@layout/layout_divider"/>
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_version"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/bg_white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center_vertical"
+                android:text="当前版本"
+                android:textSize="14sp"
+                android:textColor="@color/black_263238"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_version"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9"
+                android:drawableRight="@mipmap/icon_arrow_right_gray"
+                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_marginTop="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/bg_white"
+            android:gravity="center"
+            android:text="退出登录"
+            android:textSize="14sp"
+            android:textColor="@color/black_263238"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

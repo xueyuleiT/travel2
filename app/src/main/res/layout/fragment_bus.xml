@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:background="@mipmap/pic_bus_query"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include layout="@layout/tool_bar_transparent"/>
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_location"
+                            android:layout_marginLeft="24dp"
+                            android:src="@mipmap/icon_location"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_city"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="21sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_temperature"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:textSize="21sp"
+                            android:layout_marginRight="40dp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_vertical"
+                        android:id="@+id/et_search"
+                        android:editable="false"
+                        android:layout_marginTop="26dp"
+                        android:layout_marginLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_width="match_parent"
+                        android:textSize="16sp"
+                        android:drawablePadding="6dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/gray_9"
+                        android:hint="搜索站点/线路"
+                        android:imeOptions="actionSearch"
+                        android:textColor="@color/green_light"
+                        android:textCursorDrawable="@drawable/cursor_green_light"
+                        android:paddingLeft="10dp"
+                        android:drawableLeft="@mipmap/icon_search"
+                        android:background="@drawable/shape_r15_cw"
+                        android:layout_height="30dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="附近公交站点"
+                android:textColor="@color/black_263238"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</layout>

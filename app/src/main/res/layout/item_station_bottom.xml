@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginLeft="12dp"
+android:layout_marginRight="12dp"
+android:paddingBottom="25dp"
+android:background="@drawable/shape_r10_cw_bottom"
+xmlns:android="http://schemas.android.com/apk/res/android">
+
+<RelativeLayout
+    android:id="@+id/rl_top"
+    android:paddingLeft="8dp"
+    android:paddingTop="12dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:id="@+id/iv_bus"
+        android:src="@mipmap/icon_heart_red"
+        android:layout_width="15dp"
+        android:layout_height="15dp"/>
+
+    <RelativeLayout
+        android:layout_toRightOf="@+id/iv_bus"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_bus_name"
+            android:textSize="15sp"
+            android:text="全州102号"
+            android:textColor="@color/black_263238"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_to"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/gray_9"
+            android:textSize="13sp"
+            android:text="开往火车南站"
+            android:layout_below="@+id/tv_bus_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_marginRight="20dp"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@mipmap/icon_signal"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/green_light"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="2分钟.2站"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
+
+<include
+    layout="@layout/layout_divider"
+    android:layout_marginLeft="8dp"
+    android:layout_below="@+id/rl_top"
+    android:layout_height="0.5dp"
+    android:layout_width="match_parent"/>
+</RelativeLayout>

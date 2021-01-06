@@ -1,0 +1,61 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="MainTabStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">3dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:background">@color/bg_menu</item>
+        <item name="android:textColor">@drawable/selector_tab_color</item>
+        <item name="android:textSize">9dp</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textColor">@color/black_263238</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@color/red_ff3737</item>
+    </style>
+
+
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="android:windowAnimationStyle">@style/Animation.scale</item>
+    </style>
+
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Animation.scale" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/pickerview_dialog_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/pickerview_dialog_scale_out</item>
+    </style>
+
+    <style name="TabText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray_9</item>
+    </style>
+
+    <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+</resources>

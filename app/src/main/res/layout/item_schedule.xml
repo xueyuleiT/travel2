@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/rl_bg"
+    android:background="@drawable/shape_r2_b1_cgreen"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_time"
+        android:textColor="@color/green_light"
+        android:textSize="14sp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_ticket"
+        android:layout_below="@+id/tv_time"
+        android:background="@drawable/shape_r2_cgreen_bottom"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_ticket"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_ticket"
+                android:textColor="@color/white"
+                android:text="总票:--张"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:id="@+id/v_divider"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/bg_white"
+                android:layout_width="1dp"
+                android:layout_height="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_left"
+                android:textColor="@color/white"
+                android:text="余:--张"
+                android:textSize="12sp"
+                android:gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_none"
+            android:text="暂无票"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/progress_bar"
+        android:background="@drawable/shape_r2_cgreen_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/dialog_loading"
+            android:indeterminateOnly="true" />
+
+        <!--        <TextView-->
+        <!--            android:visibility="gone"-->
+        <!--            android:id="@+id/tv_get"-->
+        <!--            android:background="@color/white"-->
+        <!--            android:layout_margin="3dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:textSize="14sp"-->
+        <!--            android:textColor="@color/green_light"-->
+        <!--            android:text="点击重新获取"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"/>-->
+
+    </RelativeLayout>
+
+</RelativeLayout>

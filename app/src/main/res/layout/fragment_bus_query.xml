@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <com.jtcxw.glcxw.base.views.ClearEditText
+            android:id="@+id/et_search"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textColorHint="@color/gray_9"
+            android:hint="线路和站点名称查询"
+            android:imeOptions="actionSearch"
+            android:textColor="@color/gray_3"
+            android:textCursorDrawable="@drawable/cursor_green_light"
+            android:paddingLeft="10dp"
+            android:drawableLeft="@mipmap/icon_search"
+            android:background="@drawable/shape_r15_cw"
+            android:layout_height="30dp"/>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/swipe_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.scwang.smartrefresh.header.MaterialHeader
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_history"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_r2_cw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black_263238"
+                            android:text="历史记录"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:visibility="gone"
+                            android:layout_marginRight="10dp"
+                            android:id="@+id/iv_clear"
+                            android:src="@mipmap/icon_clear"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"/>
+                    </LinearLayout>
+
+                    <include layout="@layout/layout_divider"/>
+
+                    <com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/recycler_view_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
+</layout>

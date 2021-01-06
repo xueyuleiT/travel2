@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/gray_e9eff1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/tool_bar_transparent"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_type"
+            android:layout_marginTop="15dp"
+            android:background="@color/e3e3e3"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:textSize="14sp"
+                android:textColor="@color/black_263238"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_arrow_down_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:background="@color/bg_white"
+            android:paddingTop="15dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black_263238"
+            android:textSize="14sp"
+            android:text="反馈内容"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.jtcxw.glcxw.base.views.ClearEditText
+            android:gravity="start"
+            android:padding="10dp"
+            android:id="@+id/et_input"
+            android:textCursorDrawable="@drawable/cursor_green_light"
+            android:textColor="@color/black_263238"
+            android:textSize="14sp"
+            android:textColorHint="@color/gray_9"
+            android:hint="请输入反馈内容"
+            android:background="@color/bg_white"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+        <include layout="@layout/layout_divider"/>
+        <LinearLayout
+            android:background="@color/bg_white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="提  交"
+                android:background="@drawable/shape_r5_c_green"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tv_cancel"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="取  消"
+                android:background="@drawable/shape_r5_gray"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

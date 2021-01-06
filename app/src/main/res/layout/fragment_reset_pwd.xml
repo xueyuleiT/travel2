@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="common"
+            type="com.jtcxw.glcxw.viewmodel.CommonModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:background="@color/gray_e9eff1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/v_bg"
+                android:background="@mipmap/pic_login_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/pic_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.zss.cardview.CardView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:paddingTop="30dp"
+                    android:paddingBottom="30dp"
+                    android:paddingLeft="28dp"
+                    android:paddingRight="28dp"
+                    android:background="@drawable/shape_r20_cw"
+                    android:id="@+id/ll_layout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:drawableLeft="@mipmap/icon_arrow_circle_right"
+                        android:text="修改密码"
+                        android:textSize="16sp"
+                        android:textColor="@color/green_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="28dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/shape_r10_cef"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@mipmap/icon_pwd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <View
+                            android:layout_marginLeft="12dp"
+                            android:background="@color/gray_9"
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"/>
+
+                        <com.jtcxw.glcxw.base.views.PasswordEditText
+                            android:id="@+id/et_pwd"
+                            android:textCursorDrawable="@drawable/cursor_green_light"
+                            android:layout_marginLeft="15dp"
+                            android:textColor="@color/black_263238"
+                            android:textColorHint="@color/c_c8c8c8"
+                            android:textSize="16sp"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword"
+                            android:background="@null"
+                            android:hint="请输入新密码"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="28dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/shape_r10_cef"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@mipmap/icon_pwd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <View
+                            android:layout_marginLeft="12dp"
+                            android:background="@color/gray_9"
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"/>
+
+                        <com.jtcxw.glcxw.base.views.PasswordEditText
+                            android:id="@+id/et_pwd_confirm"
+                            android:textCursorDrawable="@drawable/cursor_green_light"
+                            android:layout_marginLeft="15dp"
+                            android:textColor="@color/black_263238"
+                            android:textColorHint="@color/c_c8c8c8"
+                            android:textSize="16sp"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"
+                            android:background="@null"
+                            android:hint="再次输入密码"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btn_confirm"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:text="确  认"
+                        android:textSize="21sp"
+                        android:enabled="false"
+                        android:background="@drawable/selector_btn_r20"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"/>
+
+
+                </LinearLayout>
+            </com.zss.cardview.CardView>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>
