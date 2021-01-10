@@ -138,7 +138,7 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
              }
         }
 
-        val money = "金额 ¥" + orderConfirmBean.order_price
+        val money = "金额 ¥" + orderConfirmBean.order_price + "元"
         mBinding.tvMoney.text = SpannelUtil.getSpannelStr(money,resources.getColor(R.color.red_ff3737),money.length - orderConfirmBean.order_price.toString().length - 1,money.length)
         mBinding.tvType.text = if (orderConfirmBean.trip_type == 4) "定制公交" else "校园定制公交"
         mBinding.tvStationFrom.text = orderConfirmBean.start_station_name

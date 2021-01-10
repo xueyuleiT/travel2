@@ -61,11 +61,15 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     OnLoadNextPageListener,HomeView,
     OnRefreshListener,View.OnClickListener{
     override fun onModuleConfigSucc(moduleConfigBean: ModuleConfigBean) {
-        mModuleConfigBean = moduleConfigBean
+        if (moduleConfigBean.funId == "1") {
+            mModuleConfigBean = moduleConfigBean
+        } else {
+            mParkingModuleConfigBean = moduleConfigBean
+        }
         val bundle = Bundle()
-        bundle.putString(BundleKeys.KEY_WEB_TITLE,mModuleConfigBean!!.funName)
-        bundle.putString(BundleKeys.KEY_WEB_URL,mModuleConfigBean!!.url)
-        WebFragment.newInstance(parentFragment as SupportFragment,bundle)
+        bundle.putString(BundleKeys.KEY_WEB_TITLE, moduleConfigBean!!.funName)
+        bundle.putString(BundleKeys.KEY_WEB_URL, moduleConfigBean!!.url)
+        WebFragment.newInstance(parentFragment as SupportFragment, bundle)
     }
 
     override fun onMemberInfoSucc(userInfoBean: UserInfoBean) {
@@ -182,6 +186,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     private var mPresenter:HomePresenter?= null
     val mBannerList = ArrayList<BannerBean.BannerListBean>()
     var mModuleConfigBean:ModuleConfigBean?= null
+    var mParkingModuleConfigBean:ModuleConfigBean?= null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -266,7 +271,21 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                         bundle.putString(BundleKeys.KEY_WEB_URL,mModuleConfigBean!!.url)
                         WebFragment.newInstance(parentFragment as SupportFragment,bundle)
                     }
-                } else if (position == 6 || position == 7) {
+                } else if (position == 6) {
+                    if (mParkingModuleConfigBean == null) {
+                        val json = JsonObject()
+                        json.addProperty("Longitude", UserUtil.getUser().longitude)
+                        json.addProperty("Latitude", UserUtil.getUser().latitude)
+                        json.addProperty("FunId", "2")
+                        json.addProperty("MemberId", UserUtil.getUserInfoBean().memberId)
+                        mPresenter!!.h5ModuleConfig(json)
+                    } else {
+                        val bundle = Bundle()
+                        bundle.putString(BundleKeys.KEY_WEB_TITLE,mParkingModuleConfigBean!!.funName)
+                        bundle.putString(BundleKeys.KEY_WEB_URL,mParkingModuleConfigBean!!.url)
+                        WebFragment.newInstance(parentFragment as SupportFragment,bundle)
+                    }
+                } else if (position == 7) {
                     ToastUtil.toastWaring("功能待开放")
                 }
             }

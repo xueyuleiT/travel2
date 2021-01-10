@@ -42,7 +42,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        hideKeyboard()
+        hideSoftInput()
         if (Build.VERSION.SDK_INT >= 21) {
             val window = activity!!.window
             activity!!.window.navigationBarColor = navigationBarColor()
@@ -228,13 +228,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
      * 隐藏软键盘
      */
     fun hideKeyboard() {
-        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        if (imm != null && imm.isActive && activity!!.currentFocus != null) {
-            if (activity!!.window != null) {
-                imm.hideSoftInputFromWindow(activity!!.currentFocus!!.windowToken,
-                    InputMethodManager.HIDE_NOT_ALWAYS)
-            }
-        }
+       hideSoftInput()
     }
 
     abstract fun doAfterAnim()

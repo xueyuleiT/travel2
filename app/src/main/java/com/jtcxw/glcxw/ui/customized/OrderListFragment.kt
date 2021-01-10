@@ -57,6 +57,9 @@ class OrderListFragment:BaseFragment<FragmentOrderListBinding,CommonModel>(),Ord
 
 
     override fun onGetListByCustomerSucc(orderListBean: OrderListBean) {
+        if (orderListBean.order_list == null) {
+            orderListBean.order_list = ArrayList()
+        }
         if (mPage == 1) {
             mData.clear()
         }
