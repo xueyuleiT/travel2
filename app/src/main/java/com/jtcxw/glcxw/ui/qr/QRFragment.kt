@@ -127,13 +127,18 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
             return
         }
         mTimerRunning = true
-        timer = fixedRateTimer("", false, 15000, 15000) {
-            activity!!.runOnUiThread {
-                if (isSupportVisible && mTimerRunning) {
-                    refreshQr(null)
+        timer = Timer()
+        timer!!.schedule(object :TimerTask(){
+            override fun run() {
+                activity!!.runOnUiThread {
+                    if (isSupportVisible && mTimerRunning) {
+                        refreshQr(null)
+                    }
                 }
             }
-        }
+
+        },Date(System.currentTimeMillis() + 15000),15000)
+
     }
 
     var mTimerRunning = false

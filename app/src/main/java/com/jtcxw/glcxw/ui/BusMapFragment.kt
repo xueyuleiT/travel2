@@ -61,8 +61,6 @@ import models.BaseBean
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.fixedRateTimer
-import kotlin.math.PI
 
 
 class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapView ,CollectionView ,BusQueryView{
@@ -198,19 +196,23 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     var timer: Timer?= null
     private fun startTimer() {
-        timer = fixedRateTimer("", false, 0, 15000) {
-            if (mData.isEmpty()) {
-                return@fixedRateTimer
+        timer = Timer()
+        timer!!.schedule(object :TimerTask(){
+            override fun run() {
+                if (mData.isEmpty()) {
+                    return
+                }
+                val json = JsonObject()
+                val jsonArray = JsonArray()
+                val item = JsonObject()
+                item.addProperty("StationId",mStationId)
+                item.addProperty("LineId", mLineId)
+                jsonArray.add(item)
+                json.add("StationLineList",jsonArray)
+                mPresenter!!.forcastArriveQuery(json)
             }
-            val json = JsonObject()
-            val jsonArray = JsonArray()
-            val item = JsonObject()
-            item.addProperty("StationId",mStationId)
-            item.addProperty("LineId", mLineId)
-            jsonArray.add(item)
-            json.add("StationLineList",jsonArray)
-            mPresenter!!.forcastArriveQuery(json)
-        }
+
+        },Date(),15000)
     }
 
     private fun stopTimer() {
@@ -1054,7 +1056,9 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mBinding.vMap.onSaveInstanceState(outState)
+        if (ismBindingInitialized()) {
+            mBinding.vMap.onSaveInstanceState(outState)
+        }
     }
 
     override fun doAfterAnim() {

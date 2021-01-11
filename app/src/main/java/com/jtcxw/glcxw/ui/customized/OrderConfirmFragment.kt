@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.tabs.TabLayout
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
@@ -36,7 +37,6 @@ import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.fixedRateTimer
 
 class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>() ,OrderConfirmView{
     override fun onComplimentaryTicketSucc(complimentaryTicketBean: ComplimentaryTicketBean) {
@@ -384,15 +384,20 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
     }
     private fun startTimer() {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        timer = fixedRateTimer("", false, 0, 1000) {
-          val leftTime =  (format.parse(mOrder!!.order_time).time + 20 * 60 * 1000 - System.currentTimeMillis()) / 1000
-            if (leftTime < 0) {
-                stopTimer()
-                return@fixedRateTimer
+        timer = Timer()
+        timer!!.schedule(object :TimerTask(){
+            override fun run() {
+                val leftTime =  (format.parse(mOrder!!.order_time).time + 20 * 60 * 1000 - System.currentTimeMillis()) / 1000
+                if (leftTime < 0) {
+                    stopTimer()
+                    return
+                }
+                val timeStr = "剩余时间:" + leftTime / 60 + "分" + leftTime % 60 + "秒"
+                mBinding.tvLeftTime.text = SpannelUtil.getSpannelStr(timeStr,resources.getColor(R.color.red_ff3737),5, timeStr.length)
+
             }
-            val timeStr = "剩余时间:" + leftTime / 60 + "分" + leftTime % 60 + "秒"
-            mBinding.tvLeftTime.text = SpannelUtil.getSpannelStr(timeStr,resources.getColor(R.color.red_ff3737),5, timeStr.length)
-        }
+
+        },Date(),1000)
     }
 
     override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
