@@ -30,6 +30,7 @@ import com.jtcxw.glcxw.ui.my.AuthFragment
 import com.jtcxw.glcxw.ui.my.ChargeFragment
 import com.jtcxw.glcxw.ui.my.OrdersFragment
 import com.jtcxw.glcxw.ui.my.PayListFragment
+import com.jtcxw.glcxw.ui.travel.GoTravelFragment
 import com.jtcxw.glcxw.utils.QRCodeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.OpenQrView
@@ -88,6 +89,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
             mBinding.rlBg.setBackgroundResource(0)
         }
 
+
         val tvTitle = mBinding.root.findViewById<TextView>(R.id.tv_center_title)
         tvTitle!!.text = "一码通"
         tvTitle.visibility = View.VISIBLE
@@ -127,17 +129,19 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
             return
         }
         mTimerRunning = true
-        timer = Timer()
-        timer!!.schedule(object :TimerTask(){
-            override fun run() {
-                activity!!.runOnUiThread {
-                    if (isSupportVisible && mTimerRunning) {
-                        refreshQr(null)
+        synchronized(QRFragment::class.java) {
+            timer = Timer()
+            timer!!.schedule(object : TimerTask() {
+                override fun run() {
+                    activity!!.runOnUiThread {
+                        if (isSupportVisible && mTimerRunning) {
+                            refreshQr(null)
+                        }
                     }
                 }
-            }
 
-        },Date(System.currentTimeMillis() + 15000),15000)
+            }, Date(System.currentTimeMillis() + 15000), 15000)
+        }
 
     }
 

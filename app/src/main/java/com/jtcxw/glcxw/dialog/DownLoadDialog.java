@@ -96,16 +96,14 @@ public class DownLoadDialog extends DialogFragment {
                        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                        Uri uri = FileProvider7.getUriForFile(getContext(), file);
-                       Log.d("uri === >7",uri.toString());
                        intent.setDataAndType(uri, "application/vnd.android.package-archive");
                    } else  {
                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                        Uri uri = FileProvider7.getUriForFile(getContext(), file);
-                       Log.d("uri === >",uri.toString());
                        intent.setDataAndType(uri, "application/vnd.android.package-archive");
                    }
                    startActivity(intent);
-                   dismiss();
+                   dismissAllowingStateLoss();
                }
            }
        }).startDownLoad();

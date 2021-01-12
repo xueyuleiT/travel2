@@ -317,29 +317,31 @@ class GoTravelFragment: LocationFragment<FragmentGoTravelBinding, CommonModel>()
     }
 
     private fun startTimer() {
-        timer = Timer()
-        timer!!.schedule(object :TimerTask(){
-            override fun run() {
-                if (mDatas.isEmpty()) {
-                    return
-                }
-                val json = JsonObject()
-                val jsonArray = JsonArray()
-                mDatas.forEach {
-                    if (it.stationLineInfo != null) {
-                        it.stationLineInfo.forEach { it_ ->
-                            val item = JsonObject()
-                            item.addProperty("StationId",it_.stopId)
-                            item.addProperty("LineId",it_.lineId)
-                            jsonArray.add(item)
+        synchronized(GoTravelFragment::class.java) {
+            timer = Timer()
+            timer!!.schedule(object : TimerTask() {
+                override fun run() {
+                    if (mDatas.isEmpty()) {
+                        return
+                    }
+                    val json = JsonObject()
+                    val jsonArray = JsonArray()
+                    mDatas.forEach {
+                        if (it.stationLineInfo != null) {
+                            it.stationLineInfo.forEach { it_ ->
+                                val item = JsonObject()
+                                item.addProperty("StationId", it_.stopId)
+                                item.addProperty("LineId", it_.lineId)
+                                jsonArray.add(item)
+                            }
                         }
                     }
+                    json.add("StationLineList", jsonArray)
+                    mPresenter!!.forcastArriveQuery(json)
                 }
-                json.add("StationLineList",jsonArray)
-                mPresenter!!.forcastArriveQuery(json)
-            }
 
-        },Date(),15000)
+            }, Date(), 15000)
+        }
     }
 
     private fun stopTimer() {

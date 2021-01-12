@@ -88,7 +88,7 @@ class MyFragment:LocationFragment<FragmentMyBinding,CommonModel>() ,MyView{
             } else {
                 mBinding.tvName.text = UserUtil.getUser().userInfoBean.telphoneNo
             }
-            mBinding.tvAmount.text = AmountUtil.format(UserUtil.getUser().userInfoBean.ownerAmount)
+            mBinding.tvAmount.text = AmountUtil.format(UserUtil.getUser().userInfoBean.ownerAmount) + "元"
             if (!TextUtils.isEmpty(userInfoBean.headImageUrl) && userInfoBean.headImageUrl.startsWith("http")) {
                 Glide.with(context!!)
                     .load(userInfoBean.headImageUrl)

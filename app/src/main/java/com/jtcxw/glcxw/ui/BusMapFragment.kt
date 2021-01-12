@@ -50,6 +50,7 @@ import com.jtcxw.glcxw.presenters.impl.BusMapPresenter
 import com.jtcxw.glcxw.presenters.impl.BusQueryPresenter
 import com.jtcxw.glcxw.presenters.impl.CollectionPresenter
 import com.jtcxw.glcxw.ui.login.LoginFragment
+import com.jtcxw.glcxw.ui.travel.GoTravelFragment
 import com.jtcxw.glcxw.utils.LocationUtil
 import com.jtcxw.glcxw.viewmodel.BusModel
 import com.jtcxw.glcxw.views.BusMapView
@@ -170,7 +171,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
             mBinding.busView.arriveVehs.forEach { vehs ->
                 var icon =  BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.icon_bus_vertical).scale(DimensionUtil.dpToPx(22).toInt(),DimensionUtil.dpToPx(22).toInt()))
                 val latLng = LatLng(vehs.lat,vehs.lon)
-                list.add(MarkerOptions().position(latLng).icon(icon).zIndex(500f).setFlat(true))
+                list.add(MarkerOptions().position(latLng).icon(icon).zIndex(500f))
             }
             mBinding.vMap.map.addMarkers(list,false)
         }
@@ -196,23 +197,25 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     var timer: Timer?= null
     private fun startTimer() {
-        timer = Timer()
-        timer!!.schedule(object :TimerTask(){
-            override fun run() {
-                if (mData.isEmpty()) {
-                    return
+        synchronized(BusMapFragment::class.java) {
+            timer = Timer()
+            timer!!.schedule(object : TimerTask() {
+                override fun run() {
+                    if (mData.isEmpty()) {
+                        return
+                    }
+                    val json = JsonObject()
+                    val jsonArray = JsonArray()
+                    val item = JsonObject()
+                    item.addProperty("StationId", mStationId)
+                    item.addProperty("LineId", mLineId)
+                    jsonArray.add(item)
+                    json.add("StationLineList", jsonArray)
+                    mPresenter!!.forcastArriveQuery(json)
                 }
-                val json = JsonObject()
-                val jsonArray = JsonArray()
-                val item = JsonObject()
-                item.addProperty("StationId",mStationId)
-                item.addProperty("LineId", mLineId)
-                jsonArray.add(item)
-                json.add("StationLineList",jsonArray)
-                mPresenter!!.forcastArriveQuery(json)
-            }
 
-        },Date(),15000)
+            }, Date(), 15000)
+        }
     }
 
     private fun stopTimer() {
@@ -555,11 +558,13 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                 }
 
                 mBinding.vMap.map.setOnMarkerClickListener {
-
+                    if (it.zIndex == 0f) {
+                        return@setOnMarkerClickListener true
+                    }
                     if (mBinding.bottomSheet.visibility == View.GONE) {
                         mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
 
-                            if (it1.zIndex != 500f)  {
+                            if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                                 it1.setIcon(
                                     BitmapDescriptorFactory.fromBitmap(
                                         BitmapFactory
@@ -572,10 +577,15 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                             }
                         }
 
-
-                        it.setIcon(BitmapDescriptorFactory.fromBitmap(
-                            BitmapFactory
-                                .decodeResource(resources,R.mipmap.icon_station_checked)))
+                        if (it.zIndex != 400f) {
+                            return@setOnMarkerClickListener true
+                        }
+                        it.setIcon(
+                            BitmapDescriptorFactory.fromBitmap(
+                                BitmapFactory
+                                    .decodeResource(resources, R.mipmap.icon_station_checked)
+                            )
+                        )
                         it.showInfoWindow()
                         mData.forEach { it2 ->
                             var index = 0
@@ -784,10 +794,13 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                 }
 
                 mBinding.vMap.map.setOnMarkerClickListener {
+                    if (it.zIndex == 0f) {
+                        return@setOnMarkerClickListener true
+                    }
                     if (mBinding.bottomSheet.visibility == View.GONE) {
                         mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
 
-                            if (it1.zIndex != 500f)  {
+                            if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                                 it1.setIcon(
                                     BitmapDescriptorFactory.fromBitmap(
                                         BitmapFactory
@@ -799,7 +812,9 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                                 }
                             }
                         }
-
+                        if (it.zIndex != 400f) {
+                            return@setOnMarkerClickListener true
+                        }
 
                         it.setIcon(BitmapDescriptorFactory.fromBitmap(
                             BitmapFactory
@@ -900,10 +915,13 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
         drawMarkers()
         mBinding.vMap.map.setOnMarkerClickListener {
+            if (it.zIndex == 0f) {
+                return@setOnMarkerClickListener true
+            }
             if (mBinding.bottomSheet.visibility == View.GONE) {
                 mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
 
-                    if (it1.zIndex != 500f)  {
+                    if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                         it1.setIcon(
                             BitmapDescriptorFactory.fromBitmap(
                                 BitmapFactory
@@ -915,7 +933,9 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         }
                     }
                 }
-
+                if (it.zIndex != 400f) {
+                    return@setOnMarkerClickListener true
+                }
 
                 it.setIcon(BitmapDescriptorFactory.fromBitmap(
                     BitmapFactory
@@ -996,7 +1016,8 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                                 .decodeResource(resources,R.mipmap.icon_station))
                     }
                     val latLng = LatLng(it2.lat, it2.lon)
-                    list.add(MarkerOptions().position(latLng).title(it2.stopName).icon(icon).setFlat(true))
+                    val option = MarkerOptions().position(latLng).title(it2.stopName).icon(icon).zIndex(400f)
+                    list.add(option)
                 }
             }
         }
@@ -1010,7 +1031,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     if (mLineDetailBean!!.lineStations.size > 1) {
                         var icon =  BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.icon_trans_start))
                         var latLng = LatLng(mLineDetailBean!!.lineStations[0].lat,mLineDetailBean!!.lineStations[0].lon)
-                        list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[0].stationName).icon(icon).setFlat(true))
+                        list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[0].stationName).icon(icon).zIndex(400f))//zindex == 400f 表示自己绘制的marker
 
                         if (list.size > 1) {
                             list.removeAt(list.size - 2)
@@ -1019,17 +1040,17 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                             BitmapFactory
                                 .decodeResource(resources,R.mipmap.icon_trans_end))
                         latLng = LatLng(mLineDetailBean!!.lineStations[mLineDetailBean!!.lineStations.size - 1].lat,mLineDetailBean!!.lineStations[mLineDetailBean!!.lineStations.size - 1].lon)
-                        list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[mLineDetailBean!!.lineStations.size - 1].stationName).icon(icon).setFlat(true))
+                        list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[mLineDetailBean!!.lineStations.size - 1].stationName).icon(icon).zIndex(400f))
 
                     } else {
                         var icon =  BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.icon_trans_start))
                         var latLng = LatLng(mLineDetailBean!!.lineStations[0].lat,mLineDetailBean!!.lineStations[0].lon)
-                        list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[0].stationName).icon(icon).setFlat(true))
+                        list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[0].stationName).icon(icon).zIndex(400f))
                     }
 //                    mBinding.busView.arriveVehs.forEach { vehs ->
 //                        var icon =  BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.icon_bus_vertical))
 //                        var latLng = LatLng(vehs.lat,vehs.lon)
-//                        list.add(MarkerOptions().position(latLng).icon(icon).rotateAngle(360 - vehs.angle.toFloat()).zIndex(500f).setFlat(true))
+//                        list.add(MarkerOptions().position(latLng).icon(icon).rotateAngle(360 - vehs.angle.toFloat()).zIndex(500f))
 //                    }
                 }
             }

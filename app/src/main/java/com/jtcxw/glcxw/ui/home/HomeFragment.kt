@@ -273,6 +273,14 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                         WebFragment.newInstance(parentFragment as SupportFragment,bundle)
                     }
                 } else if (position == 6) {
+                    if (TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
+                        LoginFragment.newInstance(parentFragment as SupportFragment,null)
+                        val clickValid = ClickValid(view!!)
+                        SingleCall.getInstance().clear()
+                        SingleCall.getInstance().addAction(clickValid).addValid(clickValid).doCall()
+                        return
+                    }
+
                     if (mParkingModuleConfigBean == null) {
                         val json = JsonObject()
                         json.addProperty("Longitude", UserUtil.getUser().longitude)
@@ -370,7 +378,6 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                 return@setOnRefreshListener
             }
 
-            mFinishCount = 4
             refreshData()
 
         }
@@ -414,7 +421,11 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     }
 
     private fun refreshData() {
-
+        mFinishCount = if (!TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
+            4
+        } else {
+            3
+        }
         var json = JsonObject()
         json.addProperty("Longitude",UserUtil.getUser().longitude)
         json.addProperty("Latitude",UserUtil.getUser().latitude)
@@ -438,9 +449,11 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         json.addProperty("Type","1")
         mPresenter!!.getContentTypeList(json,mBinding.swipeLayout)
 
-        json = JsonObject()
-        json.addProperty("MemberId",UserUtil.getUser().userInfoBean.memberId)
-        mPresenter!!.getMemberInfo(json)
+        if (!TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
+            json = JsonObject()
+            json.addProperty("MemberId", UserUtil.getUser().userInfoBean.memberId)
+            mPresenter!!.getMemberInfo(json)
+        }
     }
 
     private fun addSearchListener() {
