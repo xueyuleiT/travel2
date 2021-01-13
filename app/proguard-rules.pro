@@ -72,12 +72,12 @@ public static java.lang.String TABLENAME;
 }
 
 #（可选）避免Log打印输出
--assumenosideeffects class android.util.Log {
-   public static *** v(...);
-   public static *** d(...);
-   public static *** i(...);
-   public static *** w(...);
- }
+#-assumenosideeffects class android.util.Log {
+#   public static *** v(...);
+#   public static *** d(...);
+#   public static *** i(...);
+#   public static *** w(...);
+# }
 
 #---------------------------------webview------------------------------------
 -keepclassmembers class fqcn.of.javascript.interface.for.webview {
@@ -328,7 +328,8 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 -keep class com.amap.api.navi.**{*;}
 -keep class com.autonavi.**{*;}
 
--keep class com.jtcxw.glcxw.base.respmodels.** {*;}
--keep class models.** {*;}
+-keep public class com.jtcxw.glcxw.base.respmodels.** { *; }
+-keep public class models.** { *; }
+-keep public class com.jtcxw.glcxw.base.localmodels.** { *; }
 
 

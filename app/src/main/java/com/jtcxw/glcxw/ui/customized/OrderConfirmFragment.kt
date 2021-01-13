@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import com.jtcxw.glcxw.dialog.OrderCancelDialog
 import com.jtcxw.glcxw.listeners.OrderCancelCallback
 import com.jtcxw.glcxw.presenters.impl.OrderConfirmPresenter
 import com.jtcxw.glcxw.ui.my.OrdersFragment
+import com.jtcxw.glcxw.ui.travel.GoTravelFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.OrderConfirmView
 import me.yokeyword.fragmentation.ISupportFragment
@@ -39,6 +41,17 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>() ,OrderConfirmView{
+    companion object {
+        var timer: Handler?= null
+        var runnable:Runnable?= null
+
+        fun newInstance(fragment:SupportFragment,bundle: Bundle?) {
+            val orderConfirmFragment = OrderConfirmFragment()
+            orderConfirmFragment.arguments = bundle
+            fragment.start(orderConfirmFragment)
+        }
+    }
+   
     override fun onComplimentaryTicketSucc(complimentaryTicketBean: ComplimentaryTicketBean) {
         ToastUtil.toastSuccess("成功")
         val cm = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
@@ -155,14 +168,6 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
 
         mBinding.tvRemark.text = orderConfirmBean.refund_remark
 
-    }
-
-    companion object {
-        fun newInstance(fragment:SupportFragment,bundle: Bundle?) {
-            val orderConfirmFragment = OrderConfirmFragment()
-            orderConfirmFragment.arguments = bundle
-            fragment.start(orderConfirmFragment)
-        }
     }
 
 
@@ -377,29 +382,36 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
         stopTimer()
     }
 
-    private var timer: Timer?= null
+    private fun startTimer() {
+
+        runnable = Runnable{
+            if (timer == null) {
+                return@Runnable
+            }
+            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val leftTime =  (format.parse(mOrder!!.order_time).time + 20 * 60 * 1000 - System.currentTimeMillis()) / 1000
+            if (leftTime < 0) {
+                stopTimer()
+                return@Runnable
+            }
+            val timeStr = "剩余时间:" + leftTime / 60 + "分" + leftTime % 60 + "秒"
+            mBinding.tvLeftTime.text = SpannelUtil.getSpannelStr(timeStr,resources.getColor(R.color.red_ff3737),5, timeStr.length)
+
+            timer!!.postDelayed(runnable,1000)
+        }
+
+        timer = Handler(){
+            true
+        }
+        timer!!.post(runnable)
+    }
 
     private fun stopTimer() {
-        timer?.cancel()
+        timer?.removeCallbacks(runnable)
+        timer = null
     }
-    private fun startTimer() {
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        timer = Timer()
-        timer!!.schedule(object :TimerTask(){
-            override fun run() {
-                val leftTime =  (format.parse(mOrder!!.order_time).time + 20 * 60 * 1000 - System.currentTimeMillis()) / 1000
-                if (leftTime < 0) {
-                    stopTimer()
-                    return
-                }
-                val timeStr = "剩余时间:" + leftTime / 60 + "分" + leftTime % 60 + "秒"
-                mBinding.tvLeftTime.text = SpannelUtil.getSpannelStr(timeStr,resources.getColor(R.color.red_ff3737),5, timeStr.length)
-
-            }
-
-        },Date(),1000)
-    }
-
+    
+    
     override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
         super.onFragmentResult(requestCode, resultCode, data)
         if (requestCode == 90) {

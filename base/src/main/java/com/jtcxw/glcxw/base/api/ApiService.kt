@@ -17,7 +17,7 @@ interface ApiService {
 
         private val DEV = Environment.DEV_OUTER
         private val PRO = Environment.PRODUCT
-        var API_SERVER_URL = DEV
+        var API_SERVER_URL = PRO
 
     }
 

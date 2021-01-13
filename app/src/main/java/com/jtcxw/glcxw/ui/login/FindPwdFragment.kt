@@ -98,7 +98,7 @@ class FindPwdFragment: BaseFragment<FragmentFindPwdBinding, CommonModel>(),FindP
 
         if (arguments != null) {
             mBinding.etPhone.setText(arguments!!.getString(BundleKeys.KEY_PHONE,""))
-            if (!TextUtils.isEmpty(UserUtil.getUserInfoBean().realTelphoneNo)) {
+            if (!TextUtils.isEmpty(UserUtil.getUserInfoBean().realTelphoneNo) && !TextUtils.isEmpty(UserUtil.getUserInfoBean().memberId)) {
                 mBinding.etPhone.isEnabled = false
                 mBinding.etPhone.setTextColor(resources.getColor(R.color.gray_9))
             }

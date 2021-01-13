@@ -24,6 +24,12 @@ class WelcomeActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
+            finish()
+            return
+        }
+
         setContentView(R.layout.activity_welcome)
 
         animation = AlphaAnimation(0f, 1.0f)

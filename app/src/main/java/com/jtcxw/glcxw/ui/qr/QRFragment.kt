@@ -2,6 +2,7 @@ package com.jtcxw.glcxw.ui.qr
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Base64
 import android.util.TypedValue
@@ -122,34 +123,40 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
 
     }
 
+    companion object {
+        var timer: Handler?= null
+        var runnable:Runnable?= null
+    }
 
-    var timer: Timer?= null
     private fun startTimer() {
         if (mTimerRunning || !isSupportVisible) {
             return
         }
-        mTimerRunning = true
-        synchronized(QRFragment::class.java) {
-            timer = Timer()
-            timer!!.schedule(object : TimerTask() {
-                override fun run() {
-                    activity!!.runOnUiThread {
-                        if (isSupportVisible && mTimerRunning) {
-                            refreshQr(null)
-                        }
-                    }
-                }
-
-            }, Date(System.currentTimeMillis() + 15000), 15000)
+        var mTimerRunning = false
+        runnable = Runnable{
+            if (timer == null) {
+                return@Runnable
+            }
+            if (isSupportVisible && mTimerRunning) {
+                refreshQr(null)
+                timer!!.postDelayed(runnable, 15000)
+            }
         }
 
+        timer = Handler(){
+            true
+        }
+        timer!!.post(runnable)
     }
 
-    var mTimerRunning = false
     private fun stopTimer() {
-        mTimerRunning = false
-        timer?.cancel()
+        timer?.removeCallbacks(runnable)
+        timer = null
     }
+    
+
+
+    var mTimerRunning = false
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,6 +1,10 @@
 package com.jtcxw.glcxw.ui.travel
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context.ALARM_SERVICE
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
@@ -156,7 +160,10 @@ class GoTravelFragment: LocationFragment<FragmentGoTravelBinding, CommonModel>()
     }
     var mTel = ""
     val mBannerList = ArrayList<BannerBean.BannerListBean>()
-    var timer: Timer?= null
+    companion object {
+        var timer: Handler?= null
+        var runnable:Runnable?= null
+    }
     private var mPresenter: GoTravelPresenter?= null
     private var mDatas = ArrayList<AnnexBusBean.StationListBean>()
     private var mTitle:TextView ?= null
@@ -317,35 +324,37 @@ class GoTravelFragment: LocationFragment<FragmentGoTravelBinding, CommonModel>()
     }
 
     private fun startTimer() {
-        synchronized(GoTravelFragment::class.java) {
-            timer = Timer()
-            timer!!.schedule(object : TimerTask() {
-                override fun run() {
-                    if (mDatas.isEmpty()) {
-                        return
-                    }
-                    val json = JsonObject()
-                    val jsonArray = JsonArray()
-                    mDatas.forEach {
-                        if (it.stationLineInfo != null) {
-                            it.stationLineInfo.forEach { it_ ->
-                                val item = JsonObject()
-                                item.addProperty("StationId", it_.stopId)
-                                item.addProperty("LineId", it_.lineId)
-                                jsonArray.add(item)
-                            }
-                        }
-                    }
-                    json.add("StationLineList", jsonArray)
-                    mPresenter!!.forcastArriveQuery(json)
-                }
 
-            }, Date(), 15000)
+        runnable = Runnable{
+            if (timer == null) {
+                return@Runnable
+            }
+            val json = JsonObject()
+            val jsonArray = JsonArray()
+            mDatas.forEach {
+                if (it.stationLineInfo != null) {
+                    it.stationLineInfo.forEach { it_ ->
+                        val item = JsonObject()
+                        item.addProperty("StationId", it_.stopId)
+                        item.addProperty("LineId", it_.lineId)
+                        jsonArray.add(item)
+                    }
+                }
+            }
+            json.add("StationLineList", jsonArray)
+            mPresenter!!.forcastArriveQuery(json)
+            timer!!.postDelayed(runnable,15000)
         }
+
+        timer = Handler(){
+            true
+        }
+        timer!!.post(runnable)
     }
 
     private fun stopTimer() {
-        timer?.cancel()
+        timer?.removeCallbacks(runnable)
+        timer = null
     }
 
 

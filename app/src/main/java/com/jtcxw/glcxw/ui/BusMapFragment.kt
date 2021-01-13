@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -178,6 +179,8 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
     }
 
     companion object {
+        var timer: Handler?= null
+        var runnable:Runnable?= null
         fun newInstance(fragment: SupportFragment,bundle: Bundle?) {
             val busMapFragment = BusMapFragment()
             busMapFragment.arguments = bundle
@@ -194,34 +197,38 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
     }
     var mPresenter:BusMapPresenter?= null
     var mCollectionPresenter: CollectionPresenter?= null
-
-    var timer: Timer?= null
     private fun startTimer() {
-        synchronized(BusMapFragment::class.java) {
-            timer = Timer()
-            timer!!.schedule(object : TimerTask() {
-                override fun run() {
-                    if (mData.isEmpty()) {
-                        return
-                    }
-                    val json = JsonObject()
-                    val jsonArray = JsonArray()
-                    val item = JsonObject()
-                    item.addProperty("StationId", mStationId)
-                    item.addProperty("LineId", mLineId)
-                    jsonArray.add(item)
-                    json.add("StationLineList", jsonArray)
-                    mPresenter!!.forcastArriveQuery(json)
-                }
 
-            }, Date(), 15000)
+        runnable = Runnable{
+            if (timer == null) {
+                return@Runnable
+            }
+            if (mData.isEmpty()) {
+                return@Runnable
+            }
+            val json = JsonObject()
+            val jsonArray = JsonArray()
+            val item = JsonObject()
+            item.addProperty("StationId", mStationId)
+            item.addProperty("LineId", mLineId)
+            jsonArray.add(item)
+            json.add("StationLineList", jsonArray)
+            mPresenter!!.forcastArriveQuery(json)
+            timer!!.postDelayed(runnable,15000)
         }
+
+        timer = Handler(){
+            true
+        }
+        timer!!.post(runnable)
     }
 
     private fun stopTimer() {
-        timer?.cancel()
+        timer?.removeCallbacks(runnable)
+        timer = null
     }
-
+    
+    
 
     private var mAdapter:BusMapAdapter?= null
     private var mDownY = 0F
@@ -1060,7 +1067,6 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     override fun onDestroy() {
         super.onDestroy()
-        timer?.cancel()
         stopTimer()
         mBinding.vMap.onDestroy()
     }
