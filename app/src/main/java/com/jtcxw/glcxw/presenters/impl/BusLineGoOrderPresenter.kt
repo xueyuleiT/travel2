@@ -52,7 +52,7 @@ class BusLineGoOrderPresenter: IBusLineGoOrder {
 
 
 
-    override fun getFrequencys(params: JsonObject,dialog: LoadingDialog) {
+    override fun getFrequencys(params: JsonObject,dialog: LoadingDialog?) {
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().getFrequencys(params),object :
             ApiCallback<FrequencyBean, Response<BaseBean<FrequencyBean>>>(){
@@ -79,7 +79,7 @@ class BusLineGoOrderPresenter: IBusLineGoOrder {
         }, fragment, object : RefreshCallback {
             override fun onRefreshBack(refreshSucc: Boolean) {
                 if (!refreshSucc) {
-                    dialog.dismiss()
+                    dialog?.dismiss()
                 }
             }
 

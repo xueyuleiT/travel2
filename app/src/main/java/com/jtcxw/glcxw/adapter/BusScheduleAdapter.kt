@@ -84,12 +84,6 @@ class BusScheduleAdapter(
             llTicket.visibility = View.INVISIBLE
             progressBar.visibility = View.VISIBLE
 
-
-            if (data!!.ticketBean !== null) {
-                tvTime.text = data!!.ticketBean.ride_time.split(" ")[1]
-            } else {
-                tvTime.text = data.ride_time
-            }
             if (data!!.ticketLoadStatus == -2) {
                 val jsonObject = JsonObject()
                 jsonObject.addProperty("MemberId",UserUtil.getUser().userInfoBean.memberId)
@@ -138,15 +132,17 @@ class BusScheduleAdapter(
             } else {
                 llTicket.visibility = View.VISIBLE
                 tvNone.visibility = View.GONE
-                if (data!!.ticketBean !== null) {
-                    tvTime.text = data!!.ticketBean.ride_time.split(" ")[1]
-                } else {
-                    tvTime.text = data.ride_time
-                }
+
                 tvTicket.text = "总票:${data!!.ticketBean.total_seats}张"
                 tvLeft.text = "余:${data!!.ticketBean.leave_seats}张"
             }
 
+        }
+
+        if (data!!.ticketBean !== null) {
+            tvTime.text = data!!.ticketBean.ride_time.split(" ")[1]
+        } else {
+            tvTime.text = data.ride_time
         }
 
 

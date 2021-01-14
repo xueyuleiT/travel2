@@ -563,25 +563,24 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
     }
 
     private fun refresh() {
-        mDialog?.dismiss()
         if (mBinding.vPager.currentItem == 0) {
-            mDialog = DialogUtil.getLoadingDialog(fragmentManager)
+//            mDialog = DialogUtil.getLoadingDialog(fragmentManager)
             mFinishCount = 1
             val json = JsonObject()
             json.addProperty("MemberId", UserUtil.getUser().userInfoBean.memberId)
             json.addProperty("TripType", mTripType)
             json.addProperty("RouteId", arguments!!.getString(BundleKeys.KEY_ROUTE_ID))
             json.addProperty("RideDate", mBinding.weekCalendar.selectDateTime.toString("yyyy-MM-dd"))
-            mPresenter!!.getFrequencys(json, mDialog!!)
+            mPresenter!!.getFrequencys(json, mDialog)
         } else {
-            mDialog = DialogUtil.getLoadingDialog(fragmentManager)
+//            mDialog = DialogUtil.getLoadingDialog(fragmentManager)
             mFinishCount = 1
             val json = JsonObject()
             json.addProperty("MemberId",UserUtil.getUser().userInfoBean.memberId)
             json.addProperty("TripType",mTripType)
             json.addProperty("RouteId",arguments!!.getString(BundleKeys.KEY_BACK_ROUTE_ID))
             json.addProperty("RideDate",mBinding.weekCalendar.selectDateTime.toString("yyyy-MM-dd"))
-            mPresenter!!.getFrequencys(json,mDialog!!)
+            mPresenter!!.getFrequencys(json,mDialog)
         }
     }
 }

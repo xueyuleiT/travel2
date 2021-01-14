@@ -342,7 +342,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
                 val startDate = Calendar.getInstance()
                 val endDate = Calendar.getInstance()
 
-                startDate.set(1970,1,1)
+                startDate.set(1900,1,1)
                 endDate.timeInMillis = System.currentTimeMillis()
                 selectedDate.timeInMillis = System.currentTimeMillis()
                 timePickerView.setDate(selectedDate)
