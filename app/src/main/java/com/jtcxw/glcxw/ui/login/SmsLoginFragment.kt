@@ -186,4 +186,9 @@ class SmsLoginFragment:
     override fun needSetStatusHeight(): Boolean {
         return false
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        UserUtil.isShowLogin = false
+    }
 }

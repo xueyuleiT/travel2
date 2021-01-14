@@ -255,4 +255,9 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        UserUtil.isShowLogin = false
+    }
 }

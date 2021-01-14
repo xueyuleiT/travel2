@@ -4,6 +4,7 @@ import android.text.TextUtils
 import com.glcxw.lib.util.constants.RouterPaths
 import com.glcxw.router.IAppRouter
 import com.glcxw.router.RouterUtil
+import com.jtcxw.glcxw.base.utils.ToastUtil
 import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.adapter.rxjava.HttpException
@@ -26,8 +27,11 @@ abstract class ApiCallbackWithOutBaseBean<T,M: Response<T>> : Subscriber<M>() {
             if (m.code() == 401){
                 var waring = "请重新登录"
                 if (m.errorBody() != null) {
-                    val json = JSONObject(m.errorBody()!!.string())
-                    waring = json.optString("Data")
+                    try {
+                        val json = JSONObject(m.errorBody()!!.string())
+                        waring = json.optString("Data")
+                    } catch (e:java.lang.Exception) {
+                    }
                 }
                 (RouterUtil.get(RouterPaths.CLASS_APP) as IAppRouter).goLogin(waring)
             }else {

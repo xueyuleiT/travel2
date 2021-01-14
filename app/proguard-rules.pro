@@ -37,6 +37,8 @@ public static java.lang.String TABLENAME;
 
 -keep class org.conscrypt.**
 
+-keep public class * implements com.glcxw.router.IAppRouter
+-keep public class * extends com.glcxw.router.IAppRouter
 
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
@@ -331,5 +333,6 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 -keep public class com.jtcxw.glcxw.base.respmodels.** { *; }
 -keep public class models.** { *; }
 -keep public class com.jtcxw.glcxw.base.localmodels.** { *; }
+-keep class com.jtcxw.glcxw.router.** { *; }
 
 

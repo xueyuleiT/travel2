@@ -563,6 +563,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
     }
 
     private fun refresh() {
+        mDialog?.dismiss()
         if (mBinding.vPager.currentItem == 0) {
             mDialog = DialogUtil.getLoadingDialog(fragmentManager)
             mFinishCount = 1

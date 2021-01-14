@@ -138,8 +138,11 @@ class BusScheduleAdapter(
             } else {
                 llTicket.visibility = View.VISIBLE
                 tvNone.visibility = View.GONE
-                tvTime.text = data!!.ride_time
-
+                if (data!!.ticketBean !== null) {
+                    tvTime.text = data!!.ticketBean.ride_time.split(" ")[1]
+                } else {
+                    tvTime.text = data.ride_time
+                }
                 tvTicket.text = "总票:${data!!.ticketBean.total_seats}张"
                 tvLeft.text = "余:${data!!.ticketBean.leave_seats}张"
             }

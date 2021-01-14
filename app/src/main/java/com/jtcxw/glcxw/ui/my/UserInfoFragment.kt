@@ -3,14 +3,12 @@ package com.jtcxw.glcxw.ui.my
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
-import androidx.core.net.toFile
 import com.baidu.ocr.ui.camera.CameraActivity
 import com.bigkoo.pickerview.TimePickerView
 import com.bumptech.glide.Glide
@@ -340,7 +338,15 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
                             val sdf = SimpleDateFormat("yyyy-MM-dd")
                             mBinding.tvBirthday.text = sdf.format(date)
                         }).setType(booleanArrayOf(true, true, true, false, false, false))
-                timePickerView.setDate(Calendar.getInstance())
+                val selectedDate = Calendar.getInstance()
+                val startDate = Calendar.getInstance()
+                val endDate = Calendar.getInstance()
+
+                startDate.set(1970,1,1)
+                endDate.timeInMillis = System.currentTimeMillis()
+                selectedDate.timeInMillis = System.currentTimeMillis()
+                timePickerView.setDate(selectedDate)
+                timePickerView.setRangDate(startDate,endDate)
                 timePickerView.build().show()
             }
         }
