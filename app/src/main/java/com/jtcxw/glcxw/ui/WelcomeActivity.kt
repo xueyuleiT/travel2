@@ -11,6 +11,7 @@ import com.glcxw.lib.util.CacheUtil
 import com.glcxw.lib.util.constants.SPKeys
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.basic.BaseActivity
+import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.dialog.AgreementDialog
 import com.jtcxw.glcxw.listeners.DialogCallback
@@ -25,10 +26,16 @@ class WelcomeActivity: BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
-            finish()
-            return
-        }
+//        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
+//            if (BaseUtil.sOpenApp) {
+//
+//            } else {
+//                finish()
+//            }
+//            return
+//        }
+
+        BaseUtil.sOpenApp = true
 
         setContentView(R.layout.activity_welcome)
 
@@ -90,6 +97,7 @@ class WelcomeActivity: BaseActivity() {
             pop()
         }else {
             super.onBackPressedSupport()
+            BaseUtil.sOpenApp = false
             exitProcess(0)
         }
     }

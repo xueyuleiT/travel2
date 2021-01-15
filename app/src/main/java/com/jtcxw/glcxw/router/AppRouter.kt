@@ -13,7 +13,6 @@ import me.yokeyword.fragmentation.SupportFragment
 class AppRouter:IAppRouter {
 
     override fun goLogin(warning: String) {
-        ToastUtil.toastWaring("UserUtil.isShowLogin == " + UserUtil.isShowLogin)
         if (UserUtil.isShowLogin) {
             return
         }

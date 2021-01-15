@@ -25,6 +25,7 @@ import com.jtcxw.glcxw.databinding.FragmentLoginBinding
 import com.jtcxw.glcxw.events.LoginEvent
 import com.jtcxw.glcxw.presenters.impl.LoginPresenter
 import com.jtcxw.glcxw.ui.MainActivity
+import com.jtcxw.glcxw.utils.MySingleCall
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.LoginView
 import com.toptechs.libaction.action.SingleCall
@@ -43,7 +44,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
         if (BaseUtil.sTopAct is MainActivity){
             pop()
             RxBus.getDefault().postDelay(LoginEvent(),300)
-            SingleCall.getInstance().doCall()
+            MySingleCall.getInstance().doCall()
         } else {
             startActivity(Intent(activity!!, MainActivity::class.java))
             mBinding.etCode.postDelayed({
@@ -246,7 +247,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
             if (BaseUtil.sTopAct is MainActivity){
                 pop()
                 RxBus.getDefault().postDelay(LoginEvent(),300)
-                SingleCall.getInstance().doCall()
+                MySingleCall.getInstance().doCall()
             } else {
                 startActivity(Intent(activity!!, MainActivity::class.java))
                 mBinding.etCode.postDelayed({

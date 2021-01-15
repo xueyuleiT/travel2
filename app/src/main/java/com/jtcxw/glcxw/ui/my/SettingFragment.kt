@@ -40,6 +40,10 @@ class SettingFragment:BaseFragment<FragmentSettingBinding,CommonModel>() {
         super.onClick(v)
         when(v?.id) {
 
+            R.id.tv_safe -> {
+                SafeFragment.newInstance(this,null)
+            }
+
             R.id.tv_about -> {
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_TREATY_TYPE,"3")
@@ -107,6 +111,7 @@ class SettingFragment:BaseFragment<FragmentSettingBinding,CommonModel>() {
         mBinding.tvAbout.setOnClickListener(this)
         mBinding.tvService.setOnClickListener(this)
         mBinding.llVersion.setOnClickListener(this)
+        mBinding.tvSafe.setOnClickListener(this)
 
         mBinding.tvPhone.text = UserUtil.getUserInfoBean().telphoneNo
         if (UserUtil.getUserInfoBean().realNameVerifyFlag == "1") {

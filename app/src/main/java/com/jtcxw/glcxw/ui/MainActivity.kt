@@ -65,6 +65,14 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (intent != null && intent.hasExtra("type") && intent.getStringExtra("type") == "message") {
+            MessageFragment.newInstance(topFragment as SupportFragment,null)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId ==android.R.id.home){
             return (topFragment as SupportFragment).onOptionsItemSelected(item)

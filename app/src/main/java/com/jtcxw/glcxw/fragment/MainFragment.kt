@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import cn.jpush.android.api.JPushInterface
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.amap.api.location.AMapLocation
@@ -27,6 +28,7 @@ import com.jtcxw.glcxw.ui.travel.GoTravelFragment
 import com.jtcxw.glcxw.ui.travel.TravelFragment
 import com.jtcxw.glcxw.utils.LocationUtil
 import com.jtcxw.glcxw.utils.MainLoginValid
+import com.jtcxw.glcxw.utils.MySingleCall
 import com.jtcxw.glcxw.viewmodel.MainModel
 import com.toptechs.libaction.action.SingleCall
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
@@ -92,6 +94,7 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
         fragmentAnimator = DefaultHorizontalAnimator()
         mBinding.radioTab.setOnCheckedChangeListener { _, i ->
             mBinding.rbTabQr.isChecked = false
+            Log.d("token -->" , JPushInterface.getRegistrationID(context!!))
             when (i) {
                 R.id.rb_tab_home -> {
                     showHideFragment(mFragments[0], mFragments[mCurrentIndex])
@@ -112,8 +115,8 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
                     if (TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
                         LoginFragment.newInstance(this, null)
                         val mainLoginValid = MainLoginValid(3, this)
-                        SingleCall.getInstance().clear()
-                        SingleCall.getInstance().addAction(mainLoginValid).addValid(mainLoginValid)
+                        MySingleCall.getInstance().clear()
+                        MySingleCall.getInstance().addAction(mainLoginValid).addValid(mainLoginValid)
                             .doCall()
                         when (mCurrentIndex) {
                             0 -> mBinding.radioTab.check(R.id.rb_tab_home)
@@ -133,8 +136,8 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
             if (TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
                 LoginFragment.newInstance(this, null)
                 val mainLoginValid = MainLoginValid(4, this)
-                SingleCall.getInstance().clear()
-                SingleCall.getInstance().addAction(mainLoginValid).addValid(mainLoginValid).doCall()
+                MySingleCall.getInstance().clear()
+                MySingleCall.getInstance().addAction(mainLoginValid).addValid(mainLoginValid).doCall()
                 return@setOnClickListener
             }
             mBinding.radioTab.clearCheck()

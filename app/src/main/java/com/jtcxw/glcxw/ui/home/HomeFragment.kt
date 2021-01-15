@@ -227,8 +227,8 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                     if (TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
                         LoginFragment.newInstance(parentFragment as SupportFragment,null)
                         val jumpValid = JumpValid(CustomizedMainFragment())
-                        SingleCall.getInstance().clear()
-                        SingleCall.getInstance().addAction(jumpValid).addValid(jumpValid).doCall()
+                        MySingleCall.getInstance().clear()
+                        MySingleCall.getInstance().addAction(jumpValid).addValid(jumpValid).doCall()
                         return
                     }
                     CustomizedMainFragment.newInstance(this@HomeFragment.parentFragment as SupportFragment,null)
@@ -240,8 +240,8 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                         val fragment = CustomizedMainFragment()
                         fragment.arguments = bundle
                         val jumpValid = JumpValid(fragment)
-                        SingleCall.getInstance().clear()
-                        SingleCall.getInstance().addAction(jumpValid).addValid(jumpValid).doCall()
+                        MySingleCall.getInstance().clear()
+                        MySingleCall.getInstance().addAction(jumpValid).addValid(jumpValid).doCall()
                         return
                     }
                     val bundle = Bundle()
@@ -255,8 +255,8 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
 //                    if (TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
 //                        LoginFragment.newInstance(parentFragment as SupportFragment,null)
 //                        val clickValid = ClickValid(view!!)
-//                        SingleCall.getInstance().clear()
-//                        SingleCall.getInstance().addAction(clickValid).addValid(clickValid).doCall()
+//                        MySingleCall.getInstance().clear()
+//                        MySingleCall.getInstance().addAction(clickValid).addValid(clickValid).doCall()
 //                        return
 //                    }
                     if (mModuleConfigBean == null) {
@@ -276,8 +276,8 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                     if (TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
                         LoginFragment.newInstance(parentFragment as SupportFragment,null)
                         val clickValid = ClickValid(view!!)
-                        SingleCall.getInstance().clear()
-                        SingleCall.getInstance().addAction(clickValid).addValid(clickValid).doCall()
+                        MySingleCall.getInstance().clear()
+                        MySingleCall.getInstance().addAction(clickValid).addValid(clickValid).doCall()
                         return
                     }
 

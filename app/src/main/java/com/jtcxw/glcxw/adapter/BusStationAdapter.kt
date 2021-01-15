@@ -28,6 +28,7 @@ import com.jtcxw.glcxw.ui.BusFragment
 import com.jtcxw.glcxw.ui.customized.CustomizedMainFragment
 import com.jtcxw.glcxw.ui.login.LoginFragment
 import com.jtcxw.glcxw.utils.JumpValid
+import com.jtcxw.glcxw.utils.MySingleCall
 import com.toptechs.libaction.action.SingleCall
 import me.yokeyword.fragmentation.SupportFragment
 
@@ -72,8 +73,8 @@ class BusStationAdapter(
                 if (TextUtils.isEmpty(UserUtil.getUser().userInfoBean.memberId)) {
                     LoginFragment.newInstance(mFragment.parentFragment as SupportFragment,null)
                     val jumpValid = JumpValid(CustomizedMainFragment())
-                    SingleCall.getInstance().clear()
-                    SingleCall.getInstance().addAction(jumpValid).addValid(jumpValid).doCall()
+                    MySingleCall.getInstance().clear()
+                    MySingleCall.getInstance().addAction(jumpValid).addValid(jumpValid).doCall()
                     return@setOnClickListener
                 }
                 CustomizedMainFragment.newInstance(mFragment.parentFragment as SupportFragment,null)

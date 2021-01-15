@@ -5,6 +5,7 @@ class BundleKeys {
         const val KEY_WEB_TITLE = "keyWebTitle"
         const val KEY_TITLE = "title"
         const val KEY_WEB_URL = "keyWebUrl"
+        const val KEY_PERMISSION_TYPE = "permissionType"
 
         const val KEY_PHONE = "phone"
         const val KEY_NICK = "nick"
