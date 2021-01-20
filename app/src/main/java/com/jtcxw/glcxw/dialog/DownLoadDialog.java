@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.google.android.material.bottomsheet.BaseBottomSheetDialogFragment;
 import com.jtcxw.glcxw.R;
 import com.jtcxw.glcxw.base.utils.ScreenUtil;
 import com.jtcxw.glcxw.base.views.LoadingView;
-import com.jtcxw.glcxw.listeners.OrderCancelCallback;
 import com.jtcxw.glcxw.utils.AppUpdateUtils;
 
 import java.io.File;

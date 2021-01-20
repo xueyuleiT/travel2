@@ -1,8 +1,5 @@
 package com.jtcxw.glcxw.ui.travel
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context.ALARM_SERVICE
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -25,12 +22,9 @@ import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.databinding.FragmentGoTravelBinding
 import com.jtcxw.glcxw.events.CollectEvent
-import com.jtcxw.glcxw.events.MessageEvent
 import com.jtcxw.glcxw.fragment.MainFragment
 import com.jtcxw.glcxw.listeners.InnerClickListener
-import com.jtcxw.glcxw.localbean.HomeBannerBean
 import com.jtcxw.glcxw.presenters.impl.GoTravelPresenter
-import com.jtcxw.glcxw.ui.BusMapFragment
 import com.jtcxw.glcxw.ui.LocationFragment
 import com.jtcxw.glcxw.ui.QueryMainFragment
 import com.jtcxw.glcxw.ui.WebFragment
@@ -39,8 +33,6 @@ import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.GoTravelView
 import com.youth.banner.indicator.CircleIndicator
 import me.yokeyword.fragmentation.SupportFragment
-import java.util.*
-import kotlin.collections.ArrayList
 
 class GoTravelFragment: LocationFragment<FragmentGoTravelBinding, CommonModel>() ,GoTravelView{
     var mModuleConfigBean:ModuleConfigBean?= null

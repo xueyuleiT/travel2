@@ -7,7 +7,6 @@ import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.CollectionInfoBean
-import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.ICollectionList

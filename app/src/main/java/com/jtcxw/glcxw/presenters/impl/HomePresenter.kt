@@ -11,7 +11,6 @@ import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.IHome
-import com.jtcxw.glcxw.views.GoTravelView
 import com.jtcxw.glcxw.views.HomeView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import models.BaseBean

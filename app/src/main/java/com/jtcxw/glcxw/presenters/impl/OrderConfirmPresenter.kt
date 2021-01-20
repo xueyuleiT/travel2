@@ -8,7 +8,6 @@ import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.dialogs.LoadingDialog
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.ComplimentaryTicketBean
-import com.jtcxw.glcxw.base.respmodels.FrequencyBean
 import com.jtcxw.glcxw.base.respmodels.OrderCancelBean
 import com.jtcxw.glcxw.base.respmodels.OrderConfirmBean
 import com.jtcxw.glcxw.base.utils.DialogUtil

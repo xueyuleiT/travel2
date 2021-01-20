@@ -6,7 +6,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cunoraz.tagview.TagView
 import com.glcxw.lib.util.AmountUtil
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
@@ -39,7 +38,6 @@ class BusMapAdapter(fragment: SupportFragment, data: List<AnnexBusBean.StationLi
         val recyclerView = holder!!.getView<RecyclerView>(R.id.recycler_view)
         val tvStation = holder!!.getView<TextView>(R.id.tv_station)
         val tvDistance = holder!!.getView<TextView>(R.id.tv_distance)
-        val tagView = holder!!.getView<TagView>(R.id.tag_view)
         val rlBottom  = holder!!.getView<RelativeLayout>(R.id.rl_bottom)
         val ivArrow = holder!!.getView<ImageView>(R.id.iv_arrow)
         val vHeart = holder!!.getView<ImageView>(R.id.v_heart)

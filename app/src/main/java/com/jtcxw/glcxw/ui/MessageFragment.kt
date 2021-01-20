@@ -19,7 +19,6 @@ import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.databinding.FragmentMessageBinding
 import com.jtcxw.glcxw.localbean.MessageBean
-import com.jtcxw.glcxw.ui.my.AccountRecordFragment
 import com.jtcxw.glcxw.ui.my.OrderDetailFragment
 import com.jtcxw.glcxw.utils.DaoUtilsStore
 import com.jtcxw.glcxw.viewmodel.CommonModel

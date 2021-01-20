@@ -1,7 +1,6 @@
 package com.jtcxw.glcxw.adapter
 
 import android.content.Context
-import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.DialogCallback

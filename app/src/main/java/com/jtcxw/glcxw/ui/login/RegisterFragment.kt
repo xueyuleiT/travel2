@@ -17,7 +17,6 @@ import com.jtcxw.glcxw.base.constant.Constant
 import com.jtcxw.glcxw.base.respmodels.RegisterBean
 import com.jtcxw.glcxw.base.respmodels.SmsBean
 import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.base.utils.MD5Util
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.databinding.FragmentRegisterBinding
 import com.jtcxw.glcxw.presenters.impl.RegisterPresenter

@@ -3,11 +3,8 @@ package com.jtcxw.glcxw.adapter
 import android.content.Context
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.jtcxw.glcxw.R
-import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
-import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 

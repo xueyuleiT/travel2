@@ -15,8 +15,6 @@ import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.dialog.AgreementDialog
 import com.jtcxw.glcxw.listeners.DialogCallback
-import com.jtcxw.glcxw.listeners.OrderCancelCallback
-import com.jtcxw.glcxw.ui.login.LoginFragment
 import me.yokeyword.fragmentation.SupportFragment
 import kotlin.system.exitProcess
 

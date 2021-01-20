@@ -7,8 +7,7 @@
     android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tagview="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <RelativeLayout
@@ -64,21 +63,13 @@
             android:layout_below="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <me.kaede.tagview.TagView
-                android:paddingTop="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_arrow"
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tag_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tagview:lineMargin="5dp"
-                tagview:tagMargin="5dp"
-                tagview:textPaddingLeft="4dp"
-                tagview:textPaddingTop="2dp"
-                tagview:textPaddingRight="4dp"
-                tagview:textPaddingBottom="2dp" />
+                android:layout_toLeftOf="@+id/iv_arrow"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
 
             <ImageView
                 android:id="@+id/iv_arrow"

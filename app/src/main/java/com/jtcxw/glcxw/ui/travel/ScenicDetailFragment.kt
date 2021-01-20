@@ -3,8 +3,6 @@ package com.jtcxw.glcxw.ui.travel
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import com.afollestad.materialdialogs.DialogCallback
-import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
@@ -18,7 +16,6 @@ import com.jtcxw.glcxw.databinding.FragmentScenicDetailBinding
 import com.jtcxw.glcxw.presenters.impl.CollectionPresenter
 import com.jtcxw.glcxw.presenters.impl.ScenicDetailPresenter
 import com.jtcxw.glcxw.ui.LocationMapFragment
-import com.jtcxw.glcxw.ui.login.LoginFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.CollectionView
 import com.jtcxw.glcxw.views.ScenicDetailView

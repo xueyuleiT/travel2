@@ -1,17 +1,12 @@
 package com.jtcxw.glcxw.adapter
 
 import android.content.Context
-import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
-import com.jtcxw.glcxw.base.respmodels.StationBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
-import com.jtcxw.glcxw.localbean.BusSiteOrLineBean
 
 class LineInnerAdapter (context: Context, data: List<SiteOrLineBean.LineDateBean.LineDirectionBean>) : BaseRecyclerAdapter<SiteOrLineBean.LineDateBean.LineDirectionBean>(context, data) {
     override fun onClick(

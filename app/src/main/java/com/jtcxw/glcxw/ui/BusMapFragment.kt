@@ -2,7 +2,6 @@ package com.jtcxw.glcxw.ui
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
-import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -14,18 +13,9 @@ import android.view.ViewTreeObserver
 import android.widget.RelativeLayout
 import androidx.core.graphics.scale
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.afollestad.materialdialogs.DialogCallback
-import com.afollestad.materialdialogs.MaterialDialog
-import com.amap.api.location.AMapLocation
-import com.amap.api.location.AMapLocationClient
-import com.amap.api.location.AMapLocationClientOption
-import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
-import com.amap.api.maps.LocationSource
 import com.amap.api.maps.model.*
-import com.amap.api.services.busline.BusStationResult
-import com.amap.api.services.busline.BusStationSearch
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
@@ -46,13 +36,8 @@ import com.jtcxw.glcxw.databinding.FragmentBusMapBinding
 import com.jtcxw.glcxw.events.CollectEvent
 import com.jtcxw.glcxw.listeners.CollectCancelCallback
 import com.jtcxw.glcxw.listeners.InnerClickListener
-import com.jtcxw.glcxw.listeners.LocationCallback
 import com.jtcxw.glcxw.presenters.impl.BusMapPresenter
-import com.jtcxw.glcxw.presenters.impl.BusQueryPresenter
 import com.jtcxw.glcxw.presenters.impl.CollectionPresenter
-import com.jtcxw.glcxw.ui.login.LoginFragment
-import com.jtcxw.glcxw.ui.travel.GoTravelFragment
-import com.jtcxw.glcxw.utils.LocationUtil
 import com.jtcxw.glcxw.viewmodel.BusModel
 import com.jtcxw.glcxw.views.BusMapView
 import com.jtcxw.glcxw.views.BusQueryView
@@ -61,8 +46,6 @@ import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 import models.BaseBean
 import retrofit2.Response
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapView ,CollectionView ,BusQueryView{
@@ -538,7 +521,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
                 mBinding.busView.setOnBusStationClickListener { view, item ->
                     mBinding.vMap.map.mapScreenMarkers.forEach {
-                        if (it.zIndex != 500f)  {
+                        if (it.zIndex != 500f && it.zIndex != 0f)  {
                             if (it.position.latitude == item.lat && it.position.longitude == item.lon) {
                                 it.setIcon(
                                     BitmapDescriptorFactory.fromBitmap(
@@ -618,7 +601,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     }
                     mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
 
-                        if (it1.zIndex != 500f)  {
+                        if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                             it1.setIcon(
                                 BitmapDescriptorFactory.fromBitmap(
                                     BitmapFactory
@@ -774,7 +757,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
                 mBinding.busView.setOnBusStationClickListener { view, item ->
                     mBinding.vMap.map.mapScreenMarkers.forEach {
-                        if (it.zIndex != 500f)  {
+                        if (it.zIndex != 500f && it.zIndex != 0f)  {
                             if (it.position.latitude == item.lat && it.position.longitude == item.lon) {
                                 it.setIcon(
                                     BitmapDescriptorFactory.fromBitmap(
@@ -850,7 +833,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         return@setOnMarkerClickListener false
                     }
                     mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
-                        if (it1.zIndex != 500f)  {
+                        if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                             it1.setIcon(
                                 BitmapDescriptorFactory.fromBitmap(
                                     BitmapFactory
@@ -973,7 +956,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                 return@setOnMarkerClickListener false
             }
             mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
-                if (it1.zIndex != 500f) {
+                if (it1.zIndex != 500f && it1.zIndex != 0f) {
                     it1.setIcon(
                         BitmapDescriptorFactory.fromBitmap(
                             BitmapFactory

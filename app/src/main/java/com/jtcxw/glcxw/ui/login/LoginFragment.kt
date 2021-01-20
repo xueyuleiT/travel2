@@ -28,7 +28,6 @@ import com.jtcxw.glcxw.ui.MainActivity
 import com.jtcxw.glcxw.utils.MySingleCall
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.LoginView
-import com.toptechs.libaction.action.SingleCall
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 
@@ -42,9 +41,11 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
         UserUtil.getUser().save(userInfoBean)
         UserUtil.isShowLogin = false
         if (BaseUtil.sTopAct is MainActivity){
+            mBinding.etCode.postDelayed({
+                RxBus.getDefault().post(LoginEvent())
+                MySingleCall.getInstance().doCall()
+            },300)
             pop()
-            RxBus.getDefault().postDelay(LoginEvent(),300)
-            MySingleCall.getInstance().doCall()
         } else {
             startActivity(Intent(activity!!, MainActivity::class.java))
             mBinding.etCode.postDelayed({
@@ -245,9 +246,11 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
         super.onFragmentResult(requestCode, resultCode, data)
         if (resultCode == ISupportFragment.RESULT_OK) {
             if (BaseUtil.sTopAct is MainActivity){
+                mBinding.etCode.postDelayed({
+                    RxBus.getDefault().post(LoginEvent())
+                    MySingleCall.getInstance().doCall()
+                },300)
                 pop()
-                RxBus.getDefault().postDelay(LoginEvent(),300)
-                MySingleCall.getInstance().doCall()
             } else {
                 startActivity(Intent(activity!!, MainActivity::class.java))
                 mBinding.etCode.postDelayed({

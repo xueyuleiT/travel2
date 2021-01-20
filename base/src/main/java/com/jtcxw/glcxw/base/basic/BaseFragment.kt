@@ -1,12 +1,10 @@
 package com.jtcxw.glcxw.base.basic
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -17,7 +15,6 @@ import androidx.databinding.ViewDataBinding
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.baidu.ocr.ui.camera.CameraActivity
 import com.jtcxw.glcxw.base.R
 import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.base.utils.DimensionUtil

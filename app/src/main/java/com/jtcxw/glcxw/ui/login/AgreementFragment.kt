@@ -77,7 +77,6 @@ class AgreementFragment:
                 p0: WebView?,
                 p1: String?
             ): Boolean {
-                p0!!.loadUrl(p1)
                 return false
             }
 

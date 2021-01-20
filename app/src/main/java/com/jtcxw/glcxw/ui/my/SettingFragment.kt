@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.BuildConfig
 import com.jtcxw.glcxw.R
@@ -18,7 +17,6 @@ import com.jtcxw.glcxw.databinding.FragmentSettingBinding
 import com.jtcxw.glcxw.events.LogoutEvent
 import com.jtcxw.glcxw.ui.login.AgreementFragment
 import com.jtcxw.glcxw.ui.login.FindPwdFragment
-import com.jtcxw.glcxw.ui.login.LoginFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.SupportFragment
 

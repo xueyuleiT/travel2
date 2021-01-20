@@ -7,8 +7,6 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.databinding.FragmentPermissionDetailBinding
-import com.jtcxw.glcxw.databinding.FragmentSafeBinding
-import com.jtcxw.glcxw.ui.login.AgreementFragment1
 import com.jtcxw.glcxw.utils.PermissionUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.SupportFragment

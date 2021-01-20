@@ -13,8 +13,8 @@ import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.utils.RxBus
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.events.MessageEvent
-import com.jtcxw.glcxw.localbean.MessageBean
 import com.jtcxw.glcxw.fragment.MainFragment
+import com.jtcxw.glcxw.localbean.MessageBean
 import com.zss.cardview.CardView
 import me.yokeyword.fragmentation.Fragmentation
 import me.yokeyword.fragmentation.SupportFragment

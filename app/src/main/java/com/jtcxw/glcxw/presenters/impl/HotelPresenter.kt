@@ -10,7 +10,6 @@ import com.jtcxw.glcxw.base.respmodels.HotelBean
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.IHotel
-import com.jtcxw.glcxw.views.HomeView
 import com.jtcxw.glcxw.views.HotelView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import models.BaseBean

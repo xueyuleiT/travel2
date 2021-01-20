@@ -71,7 +71,6 @@ class AgreementFragment1: BaseFragment<FragmentAgreement1Binding, CommonModel>()
                 p0: WebView?,
                 p1: String?
             ): Boolean {
-                p0!!.loadUrl(p1)
                 return false
             }
 

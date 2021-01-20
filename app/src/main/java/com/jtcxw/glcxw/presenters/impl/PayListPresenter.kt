@@ -8,7 +8,6 @@ import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.dialogs.LoadingDialog
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.PayListBean
-import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.IPayList

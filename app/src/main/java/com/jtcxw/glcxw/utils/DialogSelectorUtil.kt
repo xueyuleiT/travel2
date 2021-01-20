@@ -2,7 +2,6 @@ package com.jtcxw.glcxw.utils
 
 import android.content.Context
 import com.bigkoo.pickerview.OptionsPickerView
-import com.bigkoo.pickerview.TimePickerView
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.listeners.CityCallback

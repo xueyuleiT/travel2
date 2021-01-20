@@ -16,8 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatDialog;
 
-import com.jtcxw.glcxw.base.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.jtcxw.glcxw.base.R;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 

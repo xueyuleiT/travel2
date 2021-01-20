@@ -2,9 +2,9 @@ package com.jtcxw.glcxw.presenters.impl
 
 import android.text.TextUtils
 import com.google.gson.JsonObject
-import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.api.ApiCallback
 import com.jtcxw.glcxw.base.api.ApiClient
+import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.respmodels.BusArriveListBean
@@ -13,7 +13,6 @@ import com.jtcxw.glcxw.base.respmodels.ModuleConfigBean
 import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
-import com.jtcxw.glcxw.presenters.IBanner
 import com.jtcxw.glcxw.presenters.IGoTravel
 import com.jtcxw.glcxw.views.GoTravelView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout

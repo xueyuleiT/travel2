@@ -1,6 +1,5 @@
 package com.jtcxw.glcxw.base.api
 
-import com.jtcxw.glcxw.api.ApiService
 import com.jtcxw.glcxw.base.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

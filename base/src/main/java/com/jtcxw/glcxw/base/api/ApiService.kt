@@ -1,7 +1,6 @@
-package com.jtcxw.glcxw.api
+package com.jtcxw.glcxw.base.api
 
 import com.google.gson.JsonObject
-import com.jtcxw.glcxw.base.api.Environment
 import com.jtcxw.glcxw.base.localmodels.PubKeyBean
 import com.jtcxw.glcxw.base.respmodels.*
 import models.BaseBean
@@ -17,7 +16,7 @@ interface ApiService {
 
         private val DEV = Environment.DEV_OUTER
         private val PRO = Environment.PRODUCT
-        var API_SERVER_URL = DEV
+        var API_SERVER_URL = PRO
 
     }
 

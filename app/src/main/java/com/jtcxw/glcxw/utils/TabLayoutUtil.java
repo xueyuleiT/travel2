@@ -2,7 +2,6 @@ package com.jtcxw.glcxw.utils;
 
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.jtcxw.glcxw.base.utils.DimensionUtil;

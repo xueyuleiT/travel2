@@ -3,10 +3,12 @@ package com.jtcxw.glcxw.ui.customized
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import com.bigkoo.pickerview.TimePickerView
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.basic.BaseFragment
+import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
@@ -16,8 +18,6 @@ import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.BusRecruitLineAddView
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
-import com.bigkoo.pickerview.TimePickerView
-import com.jtcxw.glcxw.base.constant.BundleKeys
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -9,7 +9,6 @@ import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
-import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.presenters.ICollection
 import com.jtcxw.glcxw.views.CollectionView
 import models.BaseBean

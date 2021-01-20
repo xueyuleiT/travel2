@@ -12,7 +12,6 @@ import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 import com.jtcxw.glcxw.listeners.CollectCancelCallback
-import com.jtcxw.glcxw.listeners.DialogCallback
 import com.jtcxw.glcxw.localbean.MyCollectionBean
 import com.jtcxw.glcxw.ui.QueryMainFragment
 import com.jtcxw.glcxw.ui.travel.HotelDetailFragment

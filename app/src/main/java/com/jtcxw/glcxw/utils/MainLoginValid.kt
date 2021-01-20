@@ -2,8 +2,6 @@ package com.jtcxw.glcxw.utils
 
 import android.os.Handler
 import android.text.TextUtils
-import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.base.utils.RxBus
 import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.fragment.MainFragment
 import com.toptechs.libaction.action.Action

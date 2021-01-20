@@ -1,15 +1,14 @@
 package com.jtcxw.glcxw.base.utils;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
 public class DeviceUtil {
     private static final String TAG = "DeviceIdUtils";
     private static final String KEY_NAME = "android_unique_device_id";//任意，但不能和系统设置冲突

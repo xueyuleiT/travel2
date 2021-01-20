@@ -13,9 +13,7 @@ import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.ICharge
-import com.jtcxw.glcxw.presenters.IMy
 import com.jtcxw.glcxw.views.ChargeView
-import com.jtcxw.glcxw.views.ServiceView
 import models.BaseBean
 import retrofit2.Response
 

@@ -8,7 +8,6 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
@@ -32,7 +31,6 @@ import com.jtcxw.glcxw.utils.SwipeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.BusQueryView
 import me.yokeyword.fragmentation.SupportFragment
-
 
 
 class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQueryView {

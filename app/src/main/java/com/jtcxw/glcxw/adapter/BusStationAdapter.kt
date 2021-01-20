@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
-import com.cunoraz.tagview.Tag
-import com.cunoraz.tagview.TagView
 import com.glcxw.lib.util.AmountUtil
+import com.google.android.flexbox.FlexDirection.ROW
+import com.google.android.flexbox.FlexWrap.WRAP
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent.FLEX_START
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.utils.DimensionUtil
@@ -24,12 +26,12 @@ import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 import com.jtcxw.glcxw.listeners.InnerClickListener
+import com.jtcxw.glcxw.localmodel.Tag
 import com.jtcxw.glcxw.ui.BusFragment
 import com.jtcxw.glcxw.ui.customized.CustomizedMainFragment
 import com.jtcxw.glcxw.ui.login.LoginFragment
 import com.jtcxw.glcxw.utils.JumpValid
 import com.jtcxw.glcxw.utils.MySingleCall
-import com.toptechs.libaction.action.SingleCall
 import me.yokeyword.fragmentation.SupportFragment
 
 class BusStationAdapter(
@@ -109,7 +111,7 @@ class BusStationAdapter(
         val recyclerView = holder!!.getView<RecyclerView>(R.id.recycler_view)
         val tvStation = holder!!.getView<TextView>(R.id.tv_station)
         val tvDistance = holder!!.getView<TextView>(R.id.tv_distance)
-        val tagView = holder!!.getView<TagView>(R.id.tag_view)
+        val tagView = holder!!.getView<RecyclerView>(R.id.tag_view)
         val rlBottom  = holder!!.getView<RelativeLayout>(R.id.rl_bottom)
         val ivArrow = holder!!.getView<ImageView>(R.id.iv_arrow)
         holder.convertView.setOnTouchListener(object :View.OnTouchListener{
@@ -161,14 +163,12 @@ class BusStationAdapter(
             recyclerView.layoutManager = manager
             initAdapter(this, recyclerView,data!!.stationLineInfo,position)
             tagView.visibility = View.GONE
-            tagView.removeAll()
         } else if (data!!.stationLineInfo.size > 2) {
             ivArrow.setImageResource(R.mipmap.icon_arrow_down_green)
             recyclerView.layoutManager = manager
             initAdapter(this, recyclerView,data!!.stationLineInfo.subList(0,2),position)
 
             tagView.visibility = View.VISIBLE
-            tagView.removeAll()
             val list = ArrayList<Tag>()
             data!!.stationLineInfo.subList(2,data!!.stationLineInfo.size).forEach {
                 var has = false
@@ -185,9 +185,14 @@ class BusStationAdapter(
                     list.add(tag)
                 }
             }
-            tagView.addTags(list)
+            val manager = FlexboxLayoutManager(mContext)
+            manager.flexDirection = ROW
+            manager.flexWrap = WRAP
+            manager.justifyContent = FLEX_START
+            tagView.layoutManager = manager
+            val adaqpter = TagAdapter(mContext,list)
+            tagView.adapter = adaqpter
         } else {
-            tagView.removeAll()
             if (data!!.stationLineInfo.size > 0) {
                 tagView.visibility = View.GONE
                 recyclerView.layoutManager = manager

@@ -15,13 +15,11 @@ import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.constant.Constant
 import com.jtcxw.glcxw.base.respmodels.SmsBean
-import com.jtcxw.glcxw.base.respmodels.UserInfoBean
 import com.jtcxw.glcxw.base.respmodels.VerifySmsBean
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.databinding.FragmentOpenQrBinding
 import com.jtcxw.glcxw.presenters.impl.OpenQrPresenter
-import com.jtcxw.glcxw.ui.login.FindPwdFragment
 import com.jtcxw.glcxw.ui.my.AuthFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.OpenQrView

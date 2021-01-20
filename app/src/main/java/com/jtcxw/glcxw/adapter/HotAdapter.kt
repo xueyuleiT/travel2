@@ -6,15 +6,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
-import com.glcxw.lib.util.AmountUtil
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.ScenicBean
-import com.jtcxw.glcxw.base.utils.DimensionUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
-import com.jtcxw.glcxw.localbean.HotBean
 
 class HotAdapter (context: Context, data: List<ScenicBean.ScenicInfoBean>) : BaseRecyclerAdapter<ScenicBean.ScenicInfoBean>(context, data) {
     override fun onClick(

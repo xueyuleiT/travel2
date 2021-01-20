@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cunoraz.tagview.Tag
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
@@ -20,7 +21,6 @@ import com.jtcxw.glcxw.ui.customized.OrderConfirmFragment
 import com.jtcxw.glcxw.utils.SwipeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.OrdersView
-import me.kaede.tagview.Tag
 import me.yokeyword.fragmentation.SupportFragment
 
 class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersView{
@@ -67,9 +67,9 @@ class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersVi
         mTags.addAll(dictionaryInfoBean.dictionaryInfo)
 
         mBinding.tagView.removeAll()
-        val list = ArrayList<com.cunoraz.tagview.Tag>()
+        val list = ArrayList<Tag>()
         mTags.forEach {
-            val tag = com.cunoraz.tagview.Tag(it.itemName)
+            val tag = Tag(it.itemName)
             if (mTagValue == it.itemValue.toInt()) {
                 tag.background = resources.getDrawable(R.drawable.shape_r2_cgreen)
                 tag.tagTextColor = resources.getColor(R.color.white)
@@ -93,9 +93,9 @@ class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersVi
             mTagValue = mTags[position].itemValue.toInt()
 
             mBinding.tagView.removeAll()
-            val list = ArrayList<com.cunoraz.tagview.Tag>()
+            val list = ArrayList<Tag>()
             mTags.forEach {
-                val tag = com.cunoraz.tagview.Tag(it.itemName)
+                val tag = Tag(it.itemName)
                 if (it.itemValue.toInt() == mTagValue) {
                     tag.background = resources.getDrawable(R.drawable.shape_r2_cgreen)
                     tag.tagTextColor = resources.getColor(R.color.white)

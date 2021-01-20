@@ -5,12 +5,16 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexDirection.ROW
+import com.google.android.flexbox.FlexWrap.WRAP
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent.FLEX_START
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.LineBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
-import me.kaede.tagview.Tag
-import me.kaede.tagview.TagView
+import com.jtcxw.glcxw.localmodel.Tag
 
 class CustomizedBusAdapter(context: Context,list: List<LineBean.RouteListBean>) : BaseRecyclerAdapter<LineBean.RouteListBean>(context, list) {
     override fun getConvertViewId(viewType: Int): Int {
@@ -22,7 +26,7 @@ class CustomizedBusAdapter(context: Context,list: List<LineBean.RouteListBean>) 
         val tvTitle = holder!!.getView<TextView>(R.id.tv_title)
         val tvStationFrom = holder!!.getView<TextView>(R.id.tv_station_from)
         val tvStationTo = holder!!.getView<TextView>(R.id.tv_station_to)
-        val tagView = holder!!.getView<TagView>(R.id.tag_view)
+        val tagView = holder!!.getView<RecyclerView>(R.id.tag_view)
         val tvTip = holder!!.getView<TextView>(R.id.tv_tip)
         val llTip = holder!!.getView<LinearLayout>(R.id.ll_tip)
         val llVisit = holder!!.getView<LinearLayout>(R.id.ll_visit)
@@ -44,7 +48,6 @@ class CustomizedBusAdapter(context: Context,list: List<LineBean.RouteListBean>) 
         if (data!!.openVisit) {
             ivArrowVisit.setImageResource(R.mipmap.icon_arrow_up_green)
             tagView.visibility = View.VISIBLE
-            tagView.removeAllTags()
             val list = ArrayList<Tag>()
             data!!.vis_list.forEach {
                 val tag = Tag(it)
@@ -52,7 +55,13 @@ class CustomizedBusAdapter(context: Context,list: List<LineBean.RouteListBean>) 
                 tag.tagTextColor = tagView.resources.getColor(R.color.gray_6)
                 list.add(tag)
             }
-            tagView.addTags(list)
+            val manager = FlexboxLayoutManager(mContext)
+            manager.flexDirection = ROW
+            manager.flexWrap = WRAP
+            manager.justifyContent = FLEX_START
+            tagView.layoutManager = manager
+            val adapter = TagAdapter(mContext,list)
+            tagView.adapter = adapter
         } else {
             ivArrowVisit.setImageResource(R.mipmap.icon_arrow_down_green)
             tagView.visibility = View.GONE

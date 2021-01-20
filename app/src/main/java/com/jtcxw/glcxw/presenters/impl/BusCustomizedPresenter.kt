@@ -6,7 +6,6 @@ import com.jtcxw.glcxw.base.api.ApiCallback
 import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
-import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.respmodels.CityBean
 import com.jtcxw.glcxw.base.respmodels.LineBean
 import com.jtcxw.glcxw.base.utils.HttpUtil

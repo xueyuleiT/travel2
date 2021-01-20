@@ -38,6 +38,11 @@ class RecruitFragment:BaseFragment<FragmentRecruitBinding,CommonModel>(),Recruit
     var mPlanningInfoBean: RecruitBean.PlanningInfoBean? = null
     override fun onGetRecruitSucc(recruitBean: RecruitBean) {
         mPlanningInfoBean = recruitBean.planning_info
+        if (recruitBean.recruit_list.isEmpty()) {
+            mTvRight!!.visibility = View.GONE
+        } else {
+            mTvRight!!.visibility = View.VISIBLE
+        }
         mData.clear()
         mData.addAll(recruitBean.recruit_list)
         mBinding.recyclerView.setNewData(mData,false)
@@ -59,13 +64,14 @@ class RecruitFragment:BaseFragment<FragmentRecruitBinding,CommonModel>(),Recruit
     }
 
     var mData = ArrayList<RecruitBean.RecruitListBean>()
-
+    var mTvRight:TextView ?= null
     override fun doAfterAnim() {
-        val tvRight = mBinding.root.findViewById<TextView>(com.jtcxw.glcxw.base.R.id.tv_right)
-        tvRight.text = "开始招募"
-        tvRight.setTextColor(resources.getColor(R.color.green_light))
-        tvRight.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f)
-        tvRight.setOnClickListener {
+        mTvRight = mBinding.root.findViewById<TextView>(com.jtcxw.glcxw.base.R.id.tv_right)
+        mTvRight!!.visibility = View.GONE
+        mTvRight!!.text = "开始招募"
+        mTvRight!!.setTextColor(resources.getColor(R.color.green_light))
+        mTvRight!!.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f)
+        mTvRight!!.setOnClickListener {
             if (mPlanningInfoBean == null) {
                 return@setOnClickListener
             }

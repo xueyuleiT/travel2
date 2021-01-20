@@ -30,7 +30,6 @@ import com.jtcxw.glcxw.utils.LocationUtil
 import com.jtcxw.glcxw.utils.MainLoginValid
 import com.jtcxw.glcxw.utils.MySingleCall
 import com.jtcxw.glcxw.viewmodel.MainModel
-import com.toptechs.libaction.action.SingleCall
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 
 class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {

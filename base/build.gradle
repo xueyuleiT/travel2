@@ -142,7 +142,6 @@ dependencies {
     api project(path: ':cardview')
     api project(path: ':lib')
     api project(path: ':router')
-    api project(path: ':tag')
     api project(path: ':ocr_ui')
     api project(path: ':weekcalendar')
 }

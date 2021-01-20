@@ -4,15 +4,11 @@ import android.text.TextUtils
 import com.glcxw.lib.util.constants.RouterPaths
 import com.glcxw.router.IAppRouter
 import com.glcxw.router.RouterUtil
-import com.jtcxw.glcxw.base.utils.ToastUtil
-import com.jtcxw.glcxw.base.utils.UserUtil
 import models.BaseBean
 import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.adapter.rxjava.HttpException
 import rx.Subscriber
-import java.util.ArrayList
-import java.util.Collection
 import java.util.regex.Pattern
 
 abstract class ApiCallback<T,M: Response<BaseBean<T>>> : Subscriber<M>() {

@@ -17,7 +17,6 @@ import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.tabs.TabLayout
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
@@ -31,8 +30,6 @@ import com.jtcxw.glcxw.databinding.FragmentOrderConfirmBinding
 import com.jtcxw.glcxw.dialog.OrderCancelDialog
 import com.jtcxw.glcxw.listeners.OrderCancelCallback
 import com.jtcxw.glcxw.presenters.impl.OrderConfirmPresenter
-import com.jtcxw.glcxw.ui.my.OrdersFragment
-import com.jtcxw.glcxw.ui.travel.GoTravelFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.OrderConfirmView
 import me.yokeyword.fragmentation.ISupportFragment

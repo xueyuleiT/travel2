@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -13,7 +12,6 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.respmodels.BannerBean
 import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.localbean.HomeBannerBean
 import com.jtcxw.glcxw.base.utils.DimensionUtil
 import com.jtcxw.glcxw.ui.WebFragment
 import com.youth.banner.adapter.BannerAdapter

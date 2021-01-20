@@ -2,9 +2,9 @@ package com.jtcxw.glcxw.presenters.impl
 
 import android.text.TextUtils
 import com.google.gson.JsonObject
-import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.api.ApiCallback
 import com.jtcxw.glcxw.base.api.ApiClient
+import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.SmsBean
 import com.jtcxw.glcxw.base.respmodels.SmsLoginBean

@@ -8,13 +8,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.glcxw.lib.util.AmountUtil
+import com.google.android.flexbox.FlexDirection.ROW
+import com.google.android.flexbox.FlexWrap.WRAP
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent.FLEX_START
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 import com.jtcxw.glcxw.listeners.InnerClickListener
 import com.jtcxw.glcxw.localbean.BusSiteOrLineBean
-import me.kaede.tagview.Tag
+import com.jtcxw.glcxw.localmodel.Tag
 
 class BusStationLineAdapter(
     context: Context,
@@ -57,7 +61,7 @@ class BusStationLineAdapter(
                 val divider = holder!!.getView<View>(R.id.v_divider)
 
                 val recyclerView = holder!!.getView<RecyclerView>(R.id.recycler_view)
-                val tagView = holder!!.getView<me.kaede.tagview.TagView>(R.id.tag_view)
+                val tagView = holder!!.getView<RecyclerView>(R.id.tag_view)
                 val manager = LinearLayoutManager(recyclerView.context)
 
 
@@ -79,12 +83,10 @@ class BusStationLineAdapter(
                     recyclerView.layoutManager = manager
                     initAdapter(recyclerView,data!!.siteDataBean.stationLineInfo,position)
                     tagView.visibility = View.GONE
-                    tagView.removeAllTags()
                 } else if (data!!.siteDataBean.stationLineInfo.size > 0) {
                     ivArrow.setImageResource(R.mipmap.icon_arrow_down_green)
                     recyclerView.adapter = BusQueryInnerAdapter(recyclerView.context,ArrayList())
                     tagView.visibility = View.VISIBLE
-                    tagView.removeAllTags()
                     val list = ArrayList<Tag>()
                     data!!.siteDataBean.stationLineInfo.forEach {
                         var has = false
@@ -101,13 +103,19 @@ class BusStationLineAdapter(
                             list.add(tag)
                         }
                     }
-                    tagView.addTags(list)
+                    val manager = FlexboxLayoutManager(mContext)
+                    manager.flexDirection = ROW
+                    manager.flexWrap = WRAP
+                    manager.justifyContent = FLEX_START
+                    tagView.layoutManager = manager
+                    val adapter = TagAdapter(mContext,list)
+                    tagView.adapter = adapter
                 }
             }
             getItemViewType(position) == 1 -> {//展开
                 val tvStation = holder!!.getView<TextView>(R.id.tv_station)
                 val recyclerView = holder!!.getView<RecyclerView>(R.id.recycler_view)
-                val tagView = holder!!.getView<me.kaede.tagview.TagView>(R.id.tag_view)
+                val tagView = holder!!.getView<RecyclerView>(R.id.tag_view)
                 val ivArrow = holder!!.getView<View>(R.id.iv_arrow)
                 tagView.visibility = View.GONE
                 ivArrow.visibility = View.GONE

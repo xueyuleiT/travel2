@@ -1,15 +1,12 @@
 package com.jtcxw.glcxw.base.localmodels
 
-import android.os.Bundle
 import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
 import com.glcxw.lib.util.CacheUtil
 import com.glcxw.lib.util.constants.SPKeys
-import com.jtcxw.glcxw.base.constant.BundleKeys
-import com.jtcxw.glcxw.base.respmodels.UserInfoBean
 import com.jtcxw.glcxw.base.respmodels.SmsLoginBean
+import com.jtcxw.glcxw.base.respmodels.UserInfoBean
 import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.base.utils.UserUtil
 
 class UserInfo {
     var longitude = "25.278562"

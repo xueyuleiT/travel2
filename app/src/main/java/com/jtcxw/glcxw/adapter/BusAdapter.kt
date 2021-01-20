@@ -8,13 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.glcxw.lib.util.AmountUtil
+import com.google.android.flexbox.FlexDirection.ROW
+import com.google.android.flexbox.FlexWrap.WRAP
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent.FLEX_START
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 import com.jtcxw.glcxw.listeners.InnerClickListener
-import me.kaede.tagview.Tag
-import me.kaede.tagview.TagView
+import com.jtcxw.glcxw.localmodel.Tag
 
 class BusAdapter(context: Context, data: List<AnnexBusBean.StationListBean>,innerClickListener:InnerClickListener): BaseRecyclerAdapter<AnnexBusBean.StationListBean>(context, data)  {
 
@@ -31,7 +34,7 @@ class BusAdapter(context: Context, data: List<AnnexBusBean.StationListBean>,inne
         val recyclerView = holder!!.getView<RecyclerView>(R.id.recycler_view)
         val tvStation = holder!!.getView<TextView>(R.id.tv_station)
         val tvDistance = holder!!.getView<TextView>(R.id.tv_distance)
-        val tagView = holder!!.getView<TagView>(R.id.tag_view)
+        val tagView = holder!!.getView<RecyclerView>(R.id.tag_view)
         val rlBottom  = holder!!.getView<RelativeLayout>(R.id.rl_bottom)
         val ivArrow = holder!!.getView<ImageView>(R.id.iv_arrow)
         val divider = holder!!.getView<View>(R.id.v_divider)
@@ -62,12 +65,10 @@ class BusAdapter(context: Context, data: List<AnnexBusBean.StationListBean>,inne
             recyclerView.layoutManager = manager
             initAdapter(recyclerView,data!!.stationLineInfo,position)
             tagView.visibility = View.GONE
-            tagView.removeAllTags()
         } else if (data!!.stationLineInfo.size > 0) {
             ivArrow.setImageResource(R.mipmap.icon_arrow_down_green)
             recyclerView.adapter = BusInnerAdapter(recyclerView.context,ArrayList())
             tagView.visibility = View.VISIBLE
-            tagView.removeAllTags()
             val list = ArrayList<Tag>()
             data!!.stationLineInfo.forEach {
                 var has = false
@@ -84,7 +85,13 @@ class BusAdapter(context: Context, data: List<AnnexBusBean.StationListBean>,inne
                     list.add(tag)
                 }
             }
-            tagView.addTags(list)
+            val manager = FlexboxLayoutManager(mContext)
+            manager.flexDirection = ROW
+            manager.flexWrap = WRAP
+            manager.justifyContent = FLEX_START
+            tagView.layoutManager = manager
+            val adapter = TagAdapter(mContext,list)
+            tagView.adapter = adapter
         } else {
             ivArrow.setImageBitmap(null)
         }

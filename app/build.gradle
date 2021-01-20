@@ -145,5 +145,8 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'
     implementation 'com.nanbox:NestedCalendar:1.3.0'
     compile (name: 'alipaysdk-15.8.00.201112210139', ext: 'aar')
+    compile 'com.fyales.android:library:1.0.2'
+    implementation 'com.google.android:flexbox:1.0.0'
     compile 'com.github.Cutta:TagView:1.3'
+
 }

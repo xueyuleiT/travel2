@@ -4,7 +4,6 @@ import android.text.TextUtils
 import com.glcxw.lib.util.constants.RouterPaths
 import com.glcxw.router.IAppRouter
 import com.glcxw.router.RouterUtil
-import com.jtcxw.glcxw.base.utils.ToastUtil
 import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.adapter.rxjava.HttpException

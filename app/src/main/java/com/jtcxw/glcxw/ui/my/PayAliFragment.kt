@@ -2,8 +2,12 @@ package com.jtcxw.glcxw.ui.my
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
@@ -11,17 +15,13 @@ import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.respmodels.AliSignBean
 import com.jtcxw.glcxw.base.respmodels.AliSignStatusBean
 import com.jtcxw.glcxw.base.respmodels.AliUnSignBean
+import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.databinding.FragmentPayAliBinding
 import com.jtcxw.glcxw.presenters.impl.PayAliPresenter
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.PayAliView
 import me.yokeyword.fragmentation.SupportFragment
-import android.content.Intent.ACTION_VIEW
-import android.net.Uri
-import com.afollestad.materialdialogs.DialogCallback
-import com.afollestad.materialdialogs.MaterialDialog
-import com.jtcxw.glcxw.base.utils.ToastUtil
 
 
 class PayAliFragment:BaseFragment<FragmentPayAliBinding,CommonModel>() ,PayAliView{

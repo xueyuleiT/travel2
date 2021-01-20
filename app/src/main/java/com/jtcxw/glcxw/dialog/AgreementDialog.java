@@ -15,7 +15,6 @@ import com.jtcxw.glcxw.R;
 import com.jtcxw.glcxw.base.dialogs.BaseDialogFragment;
 import com.jtcxw.glcxw.base.respmodels.AgreementBean;
 import com.jtcxw.glcxw.listeners.DialogCallback;
-import com.jtcxw.glcxw.listeners.OrderCancelCallback;
 import com.jtcxw.glcxw.presenters.impl.AgreementPresenter;
 import com.jtcxw.glcxw.views.AgreementView;
 import com.tencent.smtt.sdk.WebSettings;

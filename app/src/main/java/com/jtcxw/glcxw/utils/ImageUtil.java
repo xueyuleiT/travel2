@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-
 import com.jtcxw.glcxw.listeners.CompressCallback;
 
 import java.io.ByteArrayInputStream;

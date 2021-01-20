@@ -2,7 +2,6 @@ package com.jtcxw.glcxw.localbean;
 
 import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BusSiteOrLineHistoryBean {

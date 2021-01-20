@@ -6,14 +6,12 @@ import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
-import com.jtcxw.glcxw.adapter.HotAdapter
 import com.jtcxw.glcxw.adapter.HotHotelAdapter
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.respmodels.HotelBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.databinding.FragmentHotBinding
-import com.jtcxw.glcxw.localbean.HotBean
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.SupportFragment
 

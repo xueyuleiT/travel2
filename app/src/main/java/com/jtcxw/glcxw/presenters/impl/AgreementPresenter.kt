@@ -2,9 +2,9 @@ package com.jtcxw.glcxw.presenters.impl
 
 import android.text.TextUtils
 import com.google.gson.JsonObject
-import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.api.ApiCallback
 import com.jtcxw.glcxw.base.api.ApiClient
+import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.dialogs.BaseDialogFragment
 import com.jtcxw.glcxw.base.respmodels.AgreementBean
 import com.jtcxw.glcxw.base.utils.HttpUtil

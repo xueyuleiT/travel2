@@ -9,7 +9,6 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import com.amap.api.location.AMapLocation
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
@@ -29,19 +28,13 @@ import com.jtcxw.glcxw.ui.FQAFragment
 import com.jtcxw.glcxw.ui.LocationFragment
 import com.jtcxw.glcxw.ui.my.AuthFragment
 import com.jtcxw.glcxw.ui.my.ChargeFragment
-import com.jtcxw.glcxw.ui.my.OrdersFragment
 import com.jtcxw.glcxw.ui.my.PayListFragment
-import com.jtcxw.glcxw.ui.travel.GoTravelFragment
-import com.jtcxw.glcxw.utils.QRCodeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.OpenQrView
 import com.jtcxw.glcxw.views.PayListView
-import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 import models.BaseBean
 import retrofit2.Response
-import java.util.*
-import kotlin.concurrent.fixedRateTimer
 
 class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrView, PayListView {
     override fun onGetDefaultPayListSucc(payListBean: PayListBean) {
@@ -65,6 +58,19 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
     }
 
     override fun onLogout() {
+        mBinding.ivQr.setImageBitmap(null)
+        mBinding.llBucket.visibility = View.GONE
+        mBinding.llOpen.visibility = View.VISIBLE
+        mBinding.tvOpen.visibility = View.GONE
+        mBinding.llCharge.visibility = View.GONE
+        mBinding.llQr.visibility = View.GONE
+        mBinding.ivWelcome.visibility = View.VISIBLE
+
+        if (BaseUtil.isDarkMode()) {
+            mBinding.llBucket.setBackgroundResource(R.mipmap.pic_qr_bottom_dark)
+        } else {
+            mBinding.llBucket.setBackgroundResource(R.mipmap.pic_qr_bottom)
+        }
     }
 
     override fun refresh() {

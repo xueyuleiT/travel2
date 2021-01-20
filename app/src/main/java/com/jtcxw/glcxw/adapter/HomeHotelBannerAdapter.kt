@@ -10,9 +10,7 @@ import com.bumptech.glide.Glide
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.respmodels.HotelBean
-import com.jtcxw.glcxw.base.respmodels.ScenicBean
 import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.localbean.HomeBannerBean
 import com.jtcxw.glcxw.ui.travel.HotelDetailFragment
 import com.youth.banner.adapter.BannerAdapter
 import me.yokeyword.fragmentation.SupportFragment

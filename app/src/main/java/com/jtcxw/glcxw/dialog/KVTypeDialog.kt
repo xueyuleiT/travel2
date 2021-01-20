@@ -7,7 +7,6 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.adapter.TypeDialogAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.RefreshLoadMoreRecyclerView
-import com.jtcxw.glcxw.listeners.BusDialogCallback
 import com.jtcxw.glcxw.listeners.KVDialogCallback
 import com.jtcxw.glcxw.localbean.KVBean
 

@@ -5,7 +5,6 @@ import android.view.View
 import android.webkit.WebSettings
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.BuildConfig
 import com.jtcxw.glcxw.R

@@ -1,2 +1,2 @@
-include ':app', ':base', ':cardview', ':banner', ':lib', ':router', ':tag', ':weekcalendar', ':ocr_ui'
+include ':app', ':base', ':cardview', ':banner', ':lib', ':router', ':weekcalendar', ':ocr_ui'
 rootProject.name='Travel'

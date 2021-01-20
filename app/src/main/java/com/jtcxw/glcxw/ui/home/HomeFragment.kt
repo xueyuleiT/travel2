@@ -30,7 +30,10 @@ import com.jtcxw.glcxw.adapter.HomeHotelBannerAdapter
 import com.jtcxw.glcxw.adapter.HomeScenicBannerAdapter
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.respmodels.*
-import com.jtcxw.glcxw.base.utils.*
+import com.jtcxw.glcxw.base.utils.BaseUtil
+import com.jtcxw.glcxw.base.utils.DimensionUtil
+import com.jtcxw.glcxw.base.utils.RxBus
+import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.OnLoadNextPageListener
 import com.jtcxw.glcxw.base.views.recyclerview.OnRefreshListener
@@ -48,11 +51,8 @@ import com.jtcxw.glcxw.ui.login.LoginFragment
 import com.jtcxw.glcxw.utils.*
 import com.jtcxw.glcxw.viewmodel.HomeModel
 import com.jtcxw.glcxw.views.HomeView
-import com.scwang.smartrefresh.layout.constant.RefreshState
-import com.toptechs.libaction.action.SingleCall
 import com.youth.banner.indicator.CircleIndicator
 import me.yokeyword.fragmentation.SupportFragment
-import java.lang.StringBuilder
 import kotlin.math.max
 import kotlin.math.min
 
@@ -63,8 +63,10 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     override fun onModuleConfigSucc(moduleConfigBean: ModuleConfigBean) {
         if (moduleConfigBean.funId == "1") {
             mModuleConfigBean = moduleConfigBean
-        } else {
+        } else if (moduleConfigBean.funId == "2") {
             mParkingModuleConfigBean = moduleConfigBean
+        } else {
+            mNewsModuleConfigBean = moduleConfigBean
         }
         val bundle = Bundle()
         bundle.putString(BundleKeys.KEY_WEB_TITLE, moduleConfigBean!!.funName)
@@ -109,6 +111,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
 
     override fun onLogout() {
         mModuleConfigBean = null
+        mNewsModuleConfigBean = null
         mParkingModuleConfigBean = null
         mBinding.vNotification.setImageResource(R.mipmap.icon_notification)
         mBinding.tvNum.visibility = View.GONE
@@ -187,6 +190,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     private var mPresenter:HomePresenter?= null
     val mBannerList = ArrayList<BannerBean.BannerListBean>()
     var mModuleConfigBean:ModuleConfigBean?= null
+    var mNewsModuleConfigBean:ModuleConfigBean?= null
     var mParkingModuleConfigBean:ModuleConfigBean?= null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -213,7 +217,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         mData.add(item)
         item = HomeItem(R.mipmap.icon_car_ai_parking, "智慧停车")
         mData.add(item)
-        item = HomeItem(R.mipmap.icon_more, "更多")
+        item = HomeItem(R.mipmap.icon_news, "资讯")
         mData.add(item)
 
         mBinding.recyclerView.layoutManager = GridLayoutManager(context,4)
@@ -295,7 +299,19 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                         WebFragment.newInstance(parentFragment as SupportFragment,bundle)
                     }
                 } else if (position == 7) {
-                    ToastUtil.toastWaring("功能待开放")
+                    if (mNewsModuleConfigBean == null) {
+                        val json = JsonObject()
+                        json.addProperty("Longitude", UserUtil.getUser().longitude)
+                        json.addProperty("Latitude", UserUtil.getUser().latitude)
+                        json.addProperty("FunId", "3")
+                        json.addProperty("MemberId", UserUtil.getUserInfoBean().memberId)
+                        mPresenter!!.h5ModuleConfig(json)
+                    } else {
+                        val bundle = Bundle()
+                        bundle.putString(BundleKeys.KEY_WEB_TITLE,mNewsModuleConfigBean!!.funName)
+                        bundle.putString(BundleKeys.KEY_WEB_URL,mNewsModuleConfigBean!!.url)
+                        WebFragment.newInstance(parentFragment as SupportFragment,bundle)
+                    }
                 }
             }
 

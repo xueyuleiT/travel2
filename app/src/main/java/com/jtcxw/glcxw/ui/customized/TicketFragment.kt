@@ -37,6 +37,7 @@ class TicketFragment:BaseFragment<FragmentTicketBinding,CommonModel>,TicketView 
     constructor(i: Int){
         mIndex = i
     }
+    constructor()
 
 
     override fun getVariableId(): Int {

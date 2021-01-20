@@ -2,16 +2,13 @@ package com.jtcxw.glcxw.ui.my
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import com.glcxw.lib.util.RuleUtil
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
-import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.databinding.FragmentNicknameBinding
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.ISupportFragment

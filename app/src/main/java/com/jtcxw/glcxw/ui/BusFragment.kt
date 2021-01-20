@@ -8,6 +8,8 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.amap.api.location.AMapLocation
 import com.amap.api.services.weather.LocalWeatherForecastResult
 import com.amap.api.services.weather.LocalWeatherLiveResult
+import com.amap.api.services.weather.WeatherSearch
+import com.amap.api.services.weather.WeatherSearchQuery
 import com.google.gson.JsonObject
 import com.hjq.permissions.OnPermission
 import com.hjq.permissions.Permission
@@ -17,6 +19,7 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.adapter.BusAdapter
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
+import com.jtcxw.glcxw.base.respmodels.*
 import com.jtcxw.glcxw.base.utils.DimensionUtil
 import com.jtcxw.glcxw.base.utils.SpannelUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
@@ -30,9 +33,6 @@ import com.jtcxw.glcxw.utils.SwipeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.GoTravelView
 import me.yokeyword.fragmentation.SupportFragment
-import com.amap.api.services.weather.WeatherSearch
-import com.amap.api.services.weather.WeatherSearchQuery
-import com.jtcxw.glcxw.base.respmodels.*
 
 
 class BusFragment:BaseFragment<FragmentBusBinding,CommonModel>() , GoTravelView ,WeatherSearch.OnWeatherSearchListener{
@@ -151,7 +151,7 @@ class BusFragment:BaseFragment<FragmentBusBinding,CommonModel>() , GoTravelView 
         })
         mBinding.recyclerView.adapter = adapter
         mBinding.recyclerView.setNewData(mDatas)
-
+        mBinding.recyclerView.setItemViewCacheSize(30)
         mBinding.swipeLayout.autoRefresh()
 
         mBinding.ivLocation.setOnClickListener {

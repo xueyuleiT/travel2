@@ -2,7 +2,6 @@ package com.jtcxw.glcxw
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import cn.jpush.android.api.JPushInterface
@@ -11,7 +10,6 @@ import com.glcxw.router.RouterUtil
 import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.router.AppRouter
 import com.jtcxw.glcxw.utils.DaoManager
-import com.tencent.bugly.Bugly
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.sdk.QbSdk
 import me.yokeyword.fragmentation.SupportActivity

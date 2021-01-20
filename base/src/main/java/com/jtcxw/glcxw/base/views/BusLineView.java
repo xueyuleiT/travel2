@@ -20,7 +20,6 @@ import com.jtcxw.glcxw.base.R;
 import com.jtcxw.glcxw.base.localmodels.BusLineItem;
 import com.jtcxw.glcxw.base.respmodels.BusArriveListBean;
 import com.jtcxw.glcxw.base.utils.DimensionUtil;
-import com.jtcxw.glcxw.base.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -370,20 +369,20 @@ public class BusLineView extends View {
             }
 
             bli.isCurrentPosition = true;
-            BusLineItem firstItem = mBusLines.get(0);
-            int pos = visibleWidth - mBusStationWidth;
-            int dx = (int) (pos - bli.location.centerX() + getScrollX());
-
-            if (getScrollX() - dx < 0) {
-                // 第一个边界处理
-                dx = getScrollX();
-            } else if (getScrollX() + visibleWidth - dx > getWidth()) {
-                // 最后一个边界处理
-                dx = getScrollX() + visibleWidth - getWidth();
-            }
-
-
-            mScroller.startScroll(getScrollX(), 0, -dx, 0, Math.abs(dx) * 2);
+//            BusLineItem firstItem = mBusLines.get(0);
+//            int pos = visibleWidth - mBusStationWidth;
+//            int dx = (int) (pos - bli.location.centerX() + getScrollX());
+//
+//            if (getScrollX() - dx < 0) {
+//                // 第一个边界处理
+//                dx = getScrollX();
+//            } else if (getScrollX() + visibleWidth - dx > getWidth()) {
+//                // 最后一个边界处理
+//                dx = getScrollX() + visibleWidth - getWidth();
+//            }
+//
+//
+//            mScroller.startScroll(getScrollX(), 0, -dx, 0, Math.abs(dx) * 2);
             invalidate();
 
             if (mOnBusStationClickListener != null) {

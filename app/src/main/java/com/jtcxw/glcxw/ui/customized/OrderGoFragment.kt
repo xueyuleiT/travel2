@@ -9,12 +9,10 @@ import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.adapter.BusScheduleAdapter
 import com.jtcxw.glcxw.base.basic.BaseFragment
-import com.jtcxw.glcxw.base.respmodels.AddOrderBean
 import com.jtcxw.glcxw.base.respmodels.FrequencyBean
 import com.jtcxw.glcxw.base.respmodels.TicketBean
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
-import com.jtcxw.glcxw.base.views.recyclerview.RecyclerAdapterWrapper
 import com.jtcxw.glcxw.databinding.FragmentOrderGoBinding
 import com.jtcxw.glcxw.dialog.BusStationDialog
 import com.jtcxw.glcxw.listeners.BusDialogCallback
