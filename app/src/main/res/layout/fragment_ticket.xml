@@ -96,7 +96,7 @@
             android:id="@+id/tv_status"
             android:textColor="@color/red_ff3737"
             android:textSize="16sp"
-            android:text="已乘车"
+            android:text="已验票"
             android:textStyle="bold"
             android:layout_width="200dp"
             android:gravity="center"

@@ -278,5 +278,18 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
             .show()
     }
 
+    open fun showConfirmDialog(title: String,content:String,ok:String,positiveCallback:DialogCallback) {
+        MaterialDialog(context!!)
+            .title(null,title)
+            .message(null, content)
+            .positiveButton(null, SpannelUtil.getSpannelStr(ok, context!!.resources.getColor(R.color.blue_3A75F3)),
+                positiveCallback
+            )
+            .lifecycleOwner(activity!!)
+            .cornerRadius(DimensionUtil.dpToPx(2), null)
+            .cancelable(false)
+            .show()
+    }
+
 
 }

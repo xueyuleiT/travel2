@@ -12,6 +12,7 @@ import com.jtcxw.glcxw.BuildConfig
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.respmodels.VersionBean
+import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.databinding.FragmentVersionBinding
 import com.jtcxw.glcxw.dialog.DownLoadDialog
@@ -60,7 +61,7 @@ class VersionFragment:BaseFragment<FragmentVersionBinding,CommonModel>() ,AppVer
                 ) {
                     val json = JsonObject()
                     json.addProperty("AppType", 1)
-                    mPresenter!!.appVersion(json)
+                    mPresenter!!.appVersion(json,DialogUtil.getLoadingDialog(fragmentManager))
                 } else {
                     showConfirmDialog(mBinding.tvCheck.text.toString(),mVersionBean!!.updContent,"更新","取消",object :com.afollestad.materialdialogs.DialogCallback{
                         override fun invoke(p1: MaterialDialog) {
@@ -95,14 +96,14 @@ class VersionFragment:BaseFragment<FragmentVersionBinding,CommonModel>() ,AppVer
             } else {
                 val json = JsonObject()
                 json.addProperty("AppType", 1)
-                mPresenter!!.appVersion(json)
+                mPresenter!!.appVersion(json,DialogUtil.getLoadingDialog(fragmentManager))
 
             }
         }
 
         val json = JsonObject()
         json.addProperty("AppType",1)
-        mPresenter!!.appVersion(json)
+        mPresenter!!.appVersion(json,DialogUtil.getLoadingDialog(fragmentManager))
     }
 
     companion object {

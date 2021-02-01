@@ -11,7 +11,16 @@ public class VersionBean {
     private String ReleaseTime;
     private String UpdContent;
     private String UpdPackageUrl;
+    private int IsForceUpdate;
 
+
+    public int getIsForceUpdate() {
+        return IsForceUpdate;
+    }
+
+    public void setIsForceUpdate(int isForceUpdate) {
+        IsForceUpdate = isForceUpdate;
+    }
 
     public String getUpdPackageUrl() {
         return UpdPackageUrl;

@@ -55,7 +55,11 @@ class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapte
                 }
             }
         } else {
-            vType.setImageResource(R.mipmap.icon_launch)
+            if(data!!.read == 1) {
+                vType.setImageResource(R.mipmap.icon_meaage_read)
+            } else {
+                vType.setImageResource(R.mipmap.icon_meaage_unread)
+            }
         }
 
 

@@ -44,7 +44,7 @@ class ServiceFragment:BaseFragment<FragmentServiceBinding,CommonModel>() ,Servic
     override fun onGetCusServerInfoSucc(list: List<CusServerBean>) {
         mList.clear()
         mList.addAll(list)
-        mBinding.recyclerView.setNewData(mList,false)
+        mBinding.recyclerView.innerAdapter.notifyAllItems()
     }
 
     override fun onGetCusServerInfoFinish() {
@@ -90,11 +90,11 @@ class ServiceFragment:BaseFragment<FragmentServiceBinding,CommonModel>() ,Servic
             mPresenter!!.getCusServerInfo(json,mBinding.swipeLayout)
         }
 
-        mBinding.recyclerView.setShouldRefreshPartWhenLoadMore(true)
+//        mBinding.recyclerView.setShouldRefreshPartWhenLoadMore(true)
         mBinding.recyclerView.setSupportScrollToTop(false)
-        mBinding.recyclerView.setSupportLoadNextPage(true)
+//        mBinding.recyclerView.setSupportLoadNextPage(true)
         mBinding.recyclerView.adapter = ServiceAdapter(context!!,mList)
-        mBinding.recyclerView.setNewData(mList)
+//        mBinding.recyclerView.setNewData(mList)
 
         mBinding.swipeLayout.autoRefresh()
 

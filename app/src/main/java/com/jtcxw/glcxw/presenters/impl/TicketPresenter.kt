@@ -1,8 +1,11 @@
 package com.jtcxw.glcxw.presenters.impl
 
 import android.text.TextUtils
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.base.api.ApiCallback
+import com.jtcxw.glcxw.base.api.ApiCallbackWithCode
 import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
@@ -23,21 +26,22 @@ class TicketPresenter:ITicket {
         val fragment = (iView as BaseFragment<*, *>)
         val dialog =  DialogUtil.getLoadingDialog(fragment.fragmentManager)
         HttpUtil.addSubscription(ApiClient.retrofit().ticketChecking(jsonObject),object :
-            ApiCallback<JsonObject, Response<BaseBean<JsonObject>>>(){
+            ApiCallbackWithCode<JsonObject, Response<BaseBean<JsonObject>>>(){
             override fun onSuccess(model: BaseBean<JsonObject>) {
                 if (model.Code == 200){
                     iView?.onTicketCheckingSucc(model.Data!!)
                 } else {
                     if (!TextUtils.isEmpty(model.Info)) {
-                        ToastUtil.toastError(model.Info!!)
+                        iView?.onTicketCheckingFailed(model.Info!!)
                     }
                 }
             }
 
-            override fun onFailure(msg: String?) {
+            override fun onFailure(code:Int,msg: String?) {
                 if (!TextUtils.isEmpty(msg)) {
                     ToastUtil.toastError(msg!!)
                 }
+
             }
 
             override fun onFinish() {

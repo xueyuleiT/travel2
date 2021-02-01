@@ -17,7 +17,6 @@ class ServiceAdapter(context: Context,list:List<CusServerBean>):BaseRecyclerAdap
         val tvTitle = holder!!.getView<TextView>(R.id.tv_title)
         val tvDetail = holder!!.getView<TextView>(R.id.tv_detail)
         val tvTime = holder!!.getView<TextView>(R.id.tv_time)
-        val tvSysTitle = holder!!.getView<TextView>(R.id.tv_sys_title)
         val tvSysReply = holder!!.getView<TextView>(R.id.tv_sys_reply)
 
         tvTitle.text = data!!.customerServerTypeName

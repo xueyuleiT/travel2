@@ -172,6 +172,10 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
         return mOrder!!.tikmodel_id
     }
 
+    fun getOrderId():Long {
+        return mOrder!!.order_id
+    }
+
     fun getTakeNum():Int {
         return mOrder!!.passenger_info.size
     }
@@ -374,21 +378,34 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
         mPresenter!!.getOrderDetail(json,DialogUtil.getLoadingDialog(fragmentManager))
     }
 
+    fun refreshWithoutDialog(){
+        val json = JsonObject()
+        json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
+        json.addProperty("BusiType","32")
+        json.addProperty("OrderId",arguments!!.getString(BundleKeys.KEY_ORDER_ID))
+        mPresenter!!.getOrderDetail(json,null)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         stopTimer()
     }
 
     private fun startTimer() {
-
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val leftTime =  (format.parse(mOrder!!.order_time).time + 20 * 60 * 1000 - System.currentTimeMillis()) / 1000
+        if (leftTime < 0) {
+            return
+        }
         runnable = Runnable{
             if (timer == null) {
                 return@Runnable
             }
-            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val leftTime =  (format.parse(mOrder!!.order_time).time + 20 * 60 * 1000 - System.currentTimeMillis()) / 1000
             if (leftTime < 0) {
+                mBinding.tvLeftTime.text = "剩余时间:--"
                 stopTimer()
+                refresh()
                 return@Runnable
             }
             val timeStr = "剩余时间:" + leftTime / 60 + "分" + leftTime % 60 + "秒"

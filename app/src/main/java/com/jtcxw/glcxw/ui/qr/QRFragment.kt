@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -58,6 +59,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
     }
 
     override fun onLogout() {
+        stopTimer()
         mBinding.ivQr.setImageBitmap(null)
         mBinding.llBucket.visibility = View.GONE
         mBinding.llOpen.visibility = View.VISIBLE
@@ -138,12 +140,13 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
         if (mTimerRunning || !isSupportVisible) {
             return
         }
-        var mTimerRunning = false
+        mTimerRunning = true
         runnable = Runnable{
             if (timer == null) {
                 return@Runnable
             }
             if (isSupportVisible && mTimerRunning) {
+                Log.d("Runnable -- ","startTimer")
                 refreshQr(null)
                 timer!!.postDelayed(runnable, 15000)
             }
@@ -152,10 +155,11 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
         timer = Handler(){
             true
         }
-        timer!!.post(runnable)
+        timer!!.postDelayed(runnable,15000)
     }
 
     private fun stopTimer() {
+        mTimerRunning = false
         timer?.removeCallbacks(runnable)
         timer = null
     }
@@ -391,6 +395,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
     override fun onSupportVisible() {
         super.onSupportVisible()
         if (ismBindingInitialized()){
+            Log.d("Runnable -- ","onSupportVisible")
             checkQr(null)
             val json = JsonObject()
             json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
@@ -402,6 +407,8 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
         super.onSupportInvisible()
         stopTimer()
     }
+
+
 
     override fun doAfterAnim() {
     }

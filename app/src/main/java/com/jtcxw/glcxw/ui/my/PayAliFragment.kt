@@ -38,6 +38,9 @@ class PayAliFragment:BaseFragment<FragmentPayAliBinding,CommonModel>() ,PayAliVi
             aliSignStatusBean.contractStatus == 2 -> {
                 mBinding.tvStatus.text = "点击关闭"
             }
+            aliSignStatusBean.contractStatus == 3 -> {
+                mBinding.tvStatus.text = "开通中"
+            }
         }
     }
 

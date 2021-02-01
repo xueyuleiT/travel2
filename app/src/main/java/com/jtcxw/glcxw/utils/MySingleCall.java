@@ -39,8 +39,10 @@ public class MySingleCall {
         }else{
             //执行验证。
             Valid valid = callUnit.getValidQueue().poll();
-            callUnit.setLastValid(valid);
-            valid.doValid();
+            if (valid != null) {
+                callUnit.setLastValid(valid);
+                valid.doValid();
+            }
         }
 
     }

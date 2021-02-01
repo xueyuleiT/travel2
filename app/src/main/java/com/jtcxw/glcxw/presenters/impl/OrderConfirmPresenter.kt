@@ -92,7 +92,7 @@ class OrderConfirmPresenter:IOrderConfirm {
     constructor(view: OrderConfirmView){
         iView = view
     }
-    override fun getOrderDetail(params: JsonObject, dialog: LoadingDialog) {
+    override fun getOrderDetail(params: JsonObject, dialog: LoadingDialog?) {
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().getOrderDetail(params),object :
             ApiCallback<OrderConfirmBean, Response<BaseBean<OrderConfirmBean>>>(){
@@ -113,13 +113,13 @@ class OrderConfirmPresenter:IOrderConfirm {
             }
 
             override fun onFinish() {
-                dialog.dismiss()
+                dialog?.dismiss()
             }
 
         }, fragment, object : RefreshCallback {
             override fun onRefreshBack(refreshSucc: Boolean) {
                 if (!refreshSucc) {
-                    dialog.dismiss()
+                    dialog?.dismiss()
                 }
             }
 

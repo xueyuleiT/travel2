@@ -93,7 +93,6 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
         fragmentAnimator = DefaultHorizontalAnimator()
         mBinding.radioTab.setOnCheckedChangeListener { _, i ->
             mBinding.rbTabQr.isChecked = false
-            Log.d("token -->" , JPushInterface.getRegistrationID(context!!))
             when (i) {
                 R.id.rb_tab_home -> {
                     showHideFragment(mFragments[0], mFragments[mCurrentIndex])

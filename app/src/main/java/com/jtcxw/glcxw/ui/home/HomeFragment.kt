@@ -18,11 +18,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
 import com.amap.api.location.AMapLocation
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.JsonObject
+import com.hjq.permissions.OnPermission
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
 import com.jtcxw.glcxw.BR
+import com.jtcxw.glcxw.BuildConfig
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.adapter.HomeAdapter
 import com.jtcxw.glcxw.adapter.HomeBannerAdapter
@@ -30,17 +36,16 @@ import com.jtcxw.glcxw.adapter.HomeHotelBannerAdapter
 import com.jtcxw.glcxw.adapter.HomeScenicBannerAdapter
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.respmodels.*
-import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.base.utils.DimensionUtil
-import com.jtcxw.glcxw.base.utils.RxBus
-import com.jtcxw.glcxw.base.utils.UserUtil
+import com.jtcxw.glcxw.base.utils.*
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.OnLoadNextPageListener
 import com.jtcxw.glcxw.base.views.recyclerview.OnRefreshListener
 import com.jtcxw.glcxw.databinding.FragmentHomeBinding
+import com.jtcxw.glcxw.dialog.DownLoadDialog
 import com.jtcxw.glcxw.events.MessageEvent
 import com.jtcxw.glcxw.fragment.MainFragment
 import com.jtcxw.glcxw.localbean.HomeItem
+import com.jtcxw.glcxw.presenters.impl.AppVersionPresenter
 import com.jtcxw.glcxw.presenters.impl.HomePresenter
 import com.jtcxw.glcxw.ui.BusFragment
 import com.jtcxw.glcxw.ui.LocationFragment
@@ -50,15 +55,17 @@ import com.jtcxw.glcxw.ui.customized.CustomizedMainFragment
 import com.jtcxw.glcxw.ui.login.LoginFragment
 import com.jtcxw.glcxw.utils.*
 import com.jtcxw.glcxw.viewmodel.HomeModel
+import com.jtcxw.glcxw.views.AppVersionView
 import com.jtcxw.glcxw.views.HomeView
 import com.youth.banner.indicator.CircleIndicator
 import me.yokeyword.fragmentation.SupportFragment
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.system.exitProcess
 
 
 class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
-    OnLoadNextPageListener,HomeView,
+    OnLoadNextPageListener,HomeView, AppVersionView,
     OnRefreshListener,View.OnClickListener{
     override fun onModuleConfigSucc(moduleConfigBean: ModuleConfigBean) {
         if (moduleConfigBean.funId == "1") {
@@ -411,6 +418,9 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
             .subscribe {
                 initNotification()
             }
+        val json = JsonObject()
+        json.addProperty("AppType", 1)
+        AppVersionPresenter(this).appVersion(json,null)
 
     }
 
@@ -669,5 +679,131 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     override fun onSupportVisible() {
         super.onSupportVisible()
         initNotification()
+        if (ismBindingInitialized() && mVersionBean != null && !isShowPermisson) {
+            onAppVersionSucc(mVersionBean!!)
+        }
     }
+
+    var isShowPermisson = false
+    var mVersionBean: VersionBean ?= null
+    override fun onAppVersionSucc(versionBean: VersionBean) {
+        mVersionBean = versionBean
+        if (versionBean.isForceUpdate == 1) {
+            if (versionBean.version.replace("V", "").replace(".", "")
+                    .toInt() > BuildConfig.VERSION_NAME.replace(".", "").toInt()
+            ) {
+                isShowPermisson = true
+                showConfirmDialog(
+                    versionBean!!.version,
+                    versionBean!!.updContent,
+                    "更新",
+                    object : DialogCallback {
+                        override fun invoke(p1: MaterialDialog) {
+                            //拍摄身份证反面
+                            XXPermissions.with(activity)
+                                .permission(Permission.Group.STORAGE) //不指定权限则自动获取清单中的危险权限
+                                .request(object : OnPermission {
+
+                                    override fun hasPermission(
+                                        granted: List<String>,
+                                        isAll: Boolean
+                                    ) {
+                                        if (isAll) {
+                                            isShowPermisson = false
+                                            DownLoadDialog().setTitle(versionBean!!.version)
+                                                .setUrl(versionBean!!.updPackageUrl)
+                                                .show(fragmentManager!!, "showConfirmDialog")
+                                        } else {
+                                            showPermission()
+                                        }
+                                    }
+
+                                    override fun noPermission(
+                                        denied: List<String>,
+                                        quick: Boolean
+                                    ) {
+                                        if (quick) {
+                                            showWithoutPermission()
+                                        } else {
+                                            showPermission()
+                                        }
+                                    }
+                                })
+
+                        }
+
+                    })
+            }
+        }
+    }
+
+    fun showPermission() {
+        isShowPermisson = true
+        showConfirmDialog(
+            "提示",
+            "需要获取您的文件读写权限才可升级，请同意",
+            "确定",
+            "退出",
+            object : DialogCallback {
+                override fun invoke(p1: MaterialDialog) {
+                    XXPermissions.with(activity)
+                        .permission(Permission.Group.STORAGE) //不指定权限则自动获取清单中的危险权限
+                        .request(object : OnPermission {
+
+                            override fun hasPermission(
+                                granted: List<String>,
+                                isAll: Boolean
+                            ) {
+                                if (isAll) {
+                                    isShowPermisson = false
+                                    DownLoadDialog().setTitle(mVersionBean!!.version)
+                                        .setUrl(mVersionBean!!.updPackageUrl)
+                                        .show(fragmentManager!!, "showConfirmDialog")
+                                } else {
+                                    showPermission()
+                                }
+                            }
+
+                            override fun noPermission(
+                                denied: List<String>,
+                                quick: Boolean
+                            ) {
+                                if (quick) {
+                                    showWithoutPermission()
+                                } else {
+                                    showPermission()
+                                }
+                            }
+                        })
+                }
+            },object :DialogCallback{
+                override fun invoke(p1: MaterialDialog) {
+                    exitProcess(0)
+                }
+
+            })
+    }
+
+    fun showWithoutPermission() {
+        isShowPermisson = true
+        showConfirmDialog(
+            "提示",
+            "您已禁止文件读取权限，需要手动前往开启",
+            "前往",
+            "退出",
+            object : DialogCallback {
+                override fun invoke(p1: MaterialDialog) {
+                    isShowPermisson = false
+                    XXPermissions.gotoPermissionSettings(context)
+                }
+            },object :DialogCallback{
+                override fun invoke(p1: MaterialDialog) {
+                    exitProcess(0)
+                }
+
+            })
+    }
+
+
+
 }

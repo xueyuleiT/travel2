@@ -1,6 +1,7 @@
 package com.jtcxw.glcxw.ui.customized
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -38,7 +39,7 @@ class RecruitFragment:BaseFragment<FragmentRecruitBinding,CommonModel>(),Recruit
     var mPlanningInfoBean: RecruitBean.PlanningInfoBean? = null
     override fun onGetRecruitSucc(recruitBean: RecruitBean) {
         mPlanningInfoBean = recruitBean.planning_info
-        if (recruitBean.recruit_list.isEmpty()) {
+        if (recruitBean.planning_info === null || recruitBean.planning_info.planning_id == 0L) {
             mTvRight!!.visibility = View.GONE
         } else {
             mTvRight!!.visibility = View.VISIBLE

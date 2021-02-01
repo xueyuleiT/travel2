@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.jtcxw.glcxw.base.api.ApiCallback
 import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
+import com.jtcxw.glcxw.base.dialogs.LoadingDialog
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.VersionBean
 import com.jtcxw.glcxw.base.utils.DialogUtil
@@ -21,9 +22,8 @@ class AppVersionPresenter:IAppVersion {
     constructor(view:AppVersionView) {
         iView = view
     }
-    override fun appVersion(jsonObject: JsonObject) {
+    override fun appVersion(jsonObject: JsonObject,dialog:LoadingDialog?) {
         val fragment = (iView as BaseFragment<*, *>)
-        val dialog = DialogUtil.getLoadingDialog(fragment.fragmentManager)
         HttpUtil.addSubscription(ApiClient.retrofit().appVersion(jsonObject),object :
             ApiCallback<VersionBean, Response<BaseBean<VersionBean>>>(){
             override fun onSuccess(model: BaseBean<VersionBean>) {
@@ -43,13 +43,13 @@ class AppVersionPresenter:IAppVersion {
             }
 
             override fun onFinish() {
-                dialog.dismiss()
+                dialog?.dismiss()
             }
 
         }, fragment, object : RefreshCallback {
             override fun onRefreshBack(refreshSucc: Boolean) {
                 if (!refreshSucc) {
-                    dialog.dismiss()
+                    dialog?.dismiss()
                 }
             }
 

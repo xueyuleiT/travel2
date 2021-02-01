@@ -30,6 +30,15 @@ class TicketFragment:BaseFragment<FragmentTicketBinding,CommonModel>,TicketView 
 //        mBinding.tvCheck.visibility = View.GONE
         (parentFragment as OrderConfirmFragment).refresh()
     }
+
+    override fun onTicketCheckingFailed(msg:String) {
+        showConfirmDialog("提示",msg!!,"确定",object :DialogCallback{
+            override fun invoke(p1: MaterialDialog) {
+            }
+        })
+        (parentFragment as OrderConfirmFragment).refreshWithoutDialog()
+    }
+
     var mIndex = 1
     var mTikmodelId = 0L
     var mTakeNum = 1
@@ -93,6 +102,7 @@ class TicketFragment:BaseFragment<FragmentTicketBinding,CommonModel>,TicketView 
                                 json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
                                 json.addProperty("TikmId",mTikmodelId)
                                 json.addProperty("TikNo",mPassengerInfoBean!!.ticket_no)
+                                json.addProperty("OrderId",(parentFragment as OrderConfirmFragment).getOrderId())
                                 mPresenter!!.ticketChecking(json)
                             }
                         })
@@ -109,7 +119,7 @@ class TicketFragment:BaseFragment<FragmentTicketBinding,CommonModel>,TicketView 
                 DimensionUtil.dpToPx(200).toInt(), DimensionUtil.dpToPx(200).toInt())
             )
         } else if (mPassengerInfoBean!!.tikcet_state == "Y") {
-            mBinding.tvStatus.text = "已乘车"
+            mBinding.tvStatus.text = "已验票"
             mBinding.tvStatus.visibility = View.VISIBLE
             mBinding.vQr.visibility = View.GONE
             mBinding.tvCheck.visibility = View.GONE

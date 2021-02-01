@@ -75,6 +75,7 @@ class RegisterFragment:
         mBinding.tvTime.setOnClickListener(this)
         mBinding.btnRegister.setOnClickListener(this)
         mBinding.tvAgreement.setOnClickListener(this)
+        mBinding.tvPolicy.setOnClickListener(this)
 
 
         if (System.currentTimeMillis() -  CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_SMS_TIME + mCodeType, 0L) < Constant.SMS_TIME * 1000) {
@@ -216,6 +217,12 @@ class RegisterFragment:
             R.id.tv_agreement -> {
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_TREATY_TYPE,"1")
+                AgreementFragment.newInstance(this,bundle)
+            }
+
+            R.id.tv_policy -> {
+                val bundle = Bundle()
+                bundle.putString(BundleKeys.KEY_TREATY_TYPE,"2")
                 AgreementFragment.newInstance(this,bundle)
             }
 
