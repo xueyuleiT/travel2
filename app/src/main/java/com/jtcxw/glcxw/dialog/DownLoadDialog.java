@@ -1,5 +1,6 @@
 package com.jtcxw.glcxw.dialog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,23 +90,31 @@ public class DownLoadDialog extends DialogFragment {
                    mLoadingView.setProgress(msg.arg1);
                } else if (msg.what == DOWNLOAD_FINISH) {
                    mLoadingView.setProgress(100);
-                   Intent intent = new Intent(Intent.ACTION_VIEW);
-                   if (Build.VERSION.SDK_INT >= 24) {
-                       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                       intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                       Uri uri = FileProvider7.getUriForFile(getContext(), file);
-                       intent.setDataAndType(uri, "application/vnd.android.package-archive");
-                   } else  {
-                       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                       Uri uri = FileProvider7.getUriForFile(getContext(), file);
-                       intent.setDataAndType(uri, "application/vnd.android.package-archive");
-                   }
-                   startActivity(intent);
-                   dismissAllowingStateLoss();
+                   install(file,getContext());
                }
            }
        }).startDownLoad();
 
+    }
+
+    public void install(File file, Context context) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            if (Build.VERSION.SDK_INT >= 24) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Uri uri = FileProvider7.getUriForFile(context, file);
+                intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            } else  {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Uri uri = FileProvider7.getUriForFile(context, file);
+                intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            }
+            context.startActivity(intent);
+            dismissAllowingStateLoss();
+        } catch (Exception e) {
+            Log.d("e",e.getMessage());
+        }
     }
 }

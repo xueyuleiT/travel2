@@ -12,6 +12,9 @@
     <external-path
         name="external"
         path="/" />
+    <external-path
+        name="external"
+        path="." />
     <external-files-path
         name="name"
         path="." />

@@ -37,9 +37,9 @@ class AppVersionPresenter:IAppVersion {
             }
 
             override fun onFailure(msg: String?) {
-                if (!TextUtils.isEmpty(msg)) {
-                    ToastUtil.toastError(msg!!)
-                }
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
             }
 
             override fun onFinish() {

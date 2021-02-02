@@ -92,6 +92,9 @@ class HotSpotFragment: BaseFragment<FragmentHotBinding, CommonModel>() {
     override fun onSupportVisible() {
         super.onSupportVisible()
         if (ismBindingInitialized()){
+            if (mNoData) {
+                mBinding.recyclerView.notifyLoadSuccess(mDatas,false)
+            }
             mBinding.recyclerView.viewTreeObserver.addOnGlobalLayoutListener(object :
                 ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
@@ -103,12 +106,23 @@ class HotSpotFragment: BaseFragment<FragmentHotBinding, CommonModel>() {
         }
 
     }
-
-    fun onDataChange(scenicBean: ScenicBean) {
-        mDatas.clear()
-        mDatas.addAll(scenicBean.scenicInfoList)
-        if (ismBindingInitialized()) {
-            mBinding.recyclerView.setNewData(mDatas, false)
+    var mNoData = false
+    fun onDataChange(scenicBean: ScenicBean?) {
+        if (scenicBean != null) {
+            mDatas.clear()
+            mDatas.addAll(scenicBean!!.scenicInfoList)
+            if (ismBindingInitialized()) {
+                mBinding.recyclerView.setNewData(mDatas, false)
+            }
+        } else {
+            mDatas.clear()
+            if (ismBindingInitialized()) {
+                mBinding.recyclerView.notifyLoadSuccess(mDatas,false)
+            } else {
+                mNoData = true
+            }
         }
     }
+
+
 }

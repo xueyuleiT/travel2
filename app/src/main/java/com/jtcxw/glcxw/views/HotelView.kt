@@ -4,5 +4,6 @@ import com.jtcxw.glcxw.base.respmodels.HotelBean
 
 interface HotelView {
     fun onHotelInfoListSucc(hotelBean: HotelBean)
+    fun onHotelInfoListFailed()
     fun onHotelInfoListFinish()
 }

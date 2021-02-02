@@ -27,6 +27,11 @@ class HotelFragment: BaseFragment<FragmentHotelBinding, CommonModel>(),HotelView
         mBinding.recyclerView.setNewData(mDatas,false)
     }
 
+    override fun onHotelInfoListFailed() {
+        mDatas.clear()
+        mBinding.recyclerView.notifyLoadSuccess(mDatas,false)
+    }
+
     override fun onHotelInfoListFinish() {
         mBinding.swipeLayout.finishRefresh(0)
     }
@@ -83,6 +88,7 @@ class HotelFragment: BaseFragment<FragmentHotelBinding, CommonModel>(),HotelView
         }
 
         mBinding.recyclerView.adapter = adapter
+        mBinding.recyclerView.setNewData(mDatas)
         mBinding.swipeLayout.autoRefresh()
     }
 

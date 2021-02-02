@@ -37,9 +37,10 @@ class TravelPresenter : IHotel, IScenic,BannerPresenter {
             }
 
             override fun onFailure(msg: String?) {
-                if (!TextUtils.isEmpty(msg)) {
-                    ToastUtil.toastError(msg!!)
-                }
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
+                (iView as TravelView).onHotelInfoListFailed()
             }
 
             override fun onFinish() {
@@ -64,16 +65,18 @@ class TravelPresenter : IHotel, IScenic,BannerPresenter {
                 if (model.Code == 200){
                     (iView as TravelView).onScenicInfoListSucc(model.Data!!)
                 } else {
-                    if (!TextUtils.isEmpty(model.Info)) {
+                    (iView as TravelView).onScenicInfoListFailed()
+                    if (model.Code != 400 && !TextUtils.isEmpty(model.Info)) {
                         ToastUtil.toastError(model.Info!!)
                     }
                 }
             }
 
             override fun onFailure(msg: String?) {
-                if (!TextUtils.isEmpty(msg)) {
-                    ToastUtil.toastError(msg!!)
-                }
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
+                (iView as TravelView).onScenicInfoListFailed()
             }
 
             override fun onFinish() {

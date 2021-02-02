@@ -25,6 +25,11 @@ class ScenicFragment: BaseFragment<FragmentHotelBinding, CommonModel>(), ScenicV
         mBinding.swipeLayout.finishRefresh(0)
     }
 
+    override fun onScenicInfoListFailed() {
+        mDatas.clear()
+        mBinding.recyclerView.notifyLoadSuccess(mDatas,false)
+    }
+
     override fun onScenicInfoListSucc(scenicBean: ScenicBean) {
         mDatas.clear()
         mDatas.addAll(scenicBean.scenicInfoList)
@@ -84,6 +89,7 @@ class ScenicFragment: BaseFragment<FragmentHotelBinding, CommonModel>(), ScenicV
         }
 
         mBinding.recyclerView.adapter = adapter
+        mBinding.recyclerView.setNewData(mDatas)
         mBinding.swipeLayout.autoRefresh()
     }
 

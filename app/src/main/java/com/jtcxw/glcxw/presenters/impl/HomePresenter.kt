@@ -12,6 +12,7 @@ import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.IHome
 import com.jtcxw.glcxw.views.HomeView
+import com.jtcxw.glcxw.views.TravelView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import models.BaseBean
 import retrofit2.Response
@@ -140,9 +141,9 @@ class HomePresenter:IHome , BannerPresenter{
             }
 
             override fun onFailure(msg: String?) {
-                if (!TextUtils.isEmpty(msg)) {
-                    ToastUtil.toastError(msg!!)
-                }
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
             }
 
             override fun onFinish() {
@@ -167,16 +168,17 @@ class HomePresenter:IHome , BannerPresenter{
                 if (model.Code == 200){
                     (iView as HomeView).onScenicInfoListSucc(model.Data!!)
                 } else {
-                    if (!TextUtils.isEmpty(model.Info)) {
+                    (iView as TravelView).onScenicInfoListFailed()
+                    if (model.Code != 400 && !TextUtils.isEmpty(model.Info)) {
                         ToastUtil.toastError(model.Info!!)
                     }
                 }
             }
 
             override fun onFailure(msg: String?) {
-                if (!TextUtils.isEmpty(msg)) {
-                    ToastUtil.toastError(msg!!)
-                }
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
             }
 
             override fun onFinish() {

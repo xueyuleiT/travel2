@@ -36,7 +36,10 @@ import com.jtcxw.glcxw.adapter.HomeHotelBannerAdapter
 import com.jtcxw.glcxw.adapter.HomeScenicBannerAdapter
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.respmodels.*
-import com.jtcxw.glcxw.base.utils.*
+import com.jtcxw.glcxw.base.utils.BaseUtil
+import com.jtcxw.glcxw.base.utils.DimensionUtil
+import com.jtcxw.glcxw.base.utils.RxBus
+import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.OnLoadNextPageListener
 import com.jtcxw.glcxw.base.views.recyclerview.OnRefreshListener
@@ -59,6 +62,7 @@ import com.jtcxw.glcxw.views.AppVersionView
 import com.jtcxw.glcxw.views.HomeView
 import com.youth.banner.indicator.CircleIndicator
 import me.yokeyword.fragmentation.SupportFragment
+import java.io.File
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.system.exitProcess
@@ -145,6 +149,9 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         }
     }
 
+    override fun onHotelInfoListFailed() {
+    }
+
     override fun onHotelInfoListFinish() {
         mFinishCount --
         if (mFinishCount <= 0) {
@@ -158,6 +165,9 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         if (mFinishCount <= 0) {
             mBinding.swipeLayout.finishRefresh(0)
         }
+    }
+
+    override fun onScenicInfoListFailed() {
     }
 
 
@@ -400,7 +410,6 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                 it.finishRefresh(0)
                 return@setOnRefreshListener
             }
-
             refreshData()
 
         }
@@ -418,10 +427,10 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
             .subscribe {
                 initNotification()
             }
+
         val json = JsonObject()
         json.addProperty("AppType", 1)
         AppVersionPresenter(this).appVersion(json,null)
-
     }
 
     private fun initNotification() {
@@ -688,10 +697,10 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     var mVersionBean: VersionBean ?= null
     override fun onAppVersionSucc(versionBean: VersionBean) {
         mVersionBean = versionBean
-        if (versionBean.isForceUpdate == 1) {
+        if (versionBean.isForceUpdate == 0) {
             if (versionBean.version.replace("V", "").replace(".", "")
-                    .toInt() > BuildConfig.VERSION_NAME.replace(".", "").toInt()
-            ) {
+                    .toInt() > BuildConfig.VERSION_NAME.replace(".", "").toInt())
+            {
                 isShowPermisson = true
                 showConfirmDialog(
                     versionBean!!.version,
@@ -712,7 +721,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                                             isShowPermisson = false
                                             DownLoadDialog().setTitle(versionBean!!.version)
                                                 .setUrl(versionBean!!.updPackageUrl)
-                                                .show(fragmentManager!!, "showConfirmDialog")
+                                                .show(parentFragment!!.fragmentManager!!, "showConfirmDialog")
                                         } else {
                                             showPermission()
                                         }

@@ -52,6 +52,10 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
 
     }
 
+    override fun onAddOrderFinish() {
+        mCommiting = false
+    }
+
     override fun onFrequencyFinish() {
         mFinishCount --
         if (mFinishCount <= 0) {
@@ -275,6 +279,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
     private var mVelocityTracker: VelocityTracker? = null
     var mDownY = 0f
 
+    var mCommiting = false
     override fun onClick(v: View?) {
         super.onClick(v)
         when(v?.id) {
@@ -295,7 +300,10 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
                 }
 
 
-
+                if (mCommiting || !isSupportVisible) {
+                    return
+                }
+                mCommiting = true
                 val json = JsonObject()
 
                 val passengerIds = JsonArray()

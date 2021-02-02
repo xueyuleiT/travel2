@@ -67,19 +67,31 @@ class HotHotelFragment: BaseFragment<FragmentHotBinding, CommonModel>() {
 
     }
 
-    fun onDataChange(hotelBean: HotelBean){
-        mDatas.clear()
-        mDatas.addAll(hotelBean.hotelInfoList)
-        if (ismBindingInitialized()) {
-            mBinding.recyclerView.setNewData(mDatas, false)
+    var mNoData = false
+    fun onDataChange(hotelBean: HotelBean?){
+        if (hotelBean != null) {
+            mDatas.clear()
+            mDatas.addAll(hotelBean!!.hotelInfoList)
+            if (ismBindingInitialized()) {
+                mBinding.recyclerView.setNewData(mDatas, false)
+            }
+        } else {
+            mDatas.clear()
+            if (ismBindingInitialized()) {
+                mBinding.recyclerView.notifyLoadSuccess(mDatas,false)
+            } else {
+                mNoData = true
+            }
         }
-
     }
 
 
     override fun onSupportVisible() {
         super.onSupportVisible()
         if (ismBindingInitialized()) {
+            if (mNoData) {
+                mBinding.recyclerView.notifyLoadSuccess(mDatas,false)
+            }
             mBinding.recyclerView.viewTreeObserver.addOnGlobalLayoutListener(object :
                 ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {

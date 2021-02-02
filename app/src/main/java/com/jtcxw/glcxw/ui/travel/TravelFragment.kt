@@ -57,6 +57,10 @@ class TravelFragment: LocationFragment<FragmentTravelBinding, CommonModel>(),Tra
     override fun onHotelInfoListSucc(hotelBean: HotelBean) =
         (mFragment[1] as HotHotelFragment).onDataChange(hotelBean)
 
+    override fun onHotelInfoListFailed() {
+        (mFragment[1] as HotHotelFragment).onDataChange(null)
+    }
+
     override fun onHotelInfoListFinish() {
         mFinishCount --
         if (mFinishCount <= 0) {
@@ -73,6 +77,10 @@ class TravelFragment: LocationFragment<FragmentTravelBinding, CommonModel>(),Tra
         if (mFinishCount <= 0) {
             mBinding.swipeLayout.finishRefresh(0)
         }
+    }
+
+    override fun onScenicInfoListFailed() {
+        (mFragment[0] as HotSpotFragment).onDataChange(null)
     }
 
     override fun onLocationChange(aMapLocation: AMapLocation) {

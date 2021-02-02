@@ -37,6 +37,11 @@ class HomeSpotFragment : BaseFragment<FragmentHotBinding, CommonModel> ,HomeSpot
         mBinding.recyclerView.setNewData(mDatas,false)
     }
 
+    override fun onContentListFailed() {
+        mDatas.clear()
+        mBinding.recyclerView.notifyLoadSuccess(mDatas,false)
+    }
+
     override fun getVariableId(): Int {
         return BR.common
     }

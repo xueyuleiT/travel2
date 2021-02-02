@@ -45,6 +45,7 @@ class BusLineGoOrderPresenter: IBusLineGoOrder {
 
             override fun onFinish() {
                 dialog.dismiss()
+                iView?.onAddOrderFinish()
             }
 
         }, fragment, null)

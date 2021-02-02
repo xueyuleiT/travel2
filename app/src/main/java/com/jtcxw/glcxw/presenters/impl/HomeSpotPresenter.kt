@@ -26,16 +26,17 @@ class HomeSpotPresenter:IHomeSpot {
                 if (model.Code == 200){
                     iView?.onContentListSucc(model.Data!!)
                 } else {
-                    if (!TextUtils.isEmpty(model.Info)) {
+                    if (model.Code != 400 && !TextUtils.isEmpty(model.Info)) {
                         ToastUtil.toastError(model.Info!!)
                     }
                 }
             }
 
             override fun onFailure(msg: String?) {
-                if (!TextUtils.isEmpty(msg)) {
-                    ToastUtil.toastError(msg!!)
-                }
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
+                iView?.onContentListFailed()
             }
 
             override fun onFinish() {

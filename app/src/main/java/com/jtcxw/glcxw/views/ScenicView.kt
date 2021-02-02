@@ -5,4 +5,5 @@ import com.jtcxw.glcxw.base.respmodels.ScenicBean
 interface ScenicView {
     fun onScenicInfoListSucc(scenicBean: ScenicBean)
     fun onScenicInfoListFinish()
+    fun onScenicInfoListFailed()
 }

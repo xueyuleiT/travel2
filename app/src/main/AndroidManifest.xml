@@ -6,6 +6,7 @@
     <permission
         android:name="${applicationId}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!--允许程序打开网络套接字-->
     <uses-permission android:name="android.permission.INTERNET" />

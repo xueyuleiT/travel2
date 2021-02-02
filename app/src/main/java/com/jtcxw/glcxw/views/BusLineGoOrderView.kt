@@ -8,5 +8,6 @@ interface BusLineGoOrderView {
     fun onFrequencyFinish()
 
     fun onAddOrderSucc(addOrderBean: AddOrderBean)
+    fun onAddOrderFinish()
 
 }
