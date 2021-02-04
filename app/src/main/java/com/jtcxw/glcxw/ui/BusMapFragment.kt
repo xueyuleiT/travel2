@@ -36,6 +36,7 @@ import com.jtcxw.glcxw.databinding.FragmentBusMapBinding
 import com.jtcxw.glcxw.events.CollectEvent
 import com.jtcxw.glcxw.listeners.CollectCancelCallback
 import com.jtcxw.glcxw.listeners.InnerClickListener
+import com.jtcxw.glcxw.listeners.InnerWithLineClickListener
 import com.jtcxw.glcxw.presenters.impl.BusMapPresenter
 import com.jtcxw.glcxw.presenters.impl.CollectionPresenter
 import com.jtcxw.glcxw.viewmodel.BusModel
@@ -321,7 +322,21 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 //            }
             stationList!!.forEach {
                 if (it.stopList != null && it.stopList.isNotEmpty()) {
-                    if (it.stationLineInfo != null && it.stopList[0].stopId == id) {
+//                    it.stopList.forEach { it_ ->
+//                        if (TextUtils.isEmpty(it_.lineId)) {
+//                           run label@{
+//                               it.stationLineInfo?.forEach { it_2 ->
+//                                   if (it_2.stopId == it_.stopId && TextUtils.isEmpty(it_.lineId)) {
+//                                       it_.lineId = it_2.lineId
+//                                       return@label
+//                                   }
+//                               }
+//                           }
+//                        }
+//                    }
+
+
+                    if (it.stationLineInfo != null && it.stationLineInfo[0].stopId == id) {
                         mSelectedData.add(it)
                         return@forEach
                     }
@@ -329,12 +344,11 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
             }
             mData.addAll(stationList)
             mBinding.recyclerView.layoutManager = LinearLayoutManager(context!!)
-            mAdapter = BusMapAdapter(this, mSelectedData, object : InnerClickListener {
-                override fun onInnerClickListener(position: Int, outPosition: Int) {
+            mAdapter = BusMapAdapter(this, mSelectedData, object : InnerWithLineClickListener {
+                override fun onInnerClickListener(position: Int, outPosition: Int,lineId:String) {
                     val json = JsonObject()
                     json.addProperty(
-                        "LineId",
-                        mSelectedData[outPosition].stationLineInfo[position].lineId
+                        "LineId",lineId
                     )
                     queryLine(json)
                 }

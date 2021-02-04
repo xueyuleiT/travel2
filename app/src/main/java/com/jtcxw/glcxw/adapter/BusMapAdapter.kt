@@ -13,9 +13,10 @@ import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 import com.jtcxw.glcxw.listeners.CollectCancelCallback
 import com.jtcxw.glcxw.listeners.InnerClickListener
+import com.jtcxw.glcxw.listeners.InnerWithLineClickListener
 import me.yokeyword.fragmentation.SupportFragment
 
-class BusMapAdapter(fragment: SupportFragment, data: List<AnnexBusBean.StationListBean>,innerClickListener: InnerClickListener,collectCancelCallback: CollectCancelCallback): BaseRecyclerAdapter<AnnexBusBean.StationListBean>(fragment.context, data)  {
+class BusMapAdapter(fragment: SupportFragment, data: List<AnnexBusBean.StationListBean>, innerClickListener: InnerWithLineClickListener, collectCancelCallback: CollectCancelCallback): BaseRecyclerAdapter<AnnexBusBean.StationListBean>(fragment.context, data)  {
     var mFragment = fragment
     var mSelected = 0
     var mInnerClickListener = innerClickListener
@@ -86,7 +87,7 @@ class BusMapAdapter(fragment: SupportFragment, data: List<AnnexBusBean.StationLi
                 pos: Int
             ) {
                 if (mInnerClickListener != null) {
-                    mInnerClickListener.onInnerClickListener(pos,position)
+                    mInnerClickListener.onInnerClickListener(pos,position,model!!.lineId)
                 }
             }
 

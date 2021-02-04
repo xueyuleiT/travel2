@@ -10,14 +10,19 @@ import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.adapter.CollectionAdapter
 import com.jtcxw.glcxw.base.basic.BaseFragment
+import com.jtcxw.glcxw.base.constant.BundleKeys
+import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.respmodels.CollectionInfoBean
+import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.databinding.FragmentCollectionBinding
 import com.jtcxw.glcxw.listeners.CollectCancelCallback
+import com.jtcxw.glcxw.listeners.StationClick
 import com.jtcxw.glcxw.localbean.MyCollectionBean
 import com.jtcxw.glcxw.presenters.impl.CollectionListPresenter
 import com.jtcxw.glcxw.presenters.impl.CollectionPresenter
+import com.jtcxw.glcxw.ui.QueryMainFragment
 import com.jtcxw.glcxw.utils.SwipeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.CollectionListView
@@ -26,6 +31,7 @@ import me.yokeyword.fragmentation.SupportFragment
 
 class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),CollectionListView,CollectionView {
     override fun onAddCollectionSucc(jsonObject: JsonObject) {
+
     }
 
     override fun onCancelCollectionSucc(jsonObject: JsonObject) {
@@ -101,6 +107,18 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
         mCollectInfoBean.addAll(collectInfoBean.collectInfo)
     }
 
+    override fun onQuerySiteSucc(s: List<AnnexBusBean.StationListBean>) {
+        val bundle = Bundle()
+        s.forEach {
+            it.stationLineInfo.forEach { it_ ->
+                it_.isCollection = it_.collectionFlag
+            }
+        }
+        bundle.putParcelableArrayList(BundleKeys.KEY_STATION_BEAN,ArrayList(s))
+        bundle.putString(BundleKeys.KEY_STATION_ID,s!![0].stopList[0].stopId)
+        QueryMainFragment.newInstance(this@CollectionFragment as SupportFragment,bundle)
+    }
+
     override fun getVariableId(): Int {
         return BR.common
     }
@@ -154,6 +172,16 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
                 val json = JsonObject()
                 json.addProperty("CollectionId",id)
                 mCollectPresenter!!.cancelCollection(json)
+            }
+
+        },object :StationClick {
+            override fun onStationClick(id: String) {
+                val json = JsonObject()
+                json.addProperty("Longitude",UserUtil.getUser().longitude)
+                json.addProperty("Latitude",UserUtil.getUser().latitude)
+                json.addProperty("StationId",id)
+                json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
+                mPresenter!!.querySite(json)
             }
 
         })

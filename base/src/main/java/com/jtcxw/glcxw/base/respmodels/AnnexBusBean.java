@@ -29,11 +29,20 @@ public class AnnexBusBean {
 
         private String StopId;
         private String StopName;
+        private String LineId;
         private double Lon;
         private double Lat;
         private int Distance;
         private int IsCollection;
         private String CollectionId;
+
+        public String getLineId() {
+            return LineId;
+        }
+
+        public void setLineId(String lineId) {
+            LineId = lineId;
+        }
 
         public String getCollectionId() {
             return CollectionId;
@@ -50,6 +59,7 @@ public class AnnexBusBean {
         protected StopListBean(Parcel in) {
             StopId = in.readString();
             StopName = in.readString();
+            LineId = in.readString();
             Lon = in.readDouble();
             Lat = in.readDouble();
             Distance = in.readInt();
@@ -61,6 +71,7 @@ public class AnnexBusBean {
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(StopId);
             dest.writeString(StopName);
+            dest.writeString(LineId);
             dest.writeDouble(Lon);
             dest.writeDouble(Lat);
             dest.writeInt(Distance);
@@ -434,6 +445,15 @@ public class AnnexBusBean {
             private int IsCollection = 0;
             private String StopId;
             private String CollectionId;
+            private int CollectionFlag = 0;
+
+            public int getCollectionFlag() {
+                return CollectionFlag;
+            }
+
+            public void setCollectionFlag(int collectionFlag) {
+                CollectionFlag = collectionFlag;
+            }
 
             public String getCollectionId() {
                 return CollectionId;

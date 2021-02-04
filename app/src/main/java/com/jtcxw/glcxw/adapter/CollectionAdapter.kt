@@ -12,15 +12,17 @@ import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 import com.jtcxw.glcxw.listeners.CollectCancelCallback
+import com.jtcxw.glcxw.listeners.StationClick
 import com.jtcxw.glcxw.localbean.MyCollectionBean
 import com.jtcxw.glcxw.ui.QueryMainFragment
 import com.jtcxw.glcxw.ui.travel.HotelDetailFragment
 import com.jtcxw.glcxw.ui.travel.ScenicDetailFragment
 import me.yokeyword.fragmentation.SupportFragment
 
-class CollectionAdapter(context: Context,list:List<MyCollectionBean>,callback: CollectCancelCallback):BaseRecyclerAdapter<MyCollectionBean>(context,list) {
+class CollectionAdapter(context: Context,list:List<MyCollectionBean>,callback: CollectCancelCallback,click: StationClick):BaseRecyclerAdapter<MyCollectionBean>(context,list) {
 
     private var mCallback = callback
+    private var mStationClick = click
 
     override fun getConvertViewId(viewType: Int): Int {
         return when(viewType) {
@@ -129,9 +131,10 @@ class CollectionAdapter(context: Context,list:List<MyCollectionBean>,callback: C
         llContent.setOnClickListener {
             when (data!!.collectInfoBean.type) {
                 1 -> {
-                    val bundle = Bundle()
-                    bundle.putString(BundleKeys.KEY_QUERY_TEXT,data!!.collectInfoBean.collectionName)
-                    QueryMainFragment.newInstance(BaseUtil.sTopAct!!.topFragment as SupportFragment,bundle)
+                    mStationClick.onStationClick(data!!.collectInfoBean.mineId)
+//                    val bundle = Bundle()
+//                    bundle.putString(BundleKeys.KEY_QUERY_TEXT,data!!.collectInfoBean.collectionName)
+//                    QueryMainFragment.newInstance(BaseUtil.sTopAct!!.topFragment as SupportFragment,bundle)
 //                    val bundle = Bundle()
 //                    bundle.putString(BundleKeys.KEY_STATION_ID,data!!.collectInfoBean.mineId)
 //                    QueryMainFragment.newInstance(BaseUtil.sTopAct!!.topFragment as SupportFragment,bundle)

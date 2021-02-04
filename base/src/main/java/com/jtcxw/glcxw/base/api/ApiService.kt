@@ -16,7 +16,7 @@ interface ApiService {
 
         private val DEV = Environment.DEV_OUTER
         private val PRO = Environment.PRODUCT
-        var API_SERVER_URL = PRO
+        var API_SERVER_URL = DEV
 
     }
 
@@ -137,6 +137,9 @@ interface ApiService {
 
     @POST("BasicData/GetIdTypeList")
     fun getIdTypeList(@Body jsonObject: JsonObject):Observable<Response<BaseBean<IDTypeBean>>>
+
+    @POST("BusInquiry/QuerySite")
+    fun querySite(@Body jsonObject: JsonObject):Observable<Response<BaseBean<SiteDataBean>>>
 
     @POST("Banner/GetBanner")
     fun getBanner(@Body jsonObject: JsonObject):Observable<Response<BaseBean<BannerBean>>>

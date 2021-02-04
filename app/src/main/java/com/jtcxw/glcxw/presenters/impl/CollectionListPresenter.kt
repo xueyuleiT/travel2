@@ -6,7 +6,11 @@ import com.jtcxw.glcxw.base.api.ApiCallback
 import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
+import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.respmodels.CollectionInfoBean
+import com.jtcxw.glcxw.base.respmodels.SiteDataBean
+import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
+import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.ICollectionList
@@ -20,6 +24,42 @@ class CollectionListPresenter:ICollectionList {
     constructor(view: CollectionListView) {
         iView = view
     }
+
+    override fun querySite(jsonObject: JsonObject) {
+        val fragment = (iView as BaseFragment<*, *>)
+        val dialog = DialogUtil.getLoadingDialog(fragment.fragmentManager)
+        HttpUtil.addSubscription(ApiClient.retrofit().querySite(jsonObject),object :
+            ApiCallback<SiteDataBean, Response<BaseBean<SiteDataBean>>>(){
+            override fun onSuccess(model: BaseBean<SiteDataBean>) {
+                if (model.Code == 200){
+                    iView?.onQuerySiteSucc(model.Data!!.siteData)
+                } else {
+                    if (!TextUtils.isEmpty(model.Info)) {
+                        ToastUtil.toastError(model.Info!!)
+                    }
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
+            }
+
+            override fun onFinish() {
+                dialog.dismiss()
+            }
+
+        }, fragment, object : RefreshCallback {
+            override fun onRefreshBack(refreshSucc: Boolean) {
+                if (!refreshSucc) {
+                    dialog.dismiss()
+                }
+            }
+
+        })
+    }
+
     override fun getCollectionInfo(jsonObject: JsonObject, smartRefreshLayout: SmartRefreshLayout) {
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().collectionInfo(jsonObject),object :
