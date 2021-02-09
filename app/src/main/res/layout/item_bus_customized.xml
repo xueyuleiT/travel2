@@ -48,6 +48,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="20dp"
+            android:gravity="center_vertical"
             android:paddingBottom="20dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -55,7 +56,6 @@
 
 
                 <TextView
-                    android:layout_marginTop="5dp"
                     android:id="@+id/tv_station_from"
                     android:layout_centerHorizontal="true"
                     android:text="桂林站"
@@ -74,8 +74,9 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/iv_direction"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/icon_bus_from_to"
+                    android:src="@mipmap/icon_trans_to"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -84,7 +85,6 @@
 
 
                 <TextView
-                    android:layout_marginTop="5dp"
                     android:id="@+id/tv_station_to"
                     android:layout_centerHorizontal="true"
                     android:text="广西师范大学"

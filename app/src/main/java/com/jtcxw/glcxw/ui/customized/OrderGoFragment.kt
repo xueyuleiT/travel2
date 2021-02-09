@@ -255,6 +255,8 @@ class OrderGoFragment:BaseFragment<FragmentOrderGoBinding,CommonModel>(), OrderD
 
         mBinding.tvName.text = mFrequencyBean!!.route_name
         if (mFrequencyBean!!.schedule_list.size > 0) {
+            mBinding.recyclerView.visibility = View.VISIBLE
+            mBinding.tvNoBus.visibility = View.GONE
             mSelectedIndex = 0
             mFrequencyBean!!.schedule_list[0].isSelected = true
             if (mFrequencyBean!!.schedule_list[mSelectedIndex].ticketBean != null) {
@@ -276,6 +278,9 @@ class OrderGoFragment:BaseFragment<FragmentOrderGoBinding,CommonModel>(), OrderD
                 mBinding.tvRide.text = "${bean.station_name}（${bean.ride_time}）"
                 mBinding.vRide.visibility = View.VISIBLE
             }
+        } else {
+            mBinding.tvNoBus.visibility = View.VISIBLE
+            mBinding.recyclerView.visibility = View.GONE
         }
 
         val adapter = BusScheduleAdapter(this,mFrequencyBean!!.schedule_list,mPresenter)

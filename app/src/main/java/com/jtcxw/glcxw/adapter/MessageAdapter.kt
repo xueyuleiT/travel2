@@ -45,7 +45,13 @@ class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapte
                         vType.setImageResource(R.mipmap.icon_order_bus_unread)
                     }
                 }
-                data.MessageType == "3" -> vType.setImageResource(R.mipmap.icon_order_qr)
+                data.MessageType == "3" -> {
+                    if (data!!.read == 1) {
+                        vType.setImageResource(R.mipmap.icon_order_qr_read)
+                    } else {
+                        vType.setImageResource(R.mipmap.icon_order_qr_unread)
+                    }
+                }
                 data.MessageType == "4" -> {
                     if(data!!.read == 1) {
                         vType.setImageResource(R.mipmap.icon_order_bus_read)

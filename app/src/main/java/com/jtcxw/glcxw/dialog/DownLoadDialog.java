@@ -112,7 +112,10 @@ public class DownLoadDialog extends DialogFragment {
                 intent.setDataAndType(uri, "application/vnd.android.package-archive");
             }
             context.startActivity(intent);
-            dismissAllowingStateLoss();
+            mLoadingView.postDelayed(() -> {
+                dismissAllowingStateLoss();
+                System.exit(0);
+            },500);
         } catch (Exception e) {
             Log.d("e",e.getMessage());
         }

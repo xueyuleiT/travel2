@@ -8,10 +8,7 @@ import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.PicVerifyCodeBean
 import com.jtcxw.glcxw.base.respmodels.UserInfoBean
-import com.jtcxw.glcxw.base.utils.DeviceUtil
-import com.jtcxw.glcxw.base.utils.DialogUtil
-import com.jtcxw.glcxw.base.utils.HttpUtil
-import com.jtcxw.glcxw.base.utils.ToastUtil
+import com.jtcxw.glcxw.base.utils.*
 import com.jtcxw.glcxw.presenters.ILogin
 import com.jtcxw.glcxw.views.LoginView
 import models.BaseBean
@@ -65,7 +62,7 @@ class LoginPresenter : ILogin {
     override fun loginVerifyCode(id: String) {
         val fragment = (iView as BaseFragment<*, *>)
         val json = JsonObject()
-        json.addProperty("LoginGuid", DeviceUtil.getDeviceId(fragment.context))
+        json.addProperty("LoginGuid", DeviceUtil.getDeviceId(BaseUtil.sTopAct))
         HttpUtil.addSubscription(ApiClient.retrofit().loginVerifyCode(json),object :
             ApiCallback<PicVerifyCodeBean, Response<BaseBean<PicVerifyCodeBean>>>(){
             override fun onSuccess(model: BaseBean<PicVerifyCodeBean>) {

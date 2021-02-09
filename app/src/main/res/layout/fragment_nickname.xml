@@ -26,6 +26,7 @@
             android:paddingBottom="10dp"
             android:textColor="@color/black_263238"
             android:textSize="14sp"
+            android:maxLength="15"
             android:textColorHint="@color/gray_9"
             android:hint="请输入用户昵称"
             android:singleLine="true"

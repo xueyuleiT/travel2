@@ -39,13 +39,25 @@
 
                 <TextView
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:textColor="@color/black_263238"
                     android:textSize="16sp"
                     android:drawableLeft="@mipmap/icon_order_start_time"
                     android:text="选择发车班次"
                     android:drawablePadding="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_no_bus"
+                    android:layout_marginBottom="10dp"
+                    android:text="暂无班次"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/green_light"
+                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

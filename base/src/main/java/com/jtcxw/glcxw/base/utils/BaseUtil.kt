@@ -11,7 +11,6 @@ import java.util.concurrent.Executors
 
 class BaseUtil {
     companion object{
-        var sOpenApp = false
         var sTopAct : SupportActivity? = null
         val sExecutorService = Executors.newSingleThreadExecutor()
         fun unDisplayViewSize(view: View):Int {

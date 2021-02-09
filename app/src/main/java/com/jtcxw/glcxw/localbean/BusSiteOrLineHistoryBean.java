@@ -9,6 +9,15 @@ public class BusSiteOrLineHistoryBean {
 
     private String LineNo;
     private String LineName;
+    private String FollowFlag;
+
+    public String getFollowFlag() {
+        return FollowFlag;
+    }
+
+    public void setFollowFlag(String followFlag) {
+        FollowFlag = followFlag;
+    }
 
     private SiteOrLineBean.LineDateBean.LineDirectionBean LineDirection;
 

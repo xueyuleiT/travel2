@@ -143,12 +143,46 @@ public class SiteOrLineBean {
          * Lat : 25.660792
          * StationLineInfo : [{"LineNo":"712","LineName":"712路","LineDirection":[{"LineId":"4cd42a65-2236-11eb-916a-00155d37fc0f","DirectionLineName":"蒋家山","StartTime":"07:00","LastTime":"18:30"}]}]
          */
-
+        private String FollowFlag;
+        private String StationId;
         private String StationName;
+        private Double Lon;
+        private Double Lat;
         private int Distance;
         private List<StationLineInfoBean> StationLineInfo;
         private List<StopListBean> StopList;
 
+        public String getFollowFlag() {
+            return FollowFlag;
+        }
+
+        public void setFollowFlag(String followFlag) {
+            FollowFlag = followFlag;
+        }
+
+        public Double getLon() {
+            return Lon;
+        }
+
+        public void setLon(Double lon) {
+            Lon = lon;
+        }
+
+        public Double getLat() {
+            return Lat;
+        }
+
+        public void setLat(Double lat) {
+            Lat = lat;
+        }
+
+        public String getStationId() {
+            return StationId;
+        }
+
+        public void setStationId(String stationId) {
+            StationId = stationId;
+        }
 
         public List<StopListBean> getStopList() {
             return StopList;

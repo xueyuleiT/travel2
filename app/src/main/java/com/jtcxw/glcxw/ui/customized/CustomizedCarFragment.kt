@@ -64,12 +64,12 @@ class CustomizedCarFragment:BaseFragment<FragmentCustomizedCarBinding,CommonMode
         super.onClick(v)
         when(v?.id) {
             R.id.tv_ok -> {
-                if (TextUtils.isEmpty(mBinding.etStart.text.toString())) {
+                if (TextUtils.isEmpty(mBinding.etStart.text.toString().replace(" ",""))) {
                     ToastUtil.toastWaring("请输入出发地点")
                     return
                 }
 
-                if (TextUtils.isEmpty(mBinding.etEnd.text.toString())) {
+                if (TextUtils.isEmpty(mBinding.etEnd.text.toString().replace(" ",""))) {
                     ToastUtil.toastWaring("请输入到达地点")
                     return
                 }

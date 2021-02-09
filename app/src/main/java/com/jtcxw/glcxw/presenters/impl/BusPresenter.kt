@@ -7,6 +7,8 @@ import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
 import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
+import com.jtcxw.glcxw.base.respmodels.SiteDataBean
+import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.presenters.IBus
@@ -20,6 +22,7 @@ class BusPresenter:IBus {
     constructor(view: BusView){
         iView = view
     }
+
     override fun busInquiryAnnexBus(
         jsonObject: JsonObject,
         smartRefreshLayout: SmartRefreshLayout

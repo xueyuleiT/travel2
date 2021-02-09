@@ -35,7 +35,6 @@ import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.databinding.FragmentBusMapBinding
 import com.jtcxw.glcxw.events.CollectEvent
 import com.jtcxw.glcxw.listeners.CollectCancelCallback
-import com.jtcxw.glcxw.listeners.InnerClickListener
 import com.jtcxw.glcxw.listeners.InnerWithLineClickListener
 import com.jtcxw.glcxw.presenters.impl.BusMapPresenter
 import com.jtcxw.glcxw.presenters.impl.CollectionPresenter
@@ -57,6 +56,12 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
     }
 
     override fun onClearQueryHistorySucc(jsonObject: JsonObject) {
+    }
+
+    override fun onQuerySiteSucc(
+        s: List<AnnexBusBean.StationListBean>,
+        stationId: String
+    ) {
     }
 
     override fun onAddCollectionSucc(jsonObject: JsonObject) {

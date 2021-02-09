@@ -35,15 +35,16 @@ class MessageFragment:BaseFragment<FragmentMessageBinding,CommonModel>() {
     }
 
     var mList = ArrayList<MessageBean>()
+    var mTvRight:TextView?= null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolBar("消息中心")
 
-        val tvRight = mBinding.root!!.findViewById<TextView>(R.id.tv_right)
-        tvRight.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-        tvRight.setTextColor(resources.getColor(R.color.black_263238))
-        tvRight.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f)
-        tvRight.setOnClickListener {
+        mTvRight = mBinding.root!!.findViewById<TextView>(R.id.tv_right)
+        mTvRight!!.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+        mTvRight!!.setTextColor(resources.getColor(R.color.black_263238))
+        mTvRight!!.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f)
+        mTvRight!!.setOnClickListener {
 
             if (mList.isEmpty()) {
                 return@setOnClickListener
@@ -73,28 +74,7 @@ class MessageFragment:BaseFragment<FragmentMessageBinding,CommonModel>() {
         }
 
         mBinding.swipeLayout.setOnRefreshListener {
-            var list = DaoUtilsStore.getInstance().userDaoUtils.queryAll()
-            if (list == null) {
-                list = ArrayList<MessageBean>()
-            }
-            mList.clear()
-            list.forEach {
-                if (it.phone == UserUtil.getUserInfoBean().realTelphoneNo) {
-                    mList.add(it)
-                }
-            }
-            if(mList.isNotEmpty()) {
-                val temp = ArrayList<MessageBean>()
-                mList.reversed().forEach {
-                    temp.add(it)
-                }
-                mList = temp
-                tvRight.visibility = View.VISIBLE
-                tvRight.text = "全部已读"
-            } else {
-                tvRight.visibility = View.GONE
-            }
-            mBinding.recyclerView.setNewData(mList,false)
+            refresh()
             mBinding.swipeLayout.finishRefresh(0)
         }
 
@@ -153,6 +133,31 @@ class MessageFragment:BaseFragment<FragmentMessageBinding,CommonModel>() {
 
     }
 
+    fun refresh() {
+        var list = DaoUtilsStore.getInstance().userDaoUtils.queryAll()
+        if (list == null) {
+            list = ArrayList<MessageBean>()
+        }
+        mList.clear()
+        list.forEach {
+            if (it.phone == UserUtil.getUserInfoBean().realTelphoneNo) {
+                mList.add(it)
+            }
+        }
+        if(mList.isNotEmpty()) {
+            val temp = ArrayList<MessageBean>()
+            mList.reversed().forEach {
+                temp.add(it)
+            }
+            mList = temp
+            mTvRight!!.visibility = View.VISIBLE
+            mTvRight!!.text = "全部已读"
+        } else {
+            mTvRight!!.visibility = View.GONE
+        }
+        mBinding.recyclerView.setNewData(mList,false)
+    }
+
     companion object {
         fun newInstance(fragment: SupportFragment, bundle: Bundle?) {
             val messageFragment = MessageFragment()
@@ -161,6 +166,13 @@ class MessageFragment:BaseFragment<FragmentMessageBinding,CommonModel>() {
         }
     }
 
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        if (ismBindingInitialized()) {
+            refresh()
+        }
+    }
 
     override fun doAfterAnim() {
     }

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 interface IBusQuery {
+    fun querySite(jsonObject: JsonObject,stationId:String)
     fun clearQueryHistory(jsonObject: JsonObject)
     fun listQueryHistory(jsonObject: JsonObject)
     fun saveQueryHistory(jsonObject: JsonObject)

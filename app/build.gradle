@@ -45,17 +45,21 @@ android {
 
             debugConfig {
                 v2SigningEnabled true
-                keyAlias "android"
-                keyPassword "glcxw1"
-                storeFile file("../gl.jks")
-                storePassword "glcxw1"
+                keyAlias "androiddebugkey"
+                keyPassword "android"
+                storeFile file("../keystore.keystore")
+                storePassword "android"
             }
             release {
                 v2SigningEnabled true
-                keyAlias "android"
-                keyPassword "glcxw1"
-                storeFile file("../gl.jks")
-                storePassword "glcxw1"
+                keyAlias "androiddebugkey"
+                keyPassword "android"
+                storeFile file("../keystore.keystore")
+                storePassword "android"
+//                keyAlias "android"
+//                keyPassword "glcxw1"
+//                storeFile file("../gl.jks")
+//                storePassword "glcxw1"
             }
         }
     }
@@ -101,7 +105,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "5071bc0a6dfa1f78180206a8", //极光开发平台上注册的包名对应的appkey.
+                JPUSH_APPKEY : "30d5fbd6ae4c306d376eedc9", //极光开发平台上注册的包名对应的appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
 

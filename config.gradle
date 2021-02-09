@@ -55,7 +55,7 @@ ext {
             libaction                   : 'com.abbott.delayaction:libaction:1.0.1'
 
     ]
-    applicationId = "com.jtcxw.glcxw"
+    applicationId = "cn.com.jttravel"//"com.jtcxw.glcxw"
     compileSdkVersion = 29
     buildToolsVersion = "29.0.2"
     minSdkVersion = 17

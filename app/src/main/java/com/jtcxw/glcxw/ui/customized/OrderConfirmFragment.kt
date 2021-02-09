@@ -405,7 +405,10 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
             if (leftTime < 0) {
                 mBinding.tvLeftTime.text = "剩余时间:--"
                 stopTimer()
-                refresh()
+                val json = JsonObject()
+                json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
+                json.addProperty("OrderId", arguments!!.getString(BundleKeys.KEY_ORDER_ID))
+                mPresenter!!.orderCancel(json,DialogUtil.getLoadingDialog(fragmentManager))
                 return@Runnable
             }
             val timeStr = "剩余时间:" + leftTime / 60 + "分" + leftTime % 60 + "秒"

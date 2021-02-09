@@ -29,6 +29,11 @@ class WelcomeActivity: BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
+            finish()
+            return
+        }
+
 //        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
 //            if (BaseUtil.sOpenApp) {
 //
@@ -38,7 +43,6 @@ class WelcomeActivity: BaseActivity() {
 //            return
 //        }
 
-        BaseUtil.sOpenApp = true
 
         setContentView(R.layout.activity_welcome)
 
@@ -68,7 +72,6 @@ class WelcomeActivity: BaseActivity() {
             pop()
         }else {
             super.onBackPressedSupport()
-            BaseUtil.sOpenApp = false
             exitProcess(0)
         }
     }

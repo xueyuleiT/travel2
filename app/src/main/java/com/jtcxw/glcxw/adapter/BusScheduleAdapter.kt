@@ -1,6 +1,7 @@
 package com.jtcxw.glcxw.adapter
 
 import android.annotation.SuppressLint
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.TextView
@@ -139,10 +140,10 @@ class BusScheduleAdapter(
 
         }
 
-        if (data!!.ticketBean !== null) {
-            tvTime.text = data!!.ticketBean.ride_time.split(" ")[1]
-        } else {
+        if (!TextUtils.isEmpty(data.ride_time)) {
             tvTime.text = data.ride_time
+        } else {
+            tvTime.text = data!!.ticketBean.ride_time.split(" ")[1]
         }
 
 

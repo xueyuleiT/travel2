@@ -32,6 +32,7 @@ public class BottomDialogUtil {
                 bottomDialog.dismiss();
             });
 
+        bottomDialog.findViewById(R.id.v_divider_1).setVisibility(View.GONE);
 
         TextView tvGallery = bottomDialog.findViewById(R.id.tv_bd);
         tvGallery.setText("我的相册");
@@ -44,6 +45,7 @@ public class BottomDialogUtil {
 
         TextView tvTx = bottomDialog.findViewById(R.id.tv_tx);
         tvTx.setVisibility(View.GONE);
+
 
         TextView tvCancel = bottomDialog.findViewById(R.id.tv_cancel);
         tvCancel.setText("取消");

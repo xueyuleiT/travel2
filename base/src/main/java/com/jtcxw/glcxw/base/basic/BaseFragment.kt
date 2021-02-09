@@ -272,7 +272,6 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
             .positiveButton(null, SpannelUtil.getSpannelStr(ok, context!!.resources.getColor(R.color.blue_3A75F3)),
                 positiveCallback
             )
-            .lifecycleOwner(activity!!)
             .cornerRadius(DimensionUtil.dpToPx(2), null)
             .cancelable(true)
             .show()
@@ -285,7 +284,6 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
             .positiveButton(null, SpannelUtil.getSpannelStr(ok, context!!.resources.getColor(R.color.blue_3A75F3)),
                 positiveCallback
             )
-            .lifecycleOwner(activity!!)
             .cornerRadius(DimensionUtil.dpToPx(2), null)
             .cancelable(false)
             .show()

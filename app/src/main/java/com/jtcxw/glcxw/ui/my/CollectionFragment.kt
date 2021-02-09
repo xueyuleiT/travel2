@@ -13,7 +13,6 @@ import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.respmodels.AnnexBusBean
 import com.jtcxw.glcxw.base.respmodels.CollectionInfoBean
-import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.base.utils.UserUtil
 import com.jtcxw.glcxw.databinding.FragmentCollectionBinding
@@ -86,6 +85,11 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
                 }
                 mList.add(myCollectionBean)
             }
+            if (mList.size > 0) {
+                mTvRight!!.visibility = View.VISIBLE
+            } else {
+                mTvRight!!.visibility = View.GONE
+            }
             val tvRight = mBinding.root.findViewById<TextView>(R.id.tv_right)
 
             if (tvRight.text.toString() == "完成") {
@@ -107,15 +111,18 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
         mCollectInfoBean.addAll(collectInfoBean.collectInfo)
     }
 
-    override fun onQuerySiteSucc(s: List<AnnexBusBean.StationListBean>) {
+    override fun onQuerySiteSucc(
+        s: List<AnnexBusBean.StationListBean>,
+        stationId: String
+    ) {
         val bundle = Bundle()
         s.forEach {
             it.stationLineInfo.forEach { it_ ->
                 it_.isCollection = it_.collectionFlag
             }
         }
-        bundle.putParcelableArrayList(BundleKeys.KEY_STATION_BEAN,ArrayList(s))
-        bundle.putString(BundleKeys.KEY_STATION_ID,s!![0].stopList[0].stopId)
+        bundle.putParcelableArrayList(BundleKeys.KEY_STATION_BEAN, ArrayList(s))
+        bundle.putString(BundleKeys.KEY_STATION_ID,stationId)
         QueryMainFragment.newInstance(this@CollectionFragment as SupportFragment,bundle)
     }
 
@@ -131,16 +138,18 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
     var mCollectInfoBean = ArrayList<CollectionInfoBean.CollectInfoBean>()
     var mPresenter:CollectionListPresenter?= null
     var mCollectPresenter:CollectionPresenter?= null
+    var mTvRight:TextView?= null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolBar("收藏")
 
-        val tvRight = mBinding.root.findViewById<TextView>(R.id.tv_right)
-        tvRight.text = "编辑"
-        tvRight.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-        tvRight.setTextColor(resources.getColor(R.color.green_light))
-        tvRight.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f)
-        tvRight.setOnClickListener {
+        mTvRight = mBinding.root.findViewById<TextView>(R.id.tv_right)
+        mTvRight!!.text = "编辑"
+        mTvRight!!.visibility = View.GONE
+        mTvRight!!.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+        mTvRight!!.setTextColor(resources.getColor(R.color.green_light))
+        mTvRight!!.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f)
+        mTvRight!!.setOnClickListener {
             if (mList.isEmpty()) {
                 return@setOnClickListener
             }
@@ -148,10 +157,10 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
                 it.isEdit = !it.isEdit
             }
 
-            if (tvRight.text.toString() == "编辑") {
-                tvRight.text = "完成"
+            if (mTvRight!!.text.toString() == "编辑") {
+                mTvRight!!.text = "完成"
             } else {
-                tvRight.text = "编辑"
+                mTvRight!!.text = "编辑"
             }
 
             mBinding.recyclerView.innerAdapter.notifyAllItems()
@@ -181,7 +190,7 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
                 json.addProperty("Latitude",UserUtil.getUser().latitude)
                 json.addProperty("StationId",id)
                 json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
-                mPresenter!!.querySite(json)
+                mPresenter!!.querySite(json,id)
             }
 
         })

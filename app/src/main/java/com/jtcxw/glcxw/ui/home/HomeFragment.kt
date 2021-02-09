@@ -697,7 +697,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     var mVersionBean: VersionBean ?= null
     override fun onAppVersionSucc(versionBean: VersionBean) {
         mVersionBean = versionBean
-        if (versionBean.isForceUpdate == 0) {
+        if (versionBean.isForceUpdate == 1) {
             if (versionBean.version.replace("V", "").replace(".", "")
                     .toInt() > BuildConfig.VERSION_NAME.replace(".", "").toInt())
             {
@@ -718,7 +718,6 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                                         isAll: Boolean
                                     ) {
                                         if (isAll) {
-                                            isShowPermisson = false
                                             DownLoadDialog().setTitle(versionBean!!.version)
                                                 .setUrl(versionBean!!.updPackageUrl)
                                                 .show(parentFragment!!.fragmentManager!!, "showConfirmDialog")
@@ -764,7 +763,6 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                                 isAll: Boolean
                             ) {
                                 if (isAll) {
-                                    isShowPermisson = false
                                     DownLoadDialog().setTitle(mVersionBean!!.version)
                                         .setUrl(mVersionBean!!.updPackageUrl)
                                         .show(fragmentManager!!, "showConfirmDialog")

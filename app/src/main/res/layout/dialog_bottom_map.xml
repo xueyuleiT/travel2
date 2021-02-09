@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <include layout="@layout/layout_divider"/>
+        <include layout="@layout/layout_divider" />
         <TextView
             android:id="@+id/tv_bd"
             android:paddingTop="15dp"
@@ -35,7 +35,12 @@
             android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <include layout="@layout/layout_divider"/>
+        <View
+            android:id="@+id/v_divider_1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/e3e3e3"
+            xmlns:android="http://schemas.android.com/apk/res/android" />
         <TextView
             android:id="@+id/tv_tx"
             android:paddingTop="15dp"

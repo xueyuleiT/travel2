@@ -6,6 +6,7 @@ import com.jtcxw.glcxw.base.api.ApiCallback
 import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.listeners.RefreshCallback
+import com.jtcxw.glcxw.base.respmodels.SiteDataBean
 import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
 import com.jtcxw.glcxw.base.utils.DialogUtil
 import com.jtcxw.glcxw.base.utils.HttpUtil
@@ -17,6 +18,44 @@ import models.BaseBean
 import retrofit2.Response
 
 class BusQueryPresenter:IBusQuery {
+
+    override fun querySite(jsonObject: JsonObject,stationId:String) {
+        val fragment = (iView as BaseFragment<*, *>)
+        val dialog = DialogUtil.getLoadingDialog(fragment.fragmentManager)
+        HttpUtil.addSubscription(ApiClient.retrofit().querySite(jsonObject),object :
+            ApiCallback<SiteDataBean, Response<BaseBean<SiteDataBean>>>(){
+            override fun onSuccess(model: BaseBean<SiteDataBean>) {
+                dialog.dismiss()
+                if (model.Code == 200){
+                    iView?.onQuerySiteSucc(model.Data!!.siteData,stationId)
+                } else {
+                    if (!TextUtils.isEmpty(model.Info)) {
+                        ToastUtil.toastError(model.Info!!)
+                    }
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+//                if (!TextUtils.isEmpty(msg)) {
+//                    ToastUtil.toastError(msg!!)
+//                }
+            }
+
+            override fun onFinish() {
+                dialog.dismiss()
+            }
+
+        }, fragment, object : RefreshCallback {
+            override fun onRefreshBack(refreshSucc: Boolean) {
+                if (!refreshSucc) {
+                    dialog.dismiss()
+                }
+            }
+
+        })
+    }
+
+
     override fun clearQueryHistory(jsonObject: JsonObject) {
         val fragment = (iView as BaseFragment<*, *>)
         val dialog = DialogUtil.getLoadingDialog(fragment.fragmentManager)

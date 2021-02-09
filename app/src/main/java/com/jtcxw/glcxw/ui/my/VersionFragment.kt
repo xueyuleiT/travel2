@@ -48,7 +48,7 @@ class VersionFragment:BaseFragment<FragmentVersionBinding,CommonModel>() ,AppVer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolBar("当前版本")
+        initToolBar("版本检查")
 
         mPresenter = AppVersionPresenter(this)
 

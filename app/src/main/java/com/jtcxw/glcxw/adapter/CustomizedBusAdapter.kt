@@ -32,6 +32,7 @@ class CustomizedBusAdapter(context: Context,list: List<LineBean.RouteListBean>) 
         val llVisit = holder!!.getView<LinearLayout>(R.id.ll_visit)
         val ivArrowVisit =  holder!!.getView<ImageView>(R.id.iv_arrow_visit)
         val ivArrowTip =  holder!!.getView<ImageView>(R.id.iv_arrow_tip)
+        val ivDirection = holder!!.getView<ImageView>(R.id.iv_direction)
 
         tvTitle.text = data!!.route_name
         tvLineNo.text = data!!.route_no
@@ -43,6 +44,12 @@ class CustomizedBusAdapter(context: Context,list: List<LineBean.RouteListBean>) 
         } else {
             ivArrowTip.setImageResource(R.mipmap.icon_arrow_down_green)
             tvTip.visibility = View.GONE
+        }
+
+        if (data.route_type == 0) {
+            ivDirection.setImageResource(R.mipmap.icon_trans_to)
+        } else {
+            ivDirection.setImageResource(R.mipmap.icon_bus_from_to)
         }
 
         if (data!!.openVisit) {

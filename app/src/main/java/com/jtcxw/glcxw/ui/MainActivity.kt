@@ -10,11 +10,14 @@ import com.jtcxw.glcxw.BuildConfig
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.basic.BaseActivity
 import com.jtcxw.glcxw.base.basic.BaseFragment
+import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.utils.RxBus
 import com.jtcxw.glcxw.base.utils.ToastUtil
 import com.jtcxw.glcxw.events.MessageEvent
 import com.jtcxw.glcxw.fragment.MainFragment
 import com.jtcxw.glcxw.localbean.MessageBean
+import com.jtcxw.glcxw.ui.my.OrderDetailFragment
+import com.jtcxw.glcxw.utils.DaoUtilsStore
 import com.zss.cardview.CardView
 import me.yokeyword.fragmentation.Fragmentation
 import me.yokeyword.fragmentation.SupportFragment
@@ -58,7 +61,17 @@ class MainActivity : BaseActivity() {
             mCardView!!.setOnClickListener {
                 mCardView!!.removeCallbacks(mRunnable)
                 mCardView!!.visibility = View.GONE
-                MessageFragment.newInstance(topFragment!! as SupportFragment,null)
+
+                if (messageEvent.pushType == "2") {
+                    messageEvent.read = 1
+                    DaoUtilsStore.getInstance().userDaoUtils.update(messageEvent)
+                    val bundle = Bundle()
+                    bundle.putString(BundleKeys.KEY_ORDER_TYPE,messageEvent.MessageType)
+                    bundle.putString(BundleKeys.KEY_BUSINESS_ID,messageEvent.BusinessId)
+                    OrderDetailFragment.newInstance(topFragment!! as SupportFragment,bundle)
+                } else {
+                    MessageFragment.newInstance(topFragment as SupportFragment,null)
+                }
             }
 
             RxBus.getDefault().post(MessageEvent())
@@ -69,7 +82,27 @@ class MainActivity : BaseActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         if (intent != null && intent.hasExtra("type") && intent.getStringExtra("type") == "message") {
-            MessageFragment.newInstance(topFragment as SupportFragment,null)
+            if (intent.getStringExtra("pushType") == "2") {
+                val businessId = intent.getStringExtra("businessId")
+                var list = DaoUtilsStore.getInstance().userDaoUtils.queryAll()
+                var model:MessageBean?= null
+                run label@ {
+                    list.forEach {
+                        if (it.businessId == businessId) {
+                            model = it
+                            return@label
+                        }
+                    }
+                }
+                model!!.read = 1
+                DaoUtilsStore.getInstance().userDaoUtils.update(model)
+                val bundle = Bundle()
+                bundle.putString(BundleKeys.KEY_ORDER_TYPE,model!!.MessageType)
+                bundle.putString(BundleKeys.KEY_BUSINESS_ID,model!!.BusinessId)
+                OrderDetailFragment.newInstance(topFragment!! as SupportFragment,bundle)
+            } else {
+                MessageFragment.newInstance(topFragment as SupportFragment,null)
+            }
         }
     }
 

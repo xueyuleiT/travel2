@@ -63,6 +63,9 @@ class JPushReceiver: JPushMessageReceiver() {
         var pendingIntent: PendingIntent?
         val intent = Intent(p0, MainActivity::class.java)
         intent.putExtra("type","message")
+        intent.putExtra("pushType",messageEvent.pushType)
+        intent.putExtra("messageType",messageEvent.messageType)
+        intent.putExtra("businessId",messageEvent.businessId)
         pendingIntent = PendingIntent.getActivity(p0, notifyId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         notifyId ++
 

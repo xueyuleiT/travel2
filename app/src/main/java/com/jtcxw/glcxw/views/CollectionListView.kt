@@ -5,6 +5,9 @@ import com.jtcxw.glcxw.base.respmodels.CollectionInfoBean
 
 interface CollectionListView {
     fun onCollectionInfoSucc(collectInfoBean: CollectionInfoBean)
-    fun onQuerySiteSucc(s: List<AnnexBusBean.StationListBean>)
+    fun onQuerySiteSucc(
+        s: List<AnnexBusBean.StationListBean>,
+        stationId: String
+    )
     fun onCollectionInfoFinish()
 }

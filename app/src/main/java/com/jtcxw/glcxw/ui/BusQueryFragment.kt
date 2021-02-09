@@ -9,6 +9,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
@@ -42,6 +44,30 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
         }
     }
 
+    override fun onQuerySiteSucc(
+        s: List<AnnexBusBean.StationListBean>,
+        stationId: String
+    ) {
+        val bundle = Bundle()
+        s.forEach {
+            it.stationLineInfo.forEach { it_ ->
+                it_.isCollection = it_.collectionFlag
+            }
+        }
+        bundle.putParcelableArrayList(BundleKeys.KEY_STATION_BEAN,ArrayList(s))
+        bundle.putString(BundleKeys.KEY_STATION_ID, stationId)
+        if (BaseUtil.sTopAct!!.topFragment is QueryMainFragment) {
+            val busMapFragment = BusMapFragment()
+            busMapFragment.arguments = bundle
+            (BaseUtil.sTopAct!!.topFragment as QueryMainFragment).replace(busMapFragment)
+        } else {
+            QueryMainFragment.newInstance(
+                BaseUtil.sTopAct!!.topFragment as SupportFragment,
+                bundle
+            )
+        }
+    }
+
     override fun onListHistorySucc(siteOrLineBean: SiteOrLineBean) {
         if (mBinding.recyclerView.visibility == View.VISIBLE) {
             return
@@ -63,15 +89,14 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
 
         siteOrLineBean.siteData.forEach {
             val busSiteOrLineHistoryBean = BusSiteOrLineHistoryBean()
-            if (it.stopList != null && it.stopList.isNotEmpty()) {
-                busSiteOrLineHistoryBean.lat = it.stopList[0].lat
-                busSiteOrLineHistoryBean.lon = it.stopList[0].lon
-                busSiteOrLineHistoryBean.stationId = it.stopList[0].stopId
-            }
+            busSiteOrLineHistoryBean.lat = it.lat
+            busSiteOrLineHistoryBean.lon = it.lon
+            busSiteOrLineHistoryBean.stationId = it.stationId
             busSiteOrLineHistoryBean.stationName = it.stationName
             busSiteOrLineHistoryBean.distance = it.distance
             busSiteOrLineHistoryBean.stationLineInfo = it.stationLineInfo
             busSiteOrLineHistoryBean.type = 0
+            busSiteOrLineHistoryBean.followFlag = it.followFlag
             mHistoryDatas.add(busSiteOrLineHistoryBean)
 
         }
@@ -135,10 +160,15 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
 
         addSearchListener()
         mBinding.ivClear.setOnClickListener {
-            val json = JsonObject()
-            json.addProperty("LoginGuid",DeviceUtil.getDeviceId(context))
-            json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
-            mPresenter!!.clearQueryHistory(json)
+            showConfirmDialog("提示","请确认是否清除查询历史记录？","确认","取消",object :DialogCallback{
+                override fun invoke(p1: MaterialDialog) {
+                    val json = JsonObject()
+                    json.addProperty("LoginGuid",DeviceUtil.getDeviceId(context))
+                    json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
+                    mPresenter!!.clearQueryHistory(json)
+                }
+
+            },null)
         }
 
         mBinding.swipeLayout.setOnRefreshListener {
@@ -158,10 +188,19 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
         historyAdapter.setOnItemClickListener(object :BaseRecyclerAdapter.OnItemClickListener<BusSiteOrLineHistoryBean>{
             override fun onItemClick(view: View?, data: BusSiteOrLineHistoryBean?, position: Int) {
                 if (mHistoryDatas[position].type == 0) {
-                    mBinding.llHistory.visibility = View.GONE
-                    mBinding.recyclerView.visibility = View.VISIBLE
-                    mBinding.etSearch.setText(data!!.stationName)
-                    mBinding.swipeLayout.autoRefresh()
+//                    mBinding.llHistory.visibility = View.GONE
+//                    mBinding.recyclerView.visibility = View.VISIBLE
+//                    mBinding.etSearch.setText(data!!.stationName)
+//                    mBinding.swipeLayout.autoRefresh()
+
+
+                    val json = JsonObject()
+                    json.addProperty("Longitude",UserUtil.getUser().longitude)
+                    json.addProperty("Latitude",UserUtil.getUser().latitude)
+                    json.addProperty("StationId",mHistoryDatas[position].stationId)
+                    json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
+                    mPresenter!!.querySite(json,mHistoryDatas[position].stationId)
+
                 } else {
                     val bundle = Bundle()
                     bundle.putString(
