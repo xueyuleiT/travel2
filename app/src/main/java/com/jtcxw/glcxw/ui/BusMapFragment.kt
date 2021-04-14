@@ -915,9 +915,12 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     private fun showLocation() {
 
-        if (mSelectedData[0].stopList != null && mSelectedData[0].stopList.isNotEmpty()) {
+        if (mSelectedData.isNotEmpty() && mSelectedData[0].stopList != null && mSelectedData[0].stopList.isNotEmpty()) {
             val latLng = LatLng(mSelectedData[0].stopList[0].lat, mSelectedData[0].stopList[0].lon)
             //设置中心点和缩放比例
+            mBinding.vMap.map.animateCamera(CameraUpdateFactory.changeLatLng(latLng))
+        } else {
+            val latLng = LatLng(UserUtil.getUser().latitude.toDouble(), UserUtil.getUser().longitude.toDouble())
             mBinding.vMap.map.animateCamera(CameraUpdateFactory.changeLatLng(latLng))
         }
         mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(14f))

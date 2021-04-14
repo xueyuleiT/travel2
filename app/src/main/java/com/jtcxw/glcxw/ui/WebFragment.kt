@@ -36,7 +36,7 @@ import com.jtcxw.glcxw.databinding.FragmentWebBinding
 import com.jtcxw.glcxw.utils.AlipayUtil
 import com.jtcxw.glcxw.utils.DownloadTask
 import com.jtcxw.glcxw.viewmodel.CommonModel
-import com.lakala.wtb.listener.HandleCallBack
+import com.jtcxw.glcxw.listeners.HandleCallBack
 import com.tencent.smtt.sdk.*
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment

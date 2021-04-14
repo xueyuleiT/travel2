@@ -2,7 +2,7 @@ package com.jtcxw.glcxw.utils;
 
 import android.os.AsyncTask;
 
-import com.lakala.wtb.listener.HandleCallBack;
+import com.jtcxw.glcxw.listeners.HandleCallBack;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

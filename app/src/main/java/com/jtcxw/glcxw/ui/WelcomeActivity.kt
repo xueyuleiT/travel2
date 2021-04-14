@@ -117,7 +117,9 @@ class WelcomeActivity: BaseActivity() {
 
                     })
                     dialog.isCancelable = false
-                    dialog.show(supportFragmentManager!!,"PermissionDialog")
+                    if (!isFinishing && supportFragmentManager != null) {
+                        dialog.show(supportFragmentManager!!, "PermissionDialog")
+                    }
                 } else {
                     UserUtil.getUser().userInfoBean.realTelphoneNo = CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_TELEPHONE,"")
                     UserUtil.getUser().userInfoBean.memberId = CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_MEMBER_ID,"")

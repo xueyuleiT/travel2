@@ -18,11 +18,11 @@ public class DeviceUtil {
      */
     @SuppressLint("MissingPermission")
     public static String getDeviceId(Context context) {
-        String uniqueId = Settings.System.getString(context.getContentResolver(), KEY_NAME);
+        String uniqueId = Settings.System.getString(BaseUtil.Companion.getSTopAct().getContentResolver(), KEY_NAME);
         if (!TextUtils.isEmpty(uniqueId)) {
             return uniqueId;
-        } else if (!TextUtils.isEmpty(context.getSharedPreferences(TAG, Context.MODE_PRIVATE).getString(TAG, ""))) {
-            uniqueId = context.getSharedPreferences(TAG, Context.MODE_PRIVATE).getString(TAG, "");
+        } else if (!TextUtils.isEmpty(BaseUtil.Companion.getSTopAct().getSharedPreferences(TAG, Context.MODE_PRIVATE).getString(TAG, ""))) {
+            uniqueId = BaseUtil.Companion.getSTopAct().getSharedPreferences(TAG, Context.MODE_PRIVATE).getString(TAG, "");
             return uniqueId;
         }
         StringBuilder sb = new StringBuilder();
@@ -54,9 +54,9 @@ public class DeviceUtil {
 
         uniqueId = md5(sb.toString().trim().toUpperCase());
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            Settings.System.putString(context.getContentResolver(), KEY_NAME, uniqueId);
+            Settings.System.putString(BaseUtil.Companion.getSTopAct().getContentResolver(), KEY_NAME, uniqueId);
         } else {
-            context.getSharedPreferences(TAG, Context.MODE_PRIVATE).edit().putString(TAG, uniqueId).apply();
+            BaseUtil.Companion.getSTopAct().getSharedPreferences(TAG, Context.MODE_PRIVATE).edit().putString(TAG, uniqueId).apply();
         }
 
         return uniqueId;

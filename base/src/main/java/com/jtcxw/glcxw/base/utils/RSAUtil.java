@@ -76,7 +76,7 @@ public class RSAUtil {
         }
     }
 
-        public static String CIPHER_ALGORITHM = "AES/CBC/PKCS7Padding";
+    public static String CIPHER_ALGORITHM = "AES/CBC/PKCS7Padding";
 
     public static String aesEncrypt(String data) throws Exception {
         byte[] iv = { 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31, 0x31 };
@@ -125,4 +125,4 @@ public class RSAUtil {
         return realKey;
     }
 
-    }
+}
