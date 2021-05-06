@@ -51,7 +51,7 @@
             android:paddingLeft="10dp"
             android:textColor="@color/black_263238"
             android:textSize="14sp"
-            android:text="反馈内容"
+            android:text="投诉内容"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -63,7 +63,7 @@
             android:textColor="@color/black_263238"
             android:textSize="14sp"
             android:textColorHint="@color/gray_9"
-            android:hint="请输入反馈内容"
+            android:hint="请输入投诉内容"
             android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="80dp"/>

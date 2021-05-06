@@ -62,7 +62,7 @@ public class BusArriveListBean {
              * Lon : 110.257127
              * Lat : 25.260566
              */
-
+            private String lastUpdTime;
             private String ForecastTime;
             private String NextLevel;
             private String GpsTime;
@@ -70,6 +70,14 @@ public class BusArriveListBean {
             private double Lon;
             private double Lat;
             private int Angle;
+
+            public String getLastUpdTime() {
+                return lastUpdTime;
+            }
+
+            public void setLastUpdTime(String lastUpdTime) {
+                this.lastUpdTime = lastUpdTime;
+            }
 
             public int getAngle() {
                 return Angle;

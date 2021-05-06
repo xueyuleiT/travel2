@@ -14,10 +14,10 @@
             android:id="@+id/iv_welcome"
             android:visibility="gone"
             android:layout_centerHorizontal="true"
-            android:background="@mipmap/icon_launch"
+            android:background="@mipmap/icon_welcome"
             android:layout_centerInParent="true"
-            android:layout_width="120dp"
-            android:layout_height="120dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

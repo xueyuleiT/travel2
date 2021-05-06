@@ -25,13 +25,14 @@ class VersionFragment:BaseFragment<FragmentVersionBinding,CommonModel>() ,AppVer
     var mVersionBean:VersionBean?= null
     override fun onAppVersionSucc(versionBean: VersionBean) {
         mVersionBean = versionBean
-        mBinding.tvVersion.text = versionBean.version
         mBinding.tvDetail.text = versionBean.updContent
         if (versionBean.version.replace("V","").replace(".","").toInt() <= BuildConfig.VERSION_NAME.replace(".","").toInt()) {
             mBinding.tvCheck.isEnabled = false
             mBinding.tvCheck.text = "最新版本检查"
+            mBinding.tvVersion.text = versionBean.version
             mBinding.tvCheck.setBackgroundResource(R.drawable.shape_r5_gray)
         } else {
+            mBinding.tvVersion.text = "发现新版本" + versionBean.version
             mBinding.tvCheck.text = "更新到版本 ${versionBean.version}"
         }
     }
@@ -48,7 +49,7 @@ class VersionFragment:BaseFragment<FragmentVersionBinding,CommonModel>() ,AppVer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolBar("版本检查")
+        initToolBar("版本更新")
 
         mPresenter = AppVersionPresenter(this)
 

@@ -18,6 +18,7 @@ import com.jtcxw.glcxw.BR
 import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
+import com.jtcxw.glcxw.base.constant.Constant.Companion.APP_ID_WE_CHAT
 import com.jtcxw.glcxw.base.respmodels.PicVerifyCodeBean
 import com.jtcxw.glcxw.base.respmodels.UserInfoBean
 import com.jtcxw.glcxw.base.utils.*
@@ -28,8 +29,12 @@ import com.jtcxw.glcxw.ui.MainActivity
 import com.jtcxw.glcxw.utils.MySingleCall
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.LoginView
+import com.tencent.mm.opensdk.modelmsg.SendAuth
+import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
+
 
 class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView {
     override fun onLoginFailed(msg: String) {
@@ -65,6 +70,10 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
     override fun onClick(v: View?) {
         super.onClick(v)
         when(v?.id) {
+            R.id.iv_wechat -> {
+                weChartLogin()
+            }
+
             R.id.tv_policy -> {
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_TREATY_TYPE,"2")
@@ -152,6 +161,18 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
     override fun onLoginVerifyCodeFinish() {
     }
 
+    var mApi:IWXAPI?= null
+    private fun weChartLogin() {
+        if (!mApi!!.isWXAppInstalled) {
+            ToastUtil.toastWaring("您的设备未安装微信客户端")
+            return
+        }
+        val req = SendAuth.Req()
+        req.scope = "snsapi_userinfo"
+        req.state = "App"
+        mApi!!.sendReq(req)
+    }
+
     private var mPresenter:LoginPresenter ?= null
     override fun getVariableId(): Int {
         return BR.common
@@ -166,12 +187,17 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
         if (BaseUtil.isDarkMode()) {
             mBinding.vBg.setBackgroundResource(0)
         }
+        mApi = WXAPIFactory.createWXAPI(context, APP_ID_WE_CHAT, true)
+
+        // 将应用的appId注册到微信
+        mApi!!.registerApp(APP_ID_WE_CHAT)
 
         mBinding.etUser.setText(CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_TELEPHONE,""))
     }
 
     override fun doAfterAnim() {
         mPresenter = LoginPresenter(this)
+        mBinding.ivWechat.setOnClickListener(this)
         mBinding.tvFindPwd.setOnClickListener(this)
         mBinding.tvRegister.setOnClickListener(this)
         mBinding.ivPhone.setOnClickListener(this)
@@ -264,4 +290,5 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
         super.onDestroy()
         UserUtil.isShowLogin = false
     }
+
 }

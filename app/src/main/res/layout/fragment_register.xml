@@ -53,6 +53,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_title"
                         android:gravity="center_vertical"
                         android:drawablePadding="16dp"
                         android:drawableLeft="@mipmap/icon_arrow_circle_right"
@@ -149,6 +150,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_pwd"
                         android:layout_marginTop="24dp"
                         android:orientation="horizontal"
                         android:paddingLeft="12dp"
@@ -184,6 +186,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/ll_pwd_confirm"
                         android:layout_marginTop="28dp"
                         android:orientation="horizontal"
                         android:paddingLeft="12dp"

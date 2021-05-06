@@ -3,6 +3,7 @@ package com.jtcxw.glcxw.presenters.impl
 import android.text.TextUtils
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.base.api.ApiCallback
+import com.jtcxw.glcxw.base.api.ApiCallbackWithCode
 import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.dialogs.LoadingDialog
@@ -58,7 +59,7 @@ class PayListPresenter:IPayList {
     override fun getDefaultPayList(jsonObject: JsonObject,loadingDialog:LoadingDialog?) {
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().getDefaultPayList(jsonObject),object :
-            ApiCallback<PayListBean, Response<BaseBean<PayListBean>>>(){
+            ApiCallbackWithCode<PayListBean, Response<BaseBean<PayListBean>>>(){
             override fun onSuccess(model: BaseBean<PayListBean>) {
                 if (model.Code == 200){
                     if (model.Data != null) {
@@ -71,15 +72,16 @@ class PayListPresenter:IPayList {
                 }
             }
 
-            override fun onFailure(msg: String?) {
-                if (!TextUtils.isEmpty(msg)) {
-                    ToastUtil.toastError(msg!!)
-                }
-            }
-
-
             override fun onFinish() {
                 loadingDialog?.dismiss()
+            }
+
+            override fun onFailure(code: Int, innerCode: Int, msg: String?) {
+                if (innerCode != 400) {
+                    if (!TextUtils.isEmpty(msg)) {
+                        ToastUtil.toastError(msg!!)
+                    }
+                }
             }
 
         }, fragment, object : RefreshCallback {

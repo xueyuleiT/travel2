@@ -2,6 +2,7 @@ package com.jtcxw.glcxw.ui
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -11,6 +12,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.core.graphics.scale
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.maps.AMap
@@ -31,6 +33,7 @@ import com.jtcxw.glcxw.base.respmodels.BusArriveListBean
 import com.jtcxw.glcxw.base.respmodels.LineDetailBean
 import com.jtcxw.glcxw.base.respmodels.SiteOrLineBean
 import com.jtcxw.glcxw.base.utils.*
+import com.jtcxw.glcxw.base.views.TextViewWithoutPadding
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.databinding.FragmentBusMapBinding
 import com.jtcxw.glcxw.events.CollectEvent
@@ -46,6 +49,7 @@ import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 import models.BaseBean
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 
 class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapView ,CollectionView ,BusQueryView{
@@ -136,34 +140,166 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         }
     }
 
-    override fun onForcastArriveQuerySucc(busArriveListBean: BusArriveListBean) {
-        if (busArriveListBean.stationLineList.isNotEmpty()) {
+    override fun onForcastArriveQuerySucc(busArriveListBean: BusArriveListBean,type:Int) {
+        if (busArriveListBean.stationLineList != null && busArriveListBean.stationLineList.isNotEmpty()) {
 
-            mBinding.busView.arriveVehs.clear()
-
+            if (type == 0) {
+                mBinding.busView.arriveVehs.clear()
+            }
+            var lastTime = ""
+            val list = ArrayList<BusArriveListBean.StationLineListBean.ForcastArriveVehsBean>()
                 busArriveListBean.stationLineList.forEach { j ->
-                    if (mStationId == j.stationId && mLineId == j.lineId) {
-                        if (j.forcastArriveVehs != null && j.forcastArriveVehs.isNotEmpty()){
-                            j.forcastArriveVehs.forEach {
-                                it.nextLevel = (it.nextLevel.toInt() - 1).toString()
-                                mBinding.busView.arriveVehs.add(it)
+                    if (type == 0) {
+                        if (mStationId == j.stationId && mLineId == j.lineId) {
+                            if (j.forcastArriveVehs != null && j.forcastArriveVehs.isNotEmpty()) {
+                                j.forcastArriveVehs.forEach {
+                                    it.nextLevel = (it.nextLevel.toInt() - 1).toString()
+                                    mBinding.busView.arriveVehs.add(it)
+                                }
+                            }
+                        }
+                    } else {
+                        if (mSelectedStationId == j.stationId && mLineId == j.lineId) {
+                            lastTime = j.lastUpdTime
+                            if (j.forcastArriveVehs != null && j.forcastArriveVehs.isNotEmpty()) {
+//                                list.addAll(j.forcastArriveVehs)
+                                j.forcastArriveVehs.forEach {
+
+                                    it.lastUpdTime = j.lastUpdTime
+                                    list.add(it)
+                                }
                             }
                         }
                     }
                 }
-            mBinding.busView.invalidate()
-            mBinding.vMap.map.mapScreenMarkers.forEach {
-                if (it.zIndex == 500f)  {
-                    it.remove()
+
+            if (type == 0) {
+                mBinding.busView.invalidate()
+                mBinding.vMap.map.mapScreenMarkers.forEach {
+                    if (it.zIndex == 500f) {
+                        it.remove()
+                    }
+                }
+                val list = ArrayList<MarkerOptions>()
+                mBinding.busView.arriveVehs.forEach { vehs ->
+                    var icon = BitmapDescriptorFactory.fromBitmap(
+                        BitmapFactory.decodeResource(
+                            resources,
+                            R.mipmap.icon_bus_vertical
+                        ).scale(DimensionUtil.dpToPx(22).toInt(), DimensionUtil.dpToPx(22).toInt())
+                    )
+                    val latLng = LatLng(vehs.lat, vehs.lon)
+                    list.add(MarkerOptions().position(latLng).icon(icon).zIndex(500f))
+                }
+                mBinding.vMap.map.addMarkers(list, false)
+            } else {
+                for (i in 0 until list.size) {
+                    val data = list[i]
+                    when (i) {
+                        0 -> {
+                            setRecentlyBus(data,mBinding.tvM1,mBinding.tvM11)
+                            val ob = mBinding.vTime1.background
+                            val anim = ob as AnimationDrawable
+                            anim.start()
+                        }
+                        1 -> {
+                            setRecentlyBus(data,mBinding.tvM2,mBinding.tvM22)
+                            val ob = mBinding.vTime2.background
+                            val anim = ob as AnimationDrawable
+                            anim.start()
+                        }
+                        2 -> {
+                            setRecentlyBus(data,mBinding.tvM3,mBinding.tvM33)
+                            val ob = mBinding.vTime3.background
+                            val anim = ob as AnimationDrawable
+                            anim.start()
+                        }
+                    }
+
+                }
+
+                when (list.size) {
+                    0 -> {
+                        if (!TextUtils.isEmpty(lastTime)) {
+                            val marginTime =
+                                (System.currentTimeMillis() - SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastTime).time) / (1000 * 60)
+                            if (marginTime > 5) {
+                                mBinding.tvM1.text = "车辆无信号"
+                            } else if (marginTime <= 5) {
+                                mBinding.tvM1.text = "等待发车"
+                            }
+
+                        } else {
+                            mBinding.tvM1.text = "等待发车"
+                        }
+
+                        mBinding.tvM11.text = ""
+                        val ob = mBinding.vTime1.background
+                        val anim = ob as AnimationDrawable
+                        anim.start()
+                        mBinding.rl1.visibility = View.VISIBLE
+                        mBinding.rl2.visibility = View.GONE
+                        mBinding.rl3.visibility = View.GONE
+                    }
+                    1 -> {
+                        mBinding.rl1.visibility = View.VISIBLE
+                        mBinding.rl2.visibility = View.GONE
+                        mBinding.rl3.visibility = View.GONE
+                    }
+                    2 -> {
+                        mBinding.rl1.visibility = View.VISIBLE
+                        mBinding.rl2.visibility = View.VISIBLE
+                        mBinding.rl3.visibility = View.INVISIBLE
+                    }
+                    else -> {
+                        mBinding.rl1.visibility = View.VISIBLE
+                        mBinding.rl2.visibility = View.VISIBLE
+                        mBinding.rl3.visibility = View.VISIBLE
+                    }
                 }
             }
-            val list = ArrayList<MarkerOptions>()
-            mBinding.busView.arriveVehs.forEach { vehs ->
-                var icon =  BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.icon_bus_vertical).scale(DimensionUtil.dpToPx(22).toInt(),DimensionUtil.dpToPx(22).toInt()))
-                val latLng = LatLng(vehs.lat,vehs.lon)
-                list.add(MarkerOptions().position(latLng).icon(icon).zIndex(500f))
+        } else if (type ==  1) {
+            mBinding.tvM1.text = "等待发车"
+            mBinding.tvM11.text = ""
+            val ob = mBinding.vTime1.background
+            val anim = ob as AnimationDrawable
+            anim.start()
+            mBinding.rl1.visibility = View.VISIBLE
+            mBinding.rl2.visibility = View.GONE
+            mBinding.rl3.visibility = View.GONE
+        }
+    }
+
+    fun setRecentlyBus(data:BusArriveListBean.StationLineListBean.ForcastArriveVehsBean,tv1:TextView,tv2:TextView) {
+        var index = 1
+        for (i in 0 until mBinding.busView.busLineData.size) {
+            if (mSelectedStationId == mBinding.busView.busLineData[i].stationId) {
+                break
             }
-            mBinding.vMap.map.addMarkers(list,false)
+            index ++
+        }
+
+        val sdf =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val marginTime = (System.currentTimeMillis() - sdf.parse(data.lastUpdTime).time) / (1000 * 60)
+        if (!TextUtils.isEmpty(data.lastUpdTime)) {
+            if (marginTime > 5) {
+                tv1.text = "车辆无信号"
+                tv2.text = ""
+            } else if (marginTime <= 5) {
+                if (TextUtils.isEmpty(data!!.forecastTime)) {
+                    tv1.text = "等待发车"
+                    tv2.text = ""
+                } else if (data!!.forecastTime.toInt() <= 1) {
+                    tv1.text = "即将到站"
+                    tv2.text = ""
+                } else {
+                    tv1.text = data.forecastTime
+                    tv2.text = "分钟 "+ (index - data.nextLevel.toInt() + 1) +"站"
+                }
+            }
+        } else {
+            tv1.text = "等待发车"
+            tv2.text = ""
         }
     }
 
@@ -195,14 +331,24 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
             if (mData.isEmpty()) {
                 return@Runnable
             }
-            val json = JsonObject()
-            val jsonArray = JsonArray()
-            val item = JsonObject()
+            var json = JsonObject()
+            var jsonArray = JsonArray()
+            var item = JsonObject()
             item.addProperty("StationId", mStationId)
             item.addProperty("LineId", mLineId)
             jsonArray.add(item)
             json.add("StationLineList", jsonArray)
-            mPresenter!!.forcastArriveQuery(json)
+            mPresenter!!.forcastArriveQuery(json,0)
+
+            json = JsonObject()
+            jsonArray = JsonArray()
+            item = JsonObject()
+            item.addProperty("StationId", mSelectedStationId)
+            item.addProperty("LineId", mLineId)
+            jsonArray.add(item)
+            json.add("StationLineList", jsonArray)
+            mPresenter!!.forcastArriveQuery(json,1)
+
             timer!!.postDelayed(runnable,15000)
         }
 
@@ -310,6 +456,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         })
     }
     var mStationId = ""
+    var mSelectedStationId = ""
     private fun init() {
         mBinding.vMap.map.clear()
         mData.clear()
@@ -450,6 +597,17 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         val dialog = DialogUtil.getLoadingDialog(fragmentManager)
         HttpUtil.addSubscription(ApiClient.retrofit().queryLineDetail(json),object : ApiCallback<LineDetailBean, Response<BaseBean<LineDetailBean>>>(){
             override fun onSuccess(model: BaseBean<LineDetailBean>) {
+                var isInit = true
+                var seleted:BusLineItem? = null
+                if (mBinding.busView.busLineData == null || mBinding.busView.busLineData.isEmpty()) {
+                    isInit = false
+                } else {
+                    mBinding.busView.busLineData?.forEach {
+                        if (it.isCurrentPosition) {
+                            seleted = it
+                        }
+                    }
+                }
                 mBinding.bottomSheet.visibility = View.VISIBLE
                 mBinding.rlRecycler.visibility = View.GONE
 
@@ -511,6 +669,92 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
                 mBinding.busView.busLineData = lineList
 
+                mBinding.busView.setOnBusStationClickListener { view, item ->
+                    mSelectedStationId = item.stationId
+                    mBinding.tvSelected.text = item.name
+                    stopTimer()
+                    startTimer()
+                    mBinding.vMap.map.mapScreenMarkers.forEach {
+                        if (it.zIndex != 500f && it.zIndex != 0f)  {
+                            if (it.position.latitude == item.lat && it.position.longitude == item.lon) {
+                                it.setIcon(
+                                    BitmapDescriptorFactory.fromBitmap(
+                                        BitmapFactory
+                                            .decodeResource(
+                                                resources,
+                                                R.mipmap.icon_station_checked
+                                            )
+                                    )
+                                )
+                                it.showInfoWindow()
+                                mBinding.vMap.map.animateCamera(CameraUpdateFactory.changeLatLng(it.position))
+                            } else {
+                                it.setIcon(
+                                    BitmapDescriptorFactory.fromBitmap(
+                                        BitmapFactory
+                                            .decodeResource(resources, R.mipmap.icon_station)
+                                    )
+                                )
+                                it.hideInfoWindow()
+                            }
+                        }
+                    }
+                }
+
+                if (!isInit) {
+                    if (!mSelectedData.isNullOrEmpty() && !mSelectedData[0].stopList.isNullOrEmpty()) {
+                        mBinding.busView.busLineData.forEach {
+                            mSelectedData[0].stopList.forEach { it2 ->
+                                if (it2.stopId == it.stationId) {
+                                    it.isCurrentPosition = true
+                                    mSelectedStationId = it.stationId
+                                    mBinding.tvSelected.text = it.name
+                                    mBinding.busView.scrollToCurrent()
+                                }
+                            }
+                        }
+                    } else {
+                        if (mBinding.busView.busLineData.size > 1) {
+                            mBinding.busView.busLineData[1].isCurrentPosition = true
+                            mSelectedStationId = mBinding.busView.busLineData[1].stationId
+                            mBinding.tvSelected.text = mBinding.busView.busLineData[1].name
+                            mBinding.busView.scrollToCurrent()
+                        } else if (mBinding.busView.busLineData.size > 0) {
+                            mBinding.busView.busLineData[0].isCurrentPosition = true
+                            mSelectedStationId = mBinding.busView.busLineData[0].stationId
+                            mBinding.tvSelected.text = mBinding.busView.busLineData[0].name
+                            mBinding.busView.scrollToCurrent()
+                        }
+                    }
+                } else {
+                    if (seleted != null) {
+                        var find = false
+                        mBinding.busView.busLineData.forEach {
+                            if (it.name == seleted!!.name) {
+                                find = true
+                                it.isCurrentPosition = true
+                                mSelectedStationId = it.stationId
+                                mBinding.tvSelected.text = it.name
+                                mBinding.busView.scrollToCurrent()
+                            }
+                        }
+
+                        if (!find) {
+                            if (mBinding.busView.busLineData.size > 1) {
+                                mBinding.busView.busLineData[1].isCurrentPosition = true
+                                mSelectedStationId =  mBinding.busView.busLineData[1].stationId
+                                mBinding.tvSelected.text = mBinding.busView.busLineData[1].name
+                                mBinding.busView.scrollToCurrent()
+                            } else if (mBinding.busView.busLineData.size > 0){
+                                mBinding.busView.busLineData[0].isCurrentPosition = true
+                                mSelectedStationId =  mBinding.busView.busLineData[0].stationId
+                                mBinding.tvSelected.text = mBinding.busView.busLineData[0].name
+                                mBinding.busView.scrollToCurrent()
+                            }
+                        }
+                    }
+                }
+
                 stopTimer()
                 startTimer()
 
@@ -538,33 +782,6 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(13f))
                 }
 
-                mBinding.busView.setOnBusStationClickListener { view, item ->
-                    mBinding.vMap.map.mapScreenMarkers.forEach {
-                        if (it.zIndex != 500f && it.zIndex != 0f)  {
-                            if (it.position.latitude == item.lat && it.position.longitude == item.lon) {
-                                it.setIcon(
-                                    BitmapDescriptorFactory.fromBitmap(
-                                        BitmapFactory
-                                            .decodeResource(
-                                                resources,
-                                                R.mipmap.icon_station_checked
-                                            )
-                                    )
-                                )
-                                it.showInfoWindow()
-                                mBinding.vMap.map.animateCamera(CameraUpdateFactory.changeLatLng(it.position))
-                            } else {
-                                it.setIcon(
-                                    BitmapDescriptorFactory.fromBitmap(
-                                        BitmapFactory
-                                            .decodeResource(resources, R.mipmap.icon_station)
-                                    )
-                                )
-                                it.hideInfoWindow()
-                            }
-                        }
-                    }
-                }
 
                 mBinding.vMap.map.setOnMarkerClickListener {
                     if (it.zIndex == 0f) {
@@ -641,6 +858,11 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     mBinding.busView.busLineData.forEach { it2 ->
                         it2.isCurrentPosition = false
                         if (it2.lat == it.position.latitude && it2.lon == it.position.longitude) {
+                            mSelectedStationId =  it2.stationId
+                            mBinding.tvSelected.text = it2.name
+                            stopTimer()
+                            startTimer()
+
                             it2.isCurrentPosition = true
                             mBinding.busView.scrollToCurrent()
                         }
@@ -689,6 +911,12 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
         json.addProperty("LineId",mLineDetailBean!!.oppositeLineId)
         val lineId = mLineDetailBean!!.oppositeLineId
+        var seleted:BusLineItem? = null
+        mBinding.busView.busLineData.forEach {
+            if (it.isCurrentPosition) {
+                seleted = it
+            }
+        }
         HttpUtil.addSubscription(ApiClient.retrofit().queryLineDetail(json),object : ApiCallback<LineDetailBean, Response<BaseBean<LineDetailBean>>>(){
             override fun onSuccess(model: BaseBean<LineDetailBean>) {
                 mBinding.bottomSheet.visibility = View.VISIBLE
@@ -747,34 +975,11 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
                 mBinding.busView.busLineData = lineList
 
-                stopTimer()
-                startTimer()
-
-               val latLngs = drawMap()
-                if (latLngs.size == 0 && mSelectedData.isNotEmpty()) {
-                    val latLng = LatLng(mSelectedData[0].stopList[0].lat, mSelectedData[0].stopList[0].lon)
-                    //设置中心点和缩放比例
-                    mBinding.vMap.map.moveCamera(CameraUpdateFactory.changeLatLng(latLng))
-                    mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(14f))
-                } else if (latLngs.size == 0) {
-                    val latLng = LatLng(UserUtil.getUser().latitude.toDouble() , UserUtil.getUser().longitude.toDouble() )
-                    //设置中心点和缩放比例
-                    mBinding.vMap.map.moveCamera(CameraUpdateFactory.changeLatLng(latLng))
-                    mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(13f))
-                } else if (latLngs.size > 0) {
-                    var x = 0.0
-                    var y = 0.0
-                    latLngs.forEach {
-                        x += it.latitude
-                        y += it.longitude
-                    }
-                    val latLng = LatLng(x/latLngs.size , y/latLngs.size)
-                    //设置中心点和缩放比例
-                    mBinding.vMap.map.moveCamera(CameraUpdateFactory.changeLatLng(latLng))
-                    mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(13f))
-                }
-
                 mBinding.busView.setOnBusStationClickListener { view, item ->
+                    mSelectedStationId =  item.stationId
+                    mBinding.tvSelected.text = item.name
+                    stopTimer()
+                    startTimer()
                     mBinding.vMap.map.mapScreenMarkers.forEach {
                         if (it.zIndex != 500f && it.zIndex != 0f)  {
                             if (it.position.latitude == item.lat && it.position.longitude == item.lon) {
@@ -800,6 +1005,60 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                             }
                         }
                     }
+                }
+
+                if (seleted != null) {
+                    var find = false
+                    mBinding.busView.busLineData.forEach {
+                        if (it.name == seleted!!.name) {
+                            find = true
+                            it.isCurrentPosition = true
+                            mSelectedStationId = it.stationId
+                            mBinding.tvSelected.text = it.name
+                            mBinding.busView.scrollToCurrent()
+                        }
+                    }
+
+                    if (!find) {
+                        if (mBinding.busView.busLineData.size > 1) {
+                            mBinding.busView.busLineData[1].isCurrentPosition = true
+                            mSelectedStationId =  mBinding.busView.busLineData[1].stationId
+                            mBinding.tvSelected.text = mBinding.busView.busLineData[1].name
+                            mBinding.busView.scrollToCurrent()
+                        } else if (mBinding.busView.busLineData.size > 0){
+                            mBinding.busView.busLineData[0].isCurrentPosition = true
+                            mSelectedStationId =  mBinding.busView.busLineData[0].stationId
+                            mBinding.tvSelected.text = mBinding.busView.busLineData[0].name
+                            mBinding.busView.scrollToCurrent()
+                        }
+                    }
+                }
+
+                stopTimer()
+                startTimer()
+
+               val latLngs = drawMap()
+                if (latLngs.size == 0 && mSelectedData.isNotEmpty()) {
+                    val latLng = LatLng(mSelectedData[0].stopList[0].lat, mSelectedData[0].stopList[0].lon)
+                    //设置中心点和缩放比例
+                    mBinding.vMap.map.moveCamera(CameraUpdateFactory.changeLatLng(latLng))
+                    mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(14f))
+                } else if (latLngs.size == 0) {
+                    val latLng = LatLng(UserUtil.getUser().latitude.toDouble() , UserUtil.getUser().longitude.toDouble() )
+                    //设置中心点和缩放比例
+                    mBinding.vMap.map.moveCamera(CameraUpdateFactory.changeLatLng(latLng))
+                    mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(13f))
+                } else if (latLngs.size > 0) {
+                    var x = 0.0
+                    var y = 0.0
+                    latLngs.forEach {
+                        x += it.latitude
+                        y += it.longitude
+                    }
+                    val latLng = LatLng(x/latLngs.size , y/latLngs.size)
+                    //设置中心点和缩放比例
+                    mBinding.vMap.map.moveCamera(CameraUpdateFactory.changeLatLng(latLng))
+                    mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(13f))
                 }
 
                 mBinding.vMap.map.setOnMarkerClickListener {
@@ -871,6 +1130,11 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     mBinding.busView.busLineData.forEach { it2 ->
                         it2.isCurrentPosition = false
                         if (it2.lat == it.position.latitude && it2.lon == it.position.longitude) {
+                            mSelectedStationId =  it2.stationId
+                            mBinding.tvSelected.text = it2.name
+                            stopTimer()
+                            startTimer()
+
                             it2.isCurrentPosition = true
                             mBinding.busView.scrollToCurrent()
                         }

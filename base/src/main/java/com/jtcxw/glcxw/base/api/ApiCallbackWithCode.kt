@@ -13,7 +13,7 @@ import java.util.regex.Pattern
 
 abstract class ApiCallbackWithCode<T,M: Response<BaseBean<T>>> : Subscriber<M>() {
     abstract fun onSuccess(model: BaseBean<T>)
-    abstract fun onFailure(code:Int,msg: String?)
+    abstract fun onFailure(code:Int,innerCode:Int,msg: String?)
     abstract fun onFinish()
 
 
@@ -29,9 +29,10 @@ abstract class ApiCallbackWithCode<T,M: Response<BaseBean<T>>> : Subscriber<M>()
                 val info =  (m.body() as BaseBean<*>).Info
                 if(!TextUtils.isEmpty(info)) {
                     if (checkExceptionStartWithChar(info!!)) {
-                        onFailure(m.code(),info)
+                        onFailure(m.code(),(m.body() as BaseBean<*>).Code!!,info)
                     } else {
-                        onError(Throwable("网络或数据异常"))
+                        onFailure(m.code(),(m.body() as BaseBean<*>).Code!!,info)
+//                        onError(Throwable("网络或数据异常"))
                     }
                 }
             }
@@ -56,7 +57,7 @@ abstract class ApiCallbackWithCode<T,M: Response<BaseBean<T>>> : Subscriber<M>()
                         val json = JSONObject(errorUtf8)
                         val message = json.optString("message")
                         if (!TextUtils.isEmpty(message)){
-                            onFailure(m.code(),message)
+                            onFailure(m.code(),-1,message)
                         } else if (checkExceptionStartWithChar(errorUtf8)) {
                             onError(Throwable(errorUtf8))
                         } else {
@@ -86,9 +87,9 @@ abstract class ApiCallbackWithCode<T,M: Response<BaseBean<T>>> : Subscriber<M>()
             }
             if (!TextUtils.isEmpty(msg)) {
                 if (checkExceptionStartWithChar(msg!!)) {
-                    onFailure(code,msg)
+                    onFailure(code,-1,msg)
                 } else {
-                    onFailure(code,"网络或数据异常")
+                    onFailure(code,-1,"网络或数据异常")
                 }
             }
         } else {
@@ -97,17 +98,17 @@ abstract class ApiCallbackWithCode<T,M: Response<BaseBean<T>>> : Subscriber<M>()
                 val message = json.optString("message")
                 if (!TextUtils.isEmpty(message)){
                     if (checkExceptionStartWithChar(message)) {
-                        onFailure(0,message)
+                        onFailure(0,-1,message)
                     } else {
-                        onFailure(0,"网络或数据异常")
+                        onFailure(0,-1,"网络或数据异常")
                     }
                 }
             }catch (e1:Exception){
                 if (e!!.message != null) {
                     if (checkExceptionStartWithChar(e!!.message!!)) {
-                        onFailure(0,e!!.message)
+                        onFailure(0,-1,e!!.message)
                     } else {
-                        onFailure(0,"网络或数据异常")
+                        onFailure(0,-1,"网络或数据异常")
                     }
                 }
             }

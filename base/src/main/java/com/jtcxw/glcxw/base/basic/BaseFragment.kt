@@ -14,7 +14,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.jtcxw.glcxw.base.R
 import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.base.utils.DimensionUtil

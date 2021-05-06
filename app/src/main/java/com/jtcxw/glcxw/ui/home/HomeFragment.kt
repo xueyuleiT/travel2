@@ -35,11 +35,9 @@ import com.jtcxw.glcxw.adapter.HomeBannerAdapter
 import com.jtcxw.glcxw.adapter.HomeHotelBannerAdapter
 import com.jtcxw.glcxw.adapter.HomeScenicBannerAdapter
 import com.jtcxw.glcxw.base.constant.BundleKeys
+import com.jtcxw.glcxw.base.constant.Constant
 import com.jtcxw.glcxw.base.respmodels.*
-import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.base.utils.DimensionUtil
-import com.jtcxw.glcxw.base.utils.RxBus
-import com.jtcxw.glcxw.base.utils.UserUtil
+import com.jtcxw.glcxw.base.utils.*
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.OnLoadNextPageListener
 import com.jtcxw.glcxw.base.views.recyclerview.OnRefreshListener
@@ -60,9 +58,10 @@ import com.jtcxw.glcxw.utils.*
 import com.jtcxw.glcxw.viewmodel.HomeModel
 import com.jtcxw.glcxw.views.AppVersionView
 import com.jtcxw.glcxw.views.HomeView
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.youth.banner.indicator.CircleIndicator
 import me.yokeyword.fragmentation.SupportFragment
-import java.io.File
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.system.exitProcess
@@ -76,8 +75,24 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
             mModuleConfigBean = moduleConfigBean
         } else if (moduleConfigBean.funId == "2") {
             mParkingModuleConfigBean = moduleConfigBean
+        } else if (moduleConfigBean.funId == "4") {
+            mHotelModuleConfigBean = moduleConfigBean
         } else {
             mNewsModuleConfigBean = moduleConfigBean
+        }
+        if (moduleConfigBean.funId == "4") {
+            val api = WXAPIFactory.createWXAPI(context, Constant.APP_ID_WE_CHAT)
+            if (!api!!.isWXAppInstalled) {
+                ToastUtil.toastWaring("您的设备未安装微信客户端")
+                return
+            }
+            val req = WXLaunchMiniProgram.Req()
+            req.userName = "gh_764b77200eb2" // 填小程序原始id
+            req.path = mHotelModuleConfigBean!!.url               ////拉起小程序页面的可带参路径，不填默认拉起小程序首页，对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
+            req.miniprogramType =
+                WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE// 可选打开 开发版，体验版和正式版
+            api.sendReq(req)
+            return
         }
         val bundle = Bundle()
         bundle.putString(BundleKeys.KEY_WEB_TITLE, moduleConfigBean!!.funName)
@@ -209,6 +224,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     var mModuleConfigBean:ModuleConfigBean?= null
     var mNewsModuleConfigBean:ModuleConfigBean?= null
     var mParkingModuleConfigBean:ModuleConfigBean?= null
+    var mHotelModuleConfigBean:ModuleConfigBean?= null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -226,7 +242,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         mData.add(item)
         item = HomeItem(R.mipmap.icon_customized_school, "校园班车")
         mData.add(item)
-        item = HomeItem(R.mipmap.icon_hotel, "酒店")
+        item = HomeItem(R.mipmap.icon_hotel, "酒店预订")
         mData.add(item)
         item = HomeItem(R.mipmap.icon_scenic_spot, "景点门票")
         mData.add(item)
@@ -269,7 +285,33 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                     bundle.putInt(BundleKeys.KEY_INDEX,1)
                     CustomizedMainFragment.newInstance(this@HomeFragment.parentFragment as SupportFragment,bundle)
                 } else if (position == 3) {
-                    HotelFragment.newInstance(this@HomeFragment.parentFragment as SupportFragment,null)
+                    if (mHotelModuleConfigBean == null) {
+                        val json = JsonObject()
+                        json.addProperty("Longitude", UserUtil.getUser().longitude)
+                        json.addProperty("Latitude", UserUtil.getUser().latitude)
+                        json.addProperty("FunId", "4")
+                        json.addProperty("MemberId", UserUtil.getUserInfoBean().memberId)
+                        mPresenter!!.h5ModuleConfig(json)
+                    } else {
+
+                        val api = WXAPIFactory.createWXAPI(context, Constant.APP_ID_WE_CHAT)
+                        if (!api!!.isWXAppInstalled) {
+                            ToastUtil.toastWaring("您的设备未安装微信客户端")
+                            return
+                        }
+                        val req = WXLaunchMiniProgram.Req()
+                        req.userName = "gh_764b77200eb2" // 填小程序原始id
+                        req.path = mHotelModuleConfigBean!!.url               ////拉起小程序页面的可带参路径，不填默认拉起小程序首页，对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
+                        req.miniprogramType =
+                            WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE// 可选打开 开发版，体验版和正式版
+                        api.sendReq(req)
+
+//                        val bundle = Bundle()
+//                        bundle.putString(BundleKeys.KEY_WEB_TITLE,mHotelModuleConfigBean!!.funName)
+//                        bundle.putString(BundleKeys.KEY_WEB_URL,mHotelModuleConfigBean!!.url)
+//                        WebFragment.newInstance(parentFragment as SupportFragment,bundle)
+                    }
+//                    HotelFragment.newInstance(this@HomeFragment.parentFragment as SupportFragment,null)
                 } else if (position == 4) {
                     ScenicFragment.newInstance(this@HomeFragment.parentFragment as SupportFragment,null)
                 } else if (position == 5) {

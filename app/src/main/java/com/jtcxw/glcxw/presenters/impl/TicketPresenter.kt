@@ -37,7 +37,7 @@ class TicketPresenter:ITicket {
                 }
             }
 
-            override fun onFailure(code:Int,msg: String?) {
+            override fun onFailure(code:Int,innerCode:Int,msg: String?) {
                 if (!TextUtils.isEmpty(msg)) {
                     ToastUtil.toastError(msg!!)
                 }

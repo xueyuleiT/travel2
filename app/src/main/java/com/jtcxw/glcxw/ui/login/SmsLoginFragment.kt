@@ -19,13 +19,14 @@ import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.constant.Constant
 import com.jtcxw.glcxw.base.respmodels.SmsBean
 import com.jtcxw.glcxw.base.respmodels.SmsLoginBean
-import com.jtcxw.glcxw.base.utils.BaseUtil
-import com.jtcxw.glcxw.base.utils.ToastUtil
-import com.jtcxw.glcxw.base.utils.UserUtil
+import com.jtcxw.glcxw.base.utils.*
 import com.jtcxw.glcxw.databinding.FragmentSmsLoginBinding
+import com.jtcxw.glcxw.events.LoginEvent
+import com.jtcxw.glcxw.fragment.MainFragment
 import com.jtcxw.glcxw.presenters.impl.SmsLoginPresenter
 import com.jtcxw.glcxw.ui.MainActivity
 import com.jtcxw.glcxw.ui.WelcomeActivity
+import com.jtcxw.glcxw.utils.MySingleCall
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.SmsLoginView
 import me.yokeyword.fragmentation.ISupportFragment
@@ -56,8 +57,15 @@ class SmsLoginFragment:
                     }
                 }, 300)
             } else {
-                setFragmentResult(ISupportFragment.RESULT_OK, Bundle())
-                pop()
+                if (BaseUtil.sTopAct is MainActivity){
+                    mBinding.etCode.postDelayed({
+                        RxBus.getDefault().post(LoginEvent())
+                        MySingleCall.getInstance().doCall()
+                    },300)
+                    popTo(MainFragment::class.java,false)
+                }
+//                setFragmentResult(ISupportFragment.RESULT_OK, Bundle())
+//                pop()
             }
             CacheUtil.getInstance().setProperty(SPKeys.SP_KEY_SMS_TIME + mCodeType,0L)
         } else {
@@ -91,6 +99,7 @@ class SmsLoginFragment:
                 json.addProperty("ClientMsg",Build.BRAND + " "+ Build.MODEL)
                 json.addProperty("CodeType",mCodeType)
                 json.addProperty("SmsCode",mBinding.etCode.text.toString())
+                json.addProperty("LoginGuid", DeviceUtil.getDeviceId(context))
                 json.addProperty("RegId", JPushInterface.getRegistrationID(context))
                 json.addProperty("TelePhone",mBinding.spinner.selectedItem.toString() + mBinding.etPhone.text.toString())
                 mPresenter!!.smsLogin(json)

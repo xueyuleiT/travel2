@@ -56,6 +56,41 @@ class RegisterPresenter:IRegister {
         })
     }
 
+    override fun wechatRegister(jsonObject: JsonObject) {
+        val fragment = (iView as BaseFragment<*, *>)
+        val dialog =  DialogUtil.getLoadingDialog(fragment.fragmentManager)
+        HttpUtil.addSubscription(ApiClient.retrofit().smsWechatRegister(jsonObject),object :
+            ApiCallback<RegisterBean, Response<BaseBean<RegisterBean>>>(){
+            override fun onSuccess(model: BaseBean<RegisterBean>) {
+                if (model.Code == 200){
+                    iView?.onSmsRegisterSucc(model.Data!!)
+                } else {
+                    if (!TextUtils.isEmpty(model.Info)) {
+                        ToastUtil.toastError(model.Info!!)
+                    }
+                }
+            }
+
+            override fun onFailure(msg: String?) {
+                if (!TextUtils.isEmpty(msg)) {
+                    ToastUtil.toastError(msg!!)
+                }
+            }
+
+            override fun onFinish() {
+                dialog.dismiss()
+            }
+
+        }, fragment, object : RefreshCallback {
+            override fun onRefreshBack(refreshSucc: Boolean) {
+                if (!refreshSucc) {
+                    dialog.dismiss()
+                }
+            }
+
+        })
+    }
+
     override fun sendSmsCode(jsonObject: JsonObject) {
         val fragment = (iView as BaseFragment<*, *>)
         val dialog =  DialogUtil.getLoadingDialog(fragment.fragmentManager)

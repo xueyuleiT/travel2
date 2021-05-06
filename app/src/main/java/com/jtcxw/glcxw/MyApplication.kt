@@ -2,19 +2,30 @@ package com.jtcxw.glcxw
 
 import android.app.Activity
 import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import cn.com.jttravel.wxapi.WXEntryActivity
 import cn.jpush.android.api.JPushInterface
 import com.glcxw.lib.util.CacheUtil
 import com.glcxw.router.RouterUtil
+import com.jtcxw.glcxw.base.constant.Constant
 import com.jtcxw.glcxw.base.utils.BaseUtil
 import com.jtcxw.glcxw.router.AppRouter
 import com.jtcxw.glcxw.utils.DaoManager
 import com.tencent.bugly.crashreport.CrashReport
+import com.tencent.mm.opensdk.constants.ConstantsAPI
+import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.tencent.smtt.sdk.QbSdk
 import me.yokeyword.fragmentation.SupportActivity
 
 open class MyApplication: Application() {
+
+
     override fun onCreate() {
         super.onCreate()
 
@@ -59,13 +70,13 @@ open class MyApplication: Application() {
             }
 
             override fun onActivityCreated(p0: Activity, p1: Bundle?) {
-                if (p0 is SupportActivity) {
+                if (p0 is SupportActivity && (p0 !is WXEntryActivity)) {
                     BaseUtil.sTopAct = p0
                 }
             }
 
             override fun onActivityResumed(p0: Activity) {
-                if (p0 is SupportActivity) {
+                if (p0 is SupportActivity && (p0 !is WXEntryActivity)) {
                     BaseUtil.sTopAct = p0
                 }
             }
@@ -75,4 +86,7 @@ open class MyApplication: Application() {
 
     }
 
+
+    private fun regToWx() {
+    }
 }

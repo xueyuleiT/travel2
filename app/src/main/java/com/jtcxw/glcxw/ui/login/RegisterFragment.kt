@@ -2,6 +2,7 @@ package com.jtcxw.glcxw.ui.login
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.glcxw.lib.util.CacheUtil
@@ -23,6 +24,7 @@ import com.jtcxw.glcxw.presenters.impl.RegisterPresenter
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.RegisterView
 import me.yokeyword.fragmentation.SupportFragment
+import org.w3c.dom.Text
 
 class RegisterFragment:
     BaseFragment<FragmentRegisterBinding, CommonModel>(),RegisterView {
@@ -53,7 +55,8 @@ class RegisterFragment:
         }
     }
 
-    val mCodeType = 2
+    var mCodeType = 2
+    var mOpenId = ""
     private var mPresenter: RegisterPresenter? = null
 
     override fun getVariableId(): Int {
@@ -83,6 +86,14 @@ class RegisterFragment:
         }
 
         if (arguments != null) {
+            mOpenId = arguments!!.getString(BundleKeys.KEY_OPEN_ID,"")
+            if (!TextUtils.isEmpty(mOpenId)) {
+                mCodeType = 7
+                mBinding.llPwd.visibility = View.GONE
+                mBinding.llPwdConfirm.visibility = View.GONE
+                mBinding.tvTitle.text = "绑定手机号"
+                mBinding.btnRegister.text = "绑定手机号"
+            }
             mBinding.etPhone.setText(arguments!!.getString(BundleKeys.KEY_PHONE,""))
             mBinding.tvTime.isEnabled = RuleUtil.isPhone( mBinding.etPhone.text.toString()) && !mBinding.tvTime.isRunning
         }
@@ -90,10 +101,17 @@ class RegisterFragment:
         mBinding.etPhone.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 mBinding.tvTime.isEnabled = RuleUtil.isPhone(mBinding.etPhone.text.toString()) && !mBinding.tvTime.isRunning
-                mBinding.btnRegister.isEnabled =  RuleUtil.isPhone(mBinding.etPhone.text.toString())
-                        && mBinding.etCode.text.toString().isNotEmpty()
-                        && mBinding.etPwd.text.toString().isNotEmpty()
-                        && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+                if (TextUtils.isEmpty(mOpenId)) {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                                && mBinding.etPwd.text.toString().isNotEmpty()
+                                && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+                } else {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -106,10 +124,18 @@ class RegisterFragment:
 
         mBinding.etCode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                mBinding.btnRegister.isEnabled =  RuleUtil.isPhone(mBinding.etPhone.text.toString())
-                        && mBinding.etCode.text.toString().isNotEmpty()
-                        && mBinding.etPwd.text.toString().isNotEmpty()
-                        && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+
+                if (TextUtils.isEmpty(mOpenId)) {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                                && mBinding.etPwd.text.toString().isNotEmpty()
+                                && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+                } else {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                }
 
             }
 
@@ -123,10 +149,18 @@ class RegisterFragment:
 
         mBinding.etPwd.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                mBinding.btnRegister.isEnabled =  RuleUtil.isPhone(mBinding.etPhone.text.toString())
-                        && mBinding.etCode.text.toString().isNotEmpty()
-                        && mBinding.etPwd.text.toString().isNotEmpty()
-                        && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+
+                if (TextUtils.isEmpty(mOpenId)) {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                                && mBinding.etPwd.text.toString().isNotEmpty()
+                                && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+                } else {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -139,10 +173,18 @@ class RegisterFragment:
 
         mBinding.etPwdConfirm.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                mBinding.btnRegister.isEnabled =  RuleUtil.isPhone(mBinding.etPhone.text.toString())
-                        && mBinding.etCode.text.toString().isNotEmpty()
-                        && mBinding.etPwd.text.toString().isNotEmpty()
-                        && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+
+                if (TextUtils.isEmpty(mOpenId)) {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                                && mBinding.etPwd.text.toString().isNotEmpty()
+                                && mBinding.etPwdConfirm.text.toString().isNotEmpty()
+                } else {
+                    mBinding.btnRegister.isEnabled =
+                        RuleUtil.isPhone(mBinding.etPhone.text.toString())
+                                && mBinding.etCode.text.toString().isNotEmpty()
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -191,14 +233,16 @@ class RegisterFragment:
                     return
                 }
 
-                if (!RuleUtil.checkPasswordRule(mBinding.etPwd.text.toString())) {
-                    ToastUtil.toastWaring("请输入八位及以上包含字母大小写和数字并且不含特殊字符。")
-                    return
-                }
+                if (TextUtils.isEmpty(mOpenId)) {
+                    if (!RuleUtil.checkPasswordRule(mBinding.etPwd.text.toString())) {
+                        ToastUtil.toastWaring("请输入八位及以上包含字母大小写和数字并且不含特殊字符。")
+                        return
+                    }
 
-                if (mBinding.etPwd.text.toString() != mBinding.etPwdConfirm.text.toString()) {
-                    ToastUtil.toastWaring("两次输入的密码不一致")
-                    return
+                    if (mBinding.etPwd.text.toString() != mBinding.etPwdConfirm.text.toString()) {
+                        ToastUtil.toastWaring("两次输入的密码不一致")
+                        return
+                    }
                 }
 
                 if (!mBinding.cbAgreement.isChecked) {
@@ -208,10 +252,16 @@ class RegisterFragment:
                 hideSoftInput()
                 val json = JsonObject()
                 json.addProperty("CodeType",mCodeType)
-                json.addProperty("Password", mBinding.etPwd.text.toString())
                 json.addProperty("SmsCode",mBinding.etCode.text.toString())
                 json.addProperty("TelePhone",mBinding.spinner.selectedItem.toString() + mBinding.etPhone.text.toString())
-                mPresenter!!.smsRegister(json)
+
+                if (!TextUtils.isEmpty(mOpenId)) {
+                    json.addProperty("WechatOpenId",mOpenId)
+                    mPresenter!!.wechatRegister(json)
+                } else {
+                    json.addProperty("Password", mBinding.etPwd.text.toString())
+                    mPresenter!!.smsRegister(json)
+                }
             }
 
             R.id.tv_agreement -> {

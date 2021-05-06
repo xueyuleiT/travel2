@@ -3,6 +3,7 @@ package com.jtcxw.glcxw.presenters.impl
 import android.text.TextUtils
 import com.google.gson.JsonObject
 import com.jtcxw.glcxw.base.api.ApiCallback
+import com.jtcxw.glcxw.base.api.ApiCallbackWithCode
 import com.jtcxw.glcxw.base.api.ApiClient
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.respmodels.BusArriveListBean
@@ -20,13 +21,13 @@ class BusMapPresenter:IBusMap {
         iView = view
     }
 
-    override fun forcastArriveQuery(jsonObject: JsonObject) {
+    override fun forcastArriveQuery(jsonObject: JsonObject,type:Int) {
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().forcastArriveQuery(jsonObject),object :
-            ApiCallback<BusArriveListBean, Response<BaseBean<BusArriveListBean>>>(){
+            ApiCallbackWithCode<BusArriveListBean, Response<BaseBean<BusArriveListBean>>>(){
             override fun onSuccess(model: BaseBean<BusArriveListBean>) {
                 if (model.Code == 200){
-                    iView?.onForcastArriveQuerySucc(model.Data!!)
+                    iView?.onForcastArriveQuerySucc(model.Data!!,type)
                 } else {
                     if (!TextUtils.isEmpty(model.Info)) {
                         ToastUtil.toastError(model.Info!!)
@@ -34,7 +35,10 @@ class BusMapPresenter:IBusMap {
                 }
             }
 
-            override fun onFailure(msg: String?) {
+            override fun onFailure(code:Int,innerCode:Int,msg: String?) {
+                if (innerCode == 400) {
+                    iView?.onForcastArriveQuerySucc(BusArriveListBean(),type)
+                }
 //                if (!TextUtils.isEmpty(msg)) {
 //                    ToastUtil.toastError(msg!!)
 //                }

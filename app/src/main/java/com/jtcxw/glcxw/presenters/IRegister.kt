@@ -5,4 +5,5 @@ import com.google.gson.JsonObject
 interface IRegister {
     fun sendSmsCode(jsonObject: JsonObject)
     fun smsRegister(jsonObject: JsonObject)
+    fun wechatRegister(jsonObject: JsonObject)
 }

@@ -73,7 +73,7 @@ class ComplaintFragment:BaseFragment<FragmentComplaintBinding,CommonModel>(),Com
     var mPresenter:ComplaintPresenter?= null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolBar("客服中心")
+        initToolBar("投诉")
 
         mPresenter = ComplaintPresenter(this)
 

@@ -10,6 +10,7 @@ class BundleKeys {
         const val KEY_PHONE = "phone"
         const val KEY_NICK = "nick"
         const val KEY_ADDRESS = "address"
+        const val KEY_OPEN_ID = "openId"
         const val KEY_PAY_TYPE = "payType"
         const val KEY_PAY_PRODUCTID = "productId"
         const val KEY_SMS_CODE = "smsCode"

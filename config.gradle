@@ -52,7 +52,8 @@ ext {
             analytics                   : 'com.umeng.sdk:analytics:7.5.0',
             share                       : 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+',
             DSBridge                    : 'com.github.wendux:DSBridge-Android:x5-3.0-SNAPSHOT',
-            libaction                   : 'com.abbott.delayaction:libaction:1.0.1'
+            libaction                   : 'com.abbott.delayaction:libaction:1.0.1',
+            wechat                      : 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
     ]
     applicationId = "cn.com.jttravel"//"com.jtcxw.glcxw"
@@ -60,8 +61,8 @@ ext {
     buildToolsVersion = "29.0.2"
     minSdkVersion = 17
     targetSdkVersion = 29
-    versionCode = 50005
-    versionName = "5.0.5"
+    versionCode = 60003
+    versionName = "6.0.3"
 
 
 }

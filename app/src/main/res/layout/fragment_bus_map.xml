@@ -254,6 +254,180 @@
                             </LinearLayout>
 
 
+
+                            <LinearLayout
+                                android:layout_marginTop="20dp"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_selected"
+                                    android:textStyle="bold"
+                                    android:text="--"
+                                    android:textColor="@color/black_263238"
+                                    android:textSize="16sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginLeft="10dp"
+                                    android:text="最快进站的车辆"
+                                    android:textColor="@color/gray_6"
+                                    android:textSize="16sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="10dp"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp">
+
+                                <RelativeLayout
+                                    android:visibility="invisible"
+                                    android:id="@+id/rl_1"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent">
+
+                                    <ImageView
+                                        android:layout_toLeftOf="@+id/tv_time"
+                                        android:id="@+id/v_time_1"
+                                        android:rotation="45"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:background="@drawable/anim_gif"
+                                        android:layout_width="10dp"
+                                        android:layout_height="20dp"/>
+
+                                    <com.jtcxw.glcxw.base.views.TextViewWithoutPadding
+                                        android:layout_toRightOf="@+id/v_time_1"
+                                        android:layout_marginStart="3dp"
+                                        android:id="@+id/tv_m_1"
+                                        android:textStyle="bold"
+                                        android:layout_centerVertical="true"
+                                        android:textColor="@color/black_263238"
+                                        android:textSize="20sp"
+                                        android:text="--"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <com.jtcxw.glcxw.base.views.TextViewWithoutPadding
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/tv_m_1"
+                                        android:layout_marginLeft="2dp"
+                                        android:textColor="@color/black_263238"
+                                        android:textSize="14sp"
+                                        android:id="@+id/tv_m_11"
+                                        android:text="分钟 --站台"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:visibility="invisible"
+                                    android:id="@+id/rl_2"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent">
+                                    <View
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/green_light"
+                                        android:layout_width="0.5dp"
+                                        android:layout_height="match_parent"/>
+                                    <ImageView
+                                        android:layout_toLeftOf="@+id/tv_time"
+                                        android:id="@+id/v_time_2"
+                                        android:rotation="45"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:background="@drawable/anim_gif"
+                                        android:layout_width="10dp"
+                                        android:layout_height="20dp"/>
+
+                                    <com.jtcxw.glcxw.base.views.TextViewWithoutPadding
+                                        android:layout_toRightOf="@+id/v_time_2"
+                                        android:layout_marginStart="3dp"
+                                        android:id="@+id/tv_m_2"
+                                        android:textStyle="bold"
+                                        android:layout_centerVertical="true"
+                                        android:textColor="@color/black_263238"
+                                        android:textSize="20sp"
+                                        android:text="--"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <com.jtcxw.glcxw.base.views.TextViewWithoutPadding
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/tv_m_2"
+                                        android:id="@+id/tv_m_22"
+                                        android:layout_marginLeft="2dp"
+                                        android:textColor="@color/black_263238"
+                                        android:textSize="14sp"
+                                        android:text="分钟 --站台"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:visibility="invisible"
+                                    android:id="@+id/rl_3"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent">
+                                    <View
+                                        android:background="@color/green_light"
+                                        android:layout_width="0.5dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:layout_height="match_parent"/>
+                                    <ImageView
+                                        android:layout_toLeftOf="@+id/tv_time"
+                                        android:id="@+id/v_time_3"
+                                        android:rotation="45"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:background="@drawable/anim_gif"
+                                        android:layout_width="10dp"
+                                        android:layout_height="20dp"/>
+
+                                    <com.jtcxw.glcxw.base.views.TextViewWithoutPadding
+                                        android:layout_toRightOf="@+id/v_time_3"
+                                        android:layout_marginStart="3dp"
+                                        android:id="@+id/tv_m_3"
+                                        android:textStyle="bold"
+                                        android:layout_centerVertical="true"
+                                        android:textColor="@color/black_263238"
+                                        android:textSize="20sp"
+                                        android:text="--"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <com.jtcxw.glcxw.base.views.TextViewWithoutPadding
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/tv_m_3"
+                                        android:layout_marginLeft="2dp"
+                                        android:id="@+id/tv_m_33"
+                                        android:textColor="@color/black_263238"
+                                        android:textSize="14sp"
+                                        android:text="分钟 --站台"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
                         </LinearLayout>
                         <androidx.core.widget.NestedScrollView
                             android:layout_width="match_parent"

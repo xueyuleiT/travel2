@@ -16,7 +16,7 @@ interface ApiService {
 
         private val DEV = Environment.DEV_OUTER
         private val PRO = Environment.PRODUCT
-        var API_SERVER_URL = DEV
+        var API_SERVER_URL = PRO
 
     }
 
@@ -29,11 +29,17 @@ interface ApiService {
     @POST("Api/PublicKey")
     fun publicKey(): Observable<Response<PubKeyBean>>
 
+    @POST("Login/WechatLogin")
+    fun wechatLogin(@Body params: JsonObject):Observable<Response<BaseBean<WechatBean>>>
+
     @POST("SmsVerify/SendSmsCode")
     fun sendSmsCode(@Body params: JsonObject): Observable<Response<BaseBean<SmsBean>>>
 
     @POST("SmsVerify/SmsRegister")
     fun smsRegister(@Body params: JsonObject): Observable<Response<BaseBean<RegisterBean>>>
+
+    @POST("SmsVerify/WechatRegister")
+    fun smsWechatRegister(@Body params: JsonObject): Observable<Response<BaseBean<RegisterBean>>>
 
     /**
      * SmsVerify/VerifySmsCode

@@ -11,7 +11,7 @@ import me.yokeyword.fragmentation.SupportFragment
 class JumpValid: Valid,Action {
     override fun call() {
         Handler().postDelayed({
-            (BaseUtil.sTopAct!!.topFragment as SupportFragment).start(mTagetFragment)
+            BaseUtil.sTopAct!!.start(mTagetFragment)
         }, 500)
     }
 

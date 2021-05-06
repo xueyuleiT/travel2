@@ -137,6 +137,7 @@ dependencies {
     api rootProject.ext.dependencies.libaction
     api rootProject.ext.dependencies.greendao
     api rootProject.ext.dependencies.sqlcipher
+    api rootProject.ext.dependencies.wechat
     compileOnly rootProject.ext.dependencies.analytics
     api rootProject.ext.dependencies.share
     api project(path: ':cardview')
