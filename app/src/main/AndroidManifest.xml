@@ -76,6 +76,7 @@
 
         <activity android:name=".ui.WelcomeActivity"
             android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Welcome"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -695,7 +695,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                                             .decodeResource(resources, R.mipmap.icon_station)
                                     )
                                 )
-                                it.hideInfoWindow()
+//                                it.hideInfoWindow()
                             }
                         }
                     }
@@ -1001,7 +1001,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                                             .decodeResource(resources, R.mipmap.icon_station)
                                     )
                                 )
-                                it.hideInfoWindow()
+//                                it.hideInfoWindow()
                             }
                         }
                     }

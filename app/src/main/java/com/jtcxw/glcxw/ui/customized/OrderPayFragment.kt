@@ -10,6 +10,7 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.adapter.OrderPayAdapter
 import com.jtcxw.glcxw.base.basic.BaseFragment
 import com.jtcxw.glcxw.base.constant.BundleKeys
+import com.jtcxw.glcxw.base.constant.Constant
 import com.jtcxw.glcxw.base.dialogs.LoadingDialog
 import com.jtcxw.glcxw.base.respmodels.*
 import com.jtcxw.glcxw.base.utils.DialogUtil
@@ -24,6 +25,9 @@ import com.jtcxw.glcxw.ui.my.ChargeResultFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.MyView
 import com.jtcxw.glcxw.views.OrderPayView
+import com.tencent.mm.opensdk.modelpay.PayReq
+import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 
@@ -55,6 +59,8 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
     ) {
         if (payRechargeBean.payment == 2) {
             aliPay(payRechargeBean.aliOrderInfo,dialog)
+        } else if (payRechargeBean.payment == 4) {
+            wxPay(payRechargeBean.weChatAPPResult)
         }
     }
 
@@ -111,6 +117,24 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
         mBinding.recyclerView.setNewData(mData)
     }
 
+    var mApi: IWXAPI?= null
+
+
+    private fun wxPay(weChatAPPResult: PayRechargeBean.WeChatAPPResultBean) {
+        if (!mApi!!.isWXAppInstalled) {
+            ToastUtil.toastWaring("您的设备未安装微信客户端")
+            return
+        }
+        val req = PayReq()
+        req.appId = weChatAPPResult.appId
+        req.partnerId = weChatAPPResult.partnerid
+        req.prepayId = weChatAPPResult.prepayid
+        req.packageValue = weChatAPPResult.`package`
+        req.nonceStr = weChatAPPResult.noncestr
+        req.timeStamp = weChatAPPResult.timestamp
+        req.sign = weChatAPPResult.sign
+        mApi!!.sendReq(req)
+    }
 
     private fun aliPay(orderId: String, dialog: LoadingDialog) {
         val payRunnable = Runnable {
@@ -160,6 +184,11 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolBar("订单支付")
+
+        mApi = WXAPIFactory.createWXAPI(context, Constant.APP_ID_WE_CHAT, true)
+
+        // 将应用的appId注册到微信
+        mApi!!.registerApp(Constant.APP_ID_WE_CHAT)
 
         mPresenter = OrderPayPresenter(this)
         mMyPresenter = MyPresenter(this)

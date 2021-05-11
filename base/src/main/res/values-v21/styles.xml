@@ -12,7 +12,6 @@
 
 
     <style name="AppTheme.Welcome" parent="AppTheme">
-        <item name="android:windowOverscan">true</item>
         <item name="android:windowNoTitle">true</item>//无标题
         <item name="android:windowActionBar">false</item>//无ActionBar
         <item name="android:windowFullscreen">true</item>//全屏即无通知栏

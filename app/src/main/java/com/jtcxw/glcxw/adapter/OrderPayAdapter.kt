@@ -30,6 +30,9 @@ class OrderPayAdapter(context: Context,date:List<PayTypeBean.TypeArrayBean>):Bas
         } else if (data!!.itemValue == "2") {
             tvType.text = data!!.itemName
             vType.setImageResource(R.mipmap.icon_pay_ali)
+        } else if (data!!.itemValue == "4") {
+            tvType.text = data!!.itemName
+            vType.setImageResource(R.mipmap.icon_pay_wx)
         } else {
             tvType.text = data!!.itemName
             vType.setImageResource(R.mipmap.icon_pay_other)

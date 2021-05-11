@@ -14,6 +14,15 @@ public class PayRechargeBean {
     private int Payment;
     private GlcxMineOrderBean glcx_mine_order;
     private String AliOrderInfo;
+    private WeChatAPPResultBean WeChatAPPResult;
+
+    public WeChatAPPResultBean getWeChatAPPResult() {
+        return WeChatAPPResult;
+    }
+
+    public void setWeChatAPPResult(WeChatAPPResultBean weChatAPPResult) {
+        WeChatAPPResult = weChatAPPResult;
+    }
 
     public String getMemberId() {
         return MemberId;
@@ -53,6 +62,72 @@ public class PayRechargeBean {
 
     public void setAliOrderInfo(String AliOrderInfo) {
         this.AliOrderInfo = AliOrderInfo;
+    }
+
+    public static class WeChatAPPResultBean {
+        String AppId;
+        String Partnerid;
+        String Prepayid;
+        String Package;
+        String Noncestr;
+        String Timestamp;
+        String Sign;
+
+        public String getAppId() {
+            return AppId;
+        }
+
+        public void setAppId(String appId) {
+            AppId = appId;
+        }
+
+        public String getPartnerid() {
+            return Partnerid;
+        }
+
+        public void setPartnerid(String partnerid) {
+            Partnerid = partnerid;
+        }
+
+        public String getPrepayid() {
+            return Prepayid;
+        }
+
+        public void setPrepayid(String prepayid) {
+            Prepayid = prepayid;
+        }
+
+        public String getPackage() {
+            return Package;
+        }
+
+        public void setPackage(String aPackage) {
+            Package = aPackage;
+        }
+
+        public String getNoncestr() {
+            return Noncestr;
+        }
+
+        public void setNoncestr(String noncestr) {
+            Noncestr = noncestr;
+        }
+
+        public String getTimestamp() {
+            return Timestamp;
+        }
+
+        public void setTimestamp(String timestamp) {
+            Timestamp = timestamp;
+        }
+
+        public String getSign() {
+            return Sign;
+        }
+
+        public void setSign(String sign) {
+            Sign = sign;
+        }
     }
 
     public static class GlcxMineOrderBean {

@@ -34,6 +34,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
+import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator
 
 
 class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView {
@@ -184,6 +185,8 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragmentAnimator = DefaultVerticalAnimator()
+
         if (BaseUtil.isDarkMode()) {
             mBinding.vBg.setBackgroundResource(0)
         }
