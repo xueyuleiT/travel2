@@ -129,7 +129,6 @@ dependencies {
     api rootProject.ext.dependencies.nativecrashreport
     api rootProject.ext.dependencies.flycoTabLayout
     api rootProject.ext.dependencies.asms
-    api rootProject.ext.dependencies.crash
     api rootProject.ext.dependencies.xxpermissions
     api rootProject.ext.dependencies.zxing
     api rootProject.ext.dependencies.PickerView

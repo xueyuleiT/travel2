@@ -13,12 +13,10 @@ import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.base.constant.Constant
 import com.jtcxw.glcxw.base.dialogs.LoadingDialog
 import com.jtcxw.glcxw.base.respmodels.*
-import com.jtcxw.glcxw.base.utils.DialogUtil
-import com.jtcxw.glcxw.base.utils.SpannelUtil
-import com.jtcxw.glcxw.base.utils.ToastUtil
-import com.jtcxw.glcxw.base.utils.UserUtil
+import com.jtcxw.glcxw.base.utils.*
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.databinding.FragmentPayBinding
+import com.jtcxw.glcxw.events.WxPayEvent
 import com.jtcxw.glcxw.presenters.impl.MyPresenter
 import com.jtcxw.glcxw.presenters.impl.OrderPayPresenter
 import com.jtcxw.glcxw.ui.my.ChargeResultFragment
@@ -30,6 +28,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
+import rx.Subscription
 
 
 class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayView,MyView{
@@ -70,16 +69,12 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
     ) {
         if (payBean.payment == "2") {
             aliPay(payBean.aliOrderInfo, dialog)
+        }  else if (payBean.payment == "4") {
+            dialog.dismissAllowingStateLoss()
+            wxPay(payBean.weChatOrderInfo)
         } else {
             dialog.dismiss()
             ToastUtil.toastSuccess("支付成功")
-//            val bundle = Bundle()
-//            bundle.putString(BundleKeys.KEY_ORDER_AMOUNT,arguments!!.getString(BundleKeys.KEY_ORDER_AMOUNT,""))
-//            bundle.putString(BundleKeys.KEY_PAY_TYPE,"支付宝支付")
-//            bundle.putString("currentAmount",UserUtil.getUserInfoBean().ownerAmount.toString())
-//            val chargeResultFragment = ChargeResultFragment()
-//            chargeResultFragment.arguments = bundle
-//            startWithPop(chargeResultFragment)
             val bundle = Bundle()
             UserUtil.getUserInfoBean().ownerAmount = UserUtil.getUserInfoBean().ownerAmount - arguments!!.getString(BundleKeys.KEY_ORDER_AMOUNT,"0.0").toDouble()
             setFragmentResult(ISupportFragment.RESULT_OK,bundle)
@@ -121,6 +116,22 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
 
 
     private fun wxPay(weChatAPPResult: PayRechargeBean.WeChatAPPResultBean) {
+        if (!mApi!!.isWXAppInstalled) {
+            ToastUtil.toastWaring("您的设备未安装微信客户端")
+            return
+        }
+        val req = PayReq()
+        req.appId = weChatAPPResult.appId
+        req.partnerId = weChatAPPResult.partnerid
+        req.prepayId = weChatAPPResult.prepayid
+        req.packageValue = weChatAPPResult.`package`
+        req.nonceStr = weChatAPPResult.noncestr
+        req.timeStamp = weChatAPPResult.timestamp
+        req.sign = weChatAPPResult.sign
+        mApi!!.sendReq(req)
+    }
+
+    private fun wxPay(weChatAPPResult: PayBean.WeChatOrderInfo) {
         if (!mApi!!.isWXAppInstalled) {
             ToastUtil.toastWaring("您的设备未安装微信客户端")
             return
@@ -181,9 +192,29 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
     var mPresenter:OrderPayPresenter?= null
     var mMyPresenter:MyPresenter?= null
     var mData = ArrayList<PayTypeBean.TypeArrayBean>()
+    private val mRxList = ArrayList<Subscription>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolBar("订单支付")
+
+        mRxList.add(RxBus.getDefault().toObservable(WxPayEvent::class.java).subscribe {
+
+            if (arguments!!.getString(BundleKeys.KEY_PAY_TYPE) == "glcx_paytype") {
+                val bundle = Bundle()
+                bundle.putString(BundleKeys.KEY_ORDER_AMOUNT,arguments!!.getString(BundleKeys.KEY_ORDER_AMOUNT,""))
+                bundle.putString(BundleKeys.KEY_PAY_TYPE,"微信支付")
+                bundle.putString("currentAmount",UserUtil.getUserInfoBean().ownerAmount.toString())
+                val chargeResultFragment = ChargeResultFragment()
+                chargeResultFragment.arguments = bundle
+                startWithPop(chargeResultFragment)
+            } else {
+                val bundle = Bundle()
+                setFragmentResult(ISupportFragment.RESULT_OK, bundle)
+                pop()
+            }
+
+        })
 
         mApi = WXAPIFactory.createWXAPI(context, Constant.APP_ID_WE_CHAT, true)
 
@@ -258,5 +289,13 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
         var json = JsonObject()
         json.addProperty("MemberId",UserUtil.getUser().userInfoBean.memberId)
         mMyPresenter!!.getMemberInfo(json)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mRxList.forEach {
+            it.unsubscribe()
+        }
+        mRxList.clear()
     }
 }

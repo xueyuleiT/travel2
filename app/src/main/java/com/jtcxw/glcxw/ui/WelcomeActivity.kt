@@ -1,10 +1,13 @@
 package com.jtcxw.glcxw.ui
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import com.glcxw.lib.util.CacheUtil
@@ -32,6 +35,16 @@ class WelcomeActivity: BaseActivity() {
         if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
             finish()
             return
+        }
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            window.navigationBarColor = Color.TRANSPARENT
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.TRANSPARENT
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         }
 
 //        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
@@ -98,6 +111,11 @@ class WelcomeActivity: BaseActivity() {
             }
 
             override fun onFinish() {
+
+                if (isFinishing || isDestroyed) {
+                    return
+                }
+
                 if (CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_FIRST_RUN,true) && TextUtils.isEmpty(CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_TELEPHONE,""))) {
                     val dialog = AgreementDialog().setCancelCallback(object : DialogCallback {
                         override fun onDialogCallback(type: Int) {

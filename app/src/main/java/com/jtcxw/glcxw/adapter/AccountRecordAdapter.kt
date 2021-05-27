@@ -25,31 +25,42 @@ class AccountRecordAdapter(context: Context,list: List<MemberAccountHistoryBean.
         val tvTime = holder!!.getView<TextView>(R.id.tv_time)
         val tvTransAmount = holder!!.getView<TextView>(R.id.tv_trans_amount)
 
-        when {
-            data!!.changeType == 1 -> {
+        when (data!!.changeType) {
+            1 -> {
                 ivType.setImageResource(R.mipmap.icon_pay_ali)
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
             }
-            data!!.changeType == 2 -> {
+            8 -> {
+                ivType.setImageResource(R.mipmap.icon_pay_wx_recharge)
+                tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
+            }
+
+            7 -> {
+                ivType.setImageResource(R.mipmap.icon_pay_wx_recharge)
+                tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
+            }
+
+            2 -> {
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
                 ivType.setImageResource(R.mipmap.icon_order_bus)
             }
-
-            data!!.changeType == 98 -> {
+            98 -> {
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
                 ivType.setImageResource(R.mipmap.icon_recharge_old)
             }
-
-            data!!.changeType == 99 -> {
+            99 -> {
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.black_263238))
                 ivType.setImageResource(R.mipmap.icon_consumer_old)
             }
-
-            data!!.changeType == 3 -> {
+            101 -> {
+                tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.black_263238))
+                ivType.setImageResource(R.mipmap.icon_pay_kefu)
+            }
+            3 -> {
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.black_263238))
                 ivType.setImageResource(R.mipmap.icon_order_qr)
             }
-            data!!.changeType == 4 -> {
+            4 -> {
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.black_263238))
                 ivType.setImageResource(R.mipmap.icon_order_bus)
             }

@@ -38,6 +38,23 @@ class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapte
                         vType.setImageResource(R.mipmap.icon_pay_ali_unread)
                     }
                 }
+
+                data.MessageType == "7" || data.MessageType == "8" -> {
+                    if(data!!.read == 1) {
+                        vType.setImageResource(R.mipmap.icon_message_wx_read)
+                    } else {
+                        vType.setImageResource(R.mipmap.icon_message_wx_unread)
+                    }
+                }
+
+                data.MessageType == "101" -> {
+                    if(data!!.read == 1) {
+                        vType.setImageResource(R.mipmap.icon_message_kefu_read)
+                    } else {
+                        vType.setImageResource(R.mipmap.icon_message_kefu_unread)
+                    }
+                }
+
                 data.MessageType == "2" -> {
                     if(data!!.read == 1) {
                         vType.setImageResource(R.mipmap.icon_order_bus_read)

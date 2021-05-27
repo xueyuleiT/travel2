@@ -15,6 +15,7 @@ import com.jtcxw.glcxw.base.respmodels.UserInfoBean
 import com.jtcxw.glcxw.base.respmodels.WechatBean
 import com.jtcxw.glcxw.base.utils.*
 import com.jtcxw.glcxw.events.LoginEvent
+import com.jtcxw.glcxw.events.WxPayEvent
 import com.jtcxw.glcxw.fragment.MainFragment
 import com.jtcxw.glcxw.ui.MainActivity
 import com.jtcxw.glcxw.ui.login.RegisterFragment
@@ -32,14 +33,7 @@ import retrofit2.Response
 class WXEntryActivity: BaseActivity(), IWXAPIEventHandler {
     override fun onResp(p0: BaseResp?) {
 
-        if(p0!!.type == ConstantsAPI.COMMAND_PAY_BY_WX){
-            if (p0.errCode == 0) {
-                ToastUtil.toastSuccess("支付完成")
-            } else {
-                ToastUtil.toastError(p0.errStr)
-            }
-            finish()
-        } else if (p0 is SendAuth.Resp) {
+        if (p0 is SendAuth.Resp) {
             val resp = p0 as SendAuth.Resp
             if (TextUtils.isEmpty(resp.code)) {
                 ToastUtil.toastError("微信授权失败")
@@ -134,6 +128,6 @@ class WXEntryActivity: BaseActivity(), IWXAPIEventHandler {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        wxAPI!!.handleIntent(intent, this)
+        wxAPI!!.handleIntent(getIntent(), this)
     }
 }

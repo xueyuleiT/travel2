@@ -21,6 +21,7 @@ class AuthPresenter:IAuth {
     }
 
     override fun getMemberInfo(jsonObject: JsonObject) {
+        jsonObject.addProperty("IsAccount",1)
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().getMemberInfo(jsonObject),object :
             ApiCallback<UserInfoBean, Response<BaseBean<UserInfoBean>>>(){

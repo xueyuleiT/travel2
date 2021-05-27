@@ -10,7 +10,8 @@ import retrofit2.http.POST
 import rx.Observable
 
 
-interface ApiService {
+interface
+ApiService {
 
     companion object{
 

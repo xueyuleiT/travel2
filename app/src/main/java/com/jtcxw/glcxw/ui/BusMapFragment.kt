@@ -1158,7 +1158,9 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     private fun addSearchListener() {
         mBinding.etSearch.setOnClickListener {
-            (parentFragment as QueryMainFragment).replace(BusQueryFragment())
+            if (parentFragment is QueryMainFragment) {
+                (parentFragment as QueryMainFragment).replace(BusQueryFragment())
+            }
 //            QueryMainFragment.newInstance(this,null)
         }
 

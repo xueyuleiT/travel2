@@ -67,10 +67,7 @@
     </style>
 
     <style name="AppTheme.Welcome" parent="AppTheme">
-        <item name="android:windowNoTitle">true</item>//无标题
-        <item name="android:windowActionBar">false</item>//无ActionBar
-        <item name="android:windowFullscreen">true</item>//全屏即无通知栏
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/gray_e9eff1</item>
     </style>
 
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">

@@ -43,8 +43,17 @@
 
         <activity
             android:name="cn.com.jttravel.wxapi.WXEntryActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:taskAffinity="cn.com.jttravel"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name="cn.com.jttravel.wxapi.WXPayEntryActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:taskAffinity="cn.com.jttravel"
             android:launchMode="singleTask">
@@ -76,6 +85,7 @@
 
         <activity android:name=".ui.WelcomeActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Welcome"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

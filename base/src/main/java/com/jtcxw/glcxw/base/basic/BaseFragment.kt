@@ -66,7 +66,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
 
     override fun onResume() {
         super.onResume()
-        if (isBarStausDark()) {
+        if (isBarStatusDark()) {
             activity!!.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         } else {
             activity!!.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -75,7 +75,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        if (isBarStausDark()) {
+        if (isBarStatusDark()) {
             activity!!.window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         } else {
@@ -212,7 +212,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
     }
 
 
-    open fun isBarStausDark(): Boolean{
+    open fun isBarStatusDark(): Boolean{
         return !BaseUtil.isDarkMode()
     }
 

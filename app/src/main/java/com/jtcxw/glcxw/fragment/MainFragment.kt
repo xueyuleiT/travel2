@@ -3,11 +3,13 @@ package com.jtcxw.glcxw.fragment
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
+import android.view.*
 import cn.jpush.android.api.JPushInterface
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.amap.api.location.AMapLocation
+import com.glcxw.lib.util.CacheUtil
+import com.glcxw.lib.util.constants.SPKeys
 import com.hjq.permissions.OnPermission
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
@@ -91,6 +93,32 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
             mFragments[4]
         )
         fragmentAnimator = DefaultHorizontalAnimator()
+
+        if (!CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_SHOW_GUARD,false)) {
+            mBinding.radioTab.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+                override fun onLayoutChange(
+                    v: View?,
+                    left: Int,
+                    top: Int,
+                    right: Int,
+                    bottom: Int,
+                    oldLeft: Int,
+                    oldTop: Int,
+                    oldRight: Int,
+                    oldBottom: Int
+                ) {
+                    mBinding.radioTab.removeOnLayoutChangeListener(this)
+                    val view = activity!!.findViewById<ViewGroup>(Window.ID_ANDROID_CONTENT)
+                    val mask = LayoutInflater.from(activity!!).inflate(R.layout.layout_mask, null)
+                    view.addView(mask)
+                    mask.findViewById<View>(R.id.rb_mask).setOnClickListener {
+                        view.removeView(mask)
+                        CacheUtil.getInstance().setProperty(SPKeys.SP_KEY_SHOW_GUARD,true)
+                    }
+                }
+
+            })
+        }
         mBinding.radioTab.setOnCheckedChangeListener { _, i ->
             mBinding.rbTabQr.isChecked = false
             when (i) {

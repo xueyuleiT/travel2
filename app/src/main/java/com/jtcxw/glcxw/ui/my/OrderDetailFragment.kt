@@ -25,6 +25,16 @@ class OrderDetailFragment:BaseFragment<FragmentOrderDetailBinding,CommonModel>()
                 mBinding.vType.setImageResource(R.mipmap.icon_pay_ali)
                 mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
             }
+            goodsInfoBean.changeType == 8 -> {
+                mBinding.vType.setImageResource(R.mipmap.icon_pay_wx_recharge)
+                mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
+            }
+
+            goodsInfoBean.changeType == 7 -> {
+                mBinding.vType.setImageResource(R.mipmap.icon_pay_wx_recharge)
+                mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
+            }
+
             goodsInfoBean.changeType == 2 -> {
                 mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
                 mBinding.vType.setImageResource(R.mipmap.icon_order_bus)
@@ -40,6 +50,11 @@ class OrderDetailFragment:BaseFragment<FragmentOrderDetailBinding,CommonModel>()
             goodsInfoBean!!.changeType == 99 -> {
                 mBinding.tvTransAmount.setTextColor(mBinding.tvTransAmount.resources.getColor(R.color.black_263238))
                 mBinding.vType.setImageResource(R.mipmap.icon_consumer_old)
+            }
+
+            goodsInfoBean!!.changeType == 101 -> {
+                mBinding.tvTransAmount.setTextColor(mBinding.tvTransAmount.resources.getColor(R.color.black_263238))
+                mBinding.vType.setImageResource(R.mipmap.icon_pay_kefu)
             }
         }
 

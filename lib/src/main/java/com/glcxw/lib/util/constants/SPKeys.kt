@@ -10,6 +10,7 @@ class SPKeys {
         const val SP_KEY_TELEPHONE = "telephone"
         const val SP_KEY_REFRESH_TOKEN = "refreshToken"
         const val SP_KEY_FIRST_RUN = "firstRun"
+        const val SP_KEY_SHOW_GUARD = "showGuard"
         const val SP_KEY_REMBER_PHONE = "remberPhone"
         const val SP_KEY_INSTALL_ID = "installId"
         const val SP_KEY_SETTLE_TIME = "settle_time"

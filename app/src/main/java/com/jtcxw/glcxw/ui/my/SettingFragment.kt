@@ -1,6 +1,7 @@
 package com.jtcxw.glcxw.ui.my
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
@@ -73,7 +74,13 @@ class SettingFragment:BaseFragment<FragmentSettingBinding,CommonModel>() {
 
             R.id.tv_pwd -> {
                 val bundle = Bundle()
-                bundle.putString(BundleKeys.KEY_PHONE,UserUtil.getUserInfoBean().telphoneNo.replace("+86",""))
+                if (!TextUtils.isEmpty(UserUtil.getUserInfoBean().telphoneNo)) {
+                    bundle.putString(BundleKeys.KEY_PHONE,UserUtil.getUserInfoBean().telphoneNo.replace("+86",""))
+                } else if (!TextUtils.isEmpty(UserUtil.getUserInfoBean().realTelphoneNo)){
+                    bundle.putString(BundleKeys.KEY_PHONE,UserUtil.getUserInfoBean().realTelphoneNo.replace("+86",""))
+                } else {
+                    bundle.putString(BundleKeys.KEY_PHONE,"")
+                }
                 FindPwdFragment.newInstance(this,bundle)
             }
 

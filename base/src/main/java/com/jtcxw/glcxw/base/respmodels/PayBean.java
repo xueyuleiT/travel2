@@ -13,6 +13,15 @@ public class PayBean {
     private String order_id;
     private String order_name;
     private String order_price;
+    private WeChatOrderInfo WeChatOrderInfo;
+
+    public PayBean.WeChatOrderInfo getWeChatOrderInfo() {
+        return WeChatOrderInfo;
+    }
+
+    public void setWeChatOrderInfo(PayBean.WeChatOrderInfo weChatOrderInfo) {
+        WeChatOrderInfo = weChatOrderInfo;
+    }
 
     public String getMemberId() {
         return MemberId;
@@ -61,4 +70,71 @@ public class PayBean {
     public void setOrder_price(String order_price) {
         this.order_price = order_price;
     }
+
+    public static class WeChatOrderInfo {
+        private String AppId;
+        private String Partnerid;
+        private String Prepayid;
+        private String Package;
+        private String Noncestr;
+        private String Timestamp;
+        private String Sign;
+
+        public String getAppId() {
+            return AppId;
+        }
+
+        public void setAppId(String appId) {
+            AppId = appId;
+        }
+
+        public String getPartnerid() {
+            return Partnerid;
+        }
+
+        public void setPartnerid(String partnerid) {
+            Partnerid = partnerid;
+        }
+
+        public String getPrepayid() {
+            return Prepayid;
+        }
+
+        public void setPrepayid(String prepayid) {
+            Prepayid = prepayid;
+        }
+
+        public String getPackage() {
+            return Package;
+        }
+
+        public void setPackage(String aPackage) {
+            Package = aPackage;
+        }
+
+        public String getNoncestr() {
+            return Noncestr;
+        }
+
+        public void setNoncestr(String noncestr) {
+            Noncestr = noncestr;
+        }
+
+        public String getTimestamp() {
+            return Timestamp;
+        }
+
+        public void setTimestamp(String timestamp) {
+            Timestamp = timestamp;
+        }
+
+        public String getSign() {
+            return Sign;
+        }
+
+        public void setSign(String sign) {
+            Sign = sign;
+        }
+    }
+
 }
