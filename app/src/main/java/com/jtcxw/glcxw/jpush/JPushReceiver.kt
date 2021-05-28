@@ -1,6 +1,7 @@
 package com.jtcxw.glcxw.jpush
 
 import android.app.Notification
+import android.app.Notification.VISIBILITY_PUBLIC
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,6 +10,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import cn.jpush.android.api.CustomMessage
 import cn.jpush.android.api.NotificationMessage
 import cn.jpush.android.service.JPushMessageReceiver
@@ -57,41 +59,88 @@ class JPushReceiver: JPushMessageReceiver() {
 
         DaoUtilsStore.getInstance().userDaoUtils.insert(messageEvent)
 //
-        val manager = p0!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+        val manager =
+            p0!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val id = (System.currentTimeMillis() / 1000).toInt()
         //判断8.0，若为8.0型号的手机进行创下一下的通知栏
         var pendingIntent: PendingIntent?
         val intent = Intent(p0, MainActivity::class.java)
-        intent.putExtra("type","message")
-        intent.putExtra("pushType",messageEvent.pushType)
-        intent.putExtra("messageType",messageEvent.messageType)
-        intent.putExtra("businessId",messageEvent.businessId)
-        pendingIntent = PendingIntent.getActivity(p0, notifyId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        notifyId ++
+        intent.putExtra("type", "message")
+        intent.putExtra("pushType", messageEvent.pushType)
+        intent.putExtra("messageType", messageEvent.messageType)
+        intent.putExtra("businessId", messageEvent.businessId)
+        pendingIntent = PendingIntent.getActivity(
+            p0,
+            notifyId,
+            intent,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        )
+        notifyId++
 
         if (Build.VERSION.SDK_INT >= 26) {  //判断8.0，若为8.0型号的手机进行创下一下的通知栏
-            val channel = NotificationChannel(id.toString(), "channel_name", NotificationManager.IMPORTANCE_HIGH)
+            val channel =
+                NotificationChannel(
+                    "消息通知",
+                    "消息通知",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+            channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+            channel.importance = NotificationManager.IMPORTANCE_DEFAULT
             manager?.createNotificationChannel(channel)
             val builder = Notification.Builder(p0, id.toString())
             builder.setSmallIcon(R.mipmap.icon_launch)
                 .setWhen(System.currentTimeMillis())
-                .setLargeIcon(BitmapFactory.decodeResource(p0.resources, R.mipmap.icon_launch))
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        p0.resources,
+                        R.mipmap.icon_launch
+                    )
+                )
                 .setContentTitle(p1!!.title)
                 .setContentText(p1.message)
                 .setAutoCancel(true)
+                .setChannelId("消息通知")
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pendingIntent)
-//                    .setDeleteIntent(pendingIntentCancel);
+            //                    .setDeleteIntent(pendingIntentCancel);
             manager.notify(id, builder.build())
         } else {
             val builder = Notification.Builder(p0)
-            builder.setSmallIcon(R.mipmap.icon_launch)
-                .setWhen(System.currentTimeMillis())
-                .setLargeIcon(BitmapFactory.decodeResource(p0.resources, R.mipmap.icon_launch))
-                .setContentTitle(p1!!.title)
-                .setContentText(p1.message)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent)
-//                    .setDeleteIntent(pendingIntentCancel);;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder.setSmallIcon(R.mipmap.icon_launch)
+                    .setWhen(System.currentTimeMillis())
+                    .setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            p0.resources,
+                            R.mipmap.icon_launch
+                        )
+                    )
+                    .setContentTitle(p1!!.title)
+                    .setContentText(p1.message)
+                    .setAutoCancel(true)
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .setVisibility(VISIBILITY_PUBLIC)
+                    .setContentIntent(pendingIntent)
+            } else {
+                builder.setSmallIcon(R.mipmap.icon_launch)
+                    .setWhen(System.currentTimeMillis())
+                    .setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            p0.resources,
+                            R.mipmap.icon_launch
+                        )
+                    )
+                    .setContentTitle(p1!!.title)
+                    .setContentText(p1.message)
+                    .setAutoCancel(true)
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent)
+            }
+            //                    .setDeleteIntent(pendingIntentCancel);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 manager.notify(id, builder.build())
             }

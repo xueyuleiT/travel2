@@ -12,14 +12,14 @@
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="maven3" />
-      <option name="name" value="maven3" />
-      <option name="url" value="https://maven.google.com" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="maven4" />
       <option name="name" value="maven4" />
       <option name="url" value="https://dl.bintray.com/umsdk/release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="maven" />
@@ -35,11 +35,6 @@
       <option name="id" value="maven2" />
       <option name="name" value="maven2" />
       <option name="url" value="https://jitpack.io" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="maven3" />
-      <option name="name" value="maven3" />
-      <option name="url" value="https://repo1.maven.org/maven2/" />
     </remote-repository>
   </component>
 </project>
