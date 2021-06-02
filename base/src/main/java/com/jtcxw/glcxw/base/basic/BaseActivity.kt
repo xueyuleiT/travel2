@@ -19,6 +19,7 @@ open class BaseActivity : SupportActivity() {
 
     }
 
+    //添加网络请求订阅
     open fun <M> addSubscription(observable: Observable<M>, subscriber: Subscriber<M>) {
         mCompositeSubscription!!.add(
             observable.subscribeOn(Schedulers.io())
@@ -27,6 +28,7 @@ open class BaseActivity : SupportActivity() {
     }
 
     override fun onDestroy() {
+        //取消订阅
         if (mCompositeSubscription!!.hasSubscriptions()) {
             //取消注册，以避免内存泄露
             mCompositeSubscription!!.unsubscribe()

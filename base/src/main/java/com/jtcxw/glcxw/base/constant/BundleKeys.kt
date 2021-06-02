@@ -1,6 +1,9 @@
 package com.jtcxw.glcxw.base.constant
 
 class BundleKeys {
+    /**
+     * 页面跳转的bundle参数
+     */
     companion object {
         const val KEY_WEB_TITLE = "keyWebTitle"
         const val KEY_TITLE = "title"

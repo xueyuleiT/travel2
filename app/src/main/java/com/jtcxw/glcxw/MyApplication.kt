@@ -31,12 +31,10 @@ open class MyApplication: Application() {
 
         DaoManager.getInstance().init(this)
 
-        CrashReport.initCrashReport(applicationContext, "fe64931278", BuildConfig.DEBUG)
-//        Bugly.init(applicationContext,"32514a6a8a", BuildConfig.DEBUG)
-
+        CrashReport.initCrashReport(applicationContext, "fe64931278", BuildConfig.DEBUG)//Bugly上送
         JPushInterface.setDebugMode(BuildConfig.DEBUG)
-        JPushInterface.init(this)
-        RouterUtil.add(AppRouter())
+        JPushInterface.init(this)//推送
+        RouterUtil.add(AppRouter())//添加router，主要用于跨module通讯
         val cb = object : QbSdk.PreInitCallback {
             override fun onViewInitFinished(arg0: Boolean) {
                 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
@@ -51,8 +49,8 @@ open class MyApplication: Application() {
                 }
             }
         }
-        QbSdk.initX5Environment(this,cb)
-        CacheUtil.init(this)
+        QbSdk.initX5Environment(this,cb) //X5内核
+        CacheUtil.init(this)//缓存初始化
         registerActivityLifecycleCallbacks(object :ActivityLifecycleCallbacks{
             override fun onActivityPaused(p0: Activity) {
             }

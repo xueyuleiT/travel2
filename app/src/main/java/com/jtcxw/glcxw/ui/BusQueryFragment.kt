@@ -235,6 +235,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
         mBinding.recyclerView.setSupportLoadNextPage(true)
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = BusStationLineAdapter(context!!,mDatas,object : InnerClickListener{
+            //内部list的点击事件
             override fun onInnerClickListener(position: Int, outPosition: Int) {
                 var lineId: String
                 if (mDatas[outPosition].type == 1){
@@ -327,6 +328,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
 
                 stationBean.stationName = model!!.siteDataBean.stationName
                 stationBean.stationLineInfo = ArrayList<AnnexBusBean.StationListBean.StationLineInfoBean>()
+                //将服务端返回的数据转化成本地的通用模型
                 model!!.siteDataBean.stationLineInfo.forEach {
                     val bean = AnnexBusBean.StationListBean.StationLineInfoBean()
                     bean.lineName = it.lineName
@@ -350,6 +352,10 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
                 arr.add(stationBean)
                 bundle.putParcelableArrayList(BundleKeys.KEY_STATION_BEAN,arr)
                 bundle.putString(BundleKeys.KEY_STATION_ID,mDatas[position]!!.siteDataBean.stopList[0].stopId)
+
+                /**
+                 * replace到busMapFragment页面
+                 */
                 if (parentFragment != null) {
                     val busMapFragment = BusMapFragment()
                     busMapFragment.arguments = bundle
@@ -394,6 +400,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
 
     }
 
+    //添加搜索监听
     private fun addSearchListener() {
         mBinding.etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
 

@@ -391,6 +391,9 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
         stopTimer()
     }
 
+    /**
+     * 开始计算订单剩余时间
+     */
     private fun startTimer() {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val leftTime =  (format.parse(mOrder!!.order_time).time + 20 * 60 * 1000 - System.currentTimeMillis()) / 1000

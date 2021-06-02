@@ -42,6 +42,7 @@ class BusFragment:BaseFragment<FragmentBusBinding,CommonModel>() , GoTravelView 
     override fun onGetMisceAneousBeanSucc(misceAneousBean: MisceAneousBean) {
     }
 
+    //获取天气信息
     override fun onWeatherLiveSearched(weatherLiveResult: LocalWeatherLiveResult?, rCode: Int) {
         if (rCode == 1000) {
             if (weatherLiveResult?.liveResult != null) {
@@ -190,6 +191,7 @@ class BusFragment:BaseFragment<FragmentBusBinding,CommonModel>() , GoTravelView 
 
     }
 
+    //获取天气信息
     private fun queryWeather() {
        val query = WeatherSearchQuery("桂林", WeatherSearchQuery.WEATHER_TYPE_LIVE)
        val weathersearch = WeatherSearch(context)

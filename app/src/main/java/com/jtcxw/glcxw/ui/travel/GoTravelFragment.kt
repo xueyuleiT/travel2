@@ -61,6 +61,10 @@ class GoTravelFragment: LocationFragment<FragmentGoTravelBinding, CommonModel>()
     override fun onGetBannerFinish() {
     }
 
+    /**
+     * 根据当前站点的stationId 和 lineId 匹配车辆信息busArriveListBean.stationLineList 得到他们一个
+     * 即将入站的车辆集合
+     */
     override fun onForcastArriveQuerySucc(busArriveListBean: BusArriveListBean) {
 
         if (busArriveListBean.stationLineList.isNotEmpty()) {
@@ -153,8 +157,8 @@ class GoTravelFragment: LocationFragment<FragmentGoTravelBinding, CommonModel>()
     var mTel = ""
     val mBannerList = ArrayList<BannerBean.BannerListBean>()
     companion object {
-        var timer: Handler?= null
-        var runnable:Runnable?= null
+        var timer: Handler?= null // 获取实时到站车辆的定时器
+        var runnable:Runnable?= null // 获取实时到站车辆的处理runnable
     }
     private var mPresenter: GoTravelPresenter?= null
     private var mDatas = ArrayList<AnnexBusBean.StationListBean>()

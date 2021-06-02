@@ -40,6 +40,10 @@ class CustomizedBusFragment:BaseFragment<FragmentCustomizedBinding,CommonModel>(
     var mDatas = ArrayList<LineBean.RouteListBean>()
     var mCitys = ArrayList<CityBean.ProvinceListBean>()
     var mCityId = ""
+
+    /**
+     * 获取城市列表
+     */
     override fun onGetCitysSucc(cityBean: CityBean) {
         mCitys.clear()
         if (cityBean.province_list != null) {
@@ -71,6 +75,9 @@ class CustomizedBusFragment:BaseFragment<FragmentCustomizedBinding,CommonModel>(
     override fun onGetCitysFinish() {
     }
 
+    /**
+     * 获取车辆班次信息
+     */
     override fun onGetLinesSucc(lineBean: LineBean) {
         mDatas.clear()
         mDatas.addAll(lineBean.route_list)
@@ -139,6 +146,9 @@ class CustomizedBusFragment:BaseFragment<FragmentCustomizedBinding,CommonModel>(
                 cityList.add(cities)
                 cityListId.add(citiesId)
             }
+            /**
+             * 显示城市选择器
+             */
             DialogSelectorUtil.showCityPickView(context!!,provinceBeanList,cityList,cityListId,object :CityCallback{
                 override fun onCityCallback(provinceCode: Int, cityCode: Int, city: String,address: String) {
                     mCityId = cityCode.toString()

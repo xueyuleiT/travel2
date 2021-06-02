@@ -45,11 +45,25 @@ class BasicInterceptor : Interceptor {
                         if (!TextUtils.isEmpty(UserUtil.getUserInfoBean().token)) {
                             json.put("Token", UserUtil.getUserInfoBean().token)
                         }
-                        var ASEKey =  RSAUtil.encrypt("123456".toByteArray())
-                        if (ASEKey.endsWith("\n")) {
-                            ASEKey = ASEKey.substring(0,ASEKey.length - 1)
+                        var AESKey = RSAUtil.aesKeyEncrypt
+                        if (AESKey == "") {
+                            AESKey = RSAUtil.encrypt(RSAUtil.aesKey.toByteArray())
+                            if (AESKey.endsWith("\n")) {
+                                AESKey = AESKey.substring(0, AESKey.length - 1)
+                            }
+                            RSAUtil.aesKeyEncrypt = AESKey
                         }
-                        json.put("AESKey",ASEKey)
+                        var AppSecret = RSAUtil.AppSecretEncrypt
+                        if (AppSecret == "") {
+                            AppSecret = RSAUtil.encrypt(RSAUtil.AppSecret.toByteArray())
+                            if (AppSecret.endsWith("\n")) {
+                                AppSecret = AppSecret.substring(0, AppSecret.length - 1)
+                            }
+                            RSAUtil.AppSecretEncrypt = AppSecret
+                        }
+                        json.put("AESKey",AESKey)
+                        json.put("Appid",RSAUtil.Appid)
+                        json.put("AppSecret", AppSecret)
                         val newRequestBody =
                             RequestBody.create(contentType, json.toString())
                         val newRequestBuilder = request.newBuilder()
@@ -91,6 +105,7 @@ class BasicInterceptor : Interceptor {
         try {
             var response = it.proceed(request)
 
+            // 判断返回值是否正确，过滤PublicKey接口（不需要做处理）
             if (response.code == 200 && response.body != null && !request.url.toString().contains("/Api/PublicKey")) {
 
                 val source = response.body!!.source()

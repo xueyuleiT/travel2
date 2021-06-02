@@ -51,8 +51,9 @@ class BusLineGoOrderPresenter: IBusLineGoOrder {
         }, fragment, null)
     }
 
-
-
+    /**
+     * 获取车票信息
+     */
     override fun getFrequencys(params: JsonObject,dialog: LoadingDialog?) {
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().getFrequencys(params),object :

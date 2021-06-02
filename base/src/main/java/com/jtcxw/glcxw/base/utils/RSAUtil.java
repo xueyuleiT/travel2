@@ -10,6 +10,7 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -18,14 +19,12 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class RSAUtil {
 
-    public static final String aesKey = "123456";
-
+    public static final String aesKey = String.valueOf((Math.random()*9+1)*100000);
+    public static String aesKeyEncrypt = "";
+    public static final String AppSecret = "9c4c8256a8a398c0";
+    public static final String Appid = "glcxwapp";
+    public static String AppSecretEncrypt = "";
     public static String pKey = "";
-//            "\n" +
-//            "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDKyMXO8kSEGKgWJq2IGd6O8lQk\n" +
-//            "DHjI13Etm9Bt2dnQ+ilah/DMVMlcl6DXAJBTFF6VdUxgduklmXxik+Nb4U8foEVn\n" +
-//            "1sRQZY+s0OnXEXW6tpyWHv/JVZQVeObgbWNsIAG5DHU75TbUC163P/g2NLxU+4+F\n" +
-//            "7nfVrgcTRSqmjEgYaQIDAQAB\n";
     /**RSA算法*/
     public static final String RSA = "RSA";
     /**加密方式，android的*/

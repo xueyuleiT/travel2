@@ -95,6 +95,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //根据范型参数创建viewModel
         if (mViewModel == null) {
             mViewModel = ((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>).newInstance()
         }
@@ -114,6 +115,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
         return mRootView
     }
 
+    //是否需要statusbar的高度
     open fun needSetStatusHeight():Boolean{
         return true
     }
@@ -135,6 +137,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
         }
     }
 
+    //初始化toolbar信息
     open fun initToolBar(title : String){
 
         val toolBar = mBinding.root.findViewById<Toolbar>(R.id.tool_bar)
@@ -194,7 +197,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
         }
     }
 
-
+    //添加网络请求订阅
     open fun <M> addSubscription(observable: Observable<M>, subscriber: Subscriber<M>) {
         mCompositeSubscription!!.add(
             observable.subscribeOn(Schedulers.io())
@@ -234,10 +237,12 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
     }
 
 
+    //是否可以返回
     open fun canBack(): Boolean{
         return true
     }
 
+    //返回按钮的颜色
     open fun backColor():Int{
         return R.color.back
     }

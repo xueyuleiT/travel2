@@ -94,6 +94,7 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
         )
         fragmentAnimator = DefaultHorizontalAnimator()
 
+        //添加第一次进入app的引导浮层
         if (!CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_SHOW_GUARD,false)) {
             mBinding.radioTab.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
                 override fun onLayoutChange(
@@ -142,8 +143,10 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
                         LoginFragment.newInstance(this, null)
                         val mainLoginValid = MainLoginValid(3, this)
                         MySingleCall.getInstance().clear()
+                        //添加登录后的执行操作
                         MySingleCall.getInstance().addAction(mainLoginValid).addValid(mainLoginValid)
                             .doCall()
+                        //因为需要去登录，所以这里要回到点击之前的tab
                         when (mCurrentIndex) {
                             0 -> mBinding.radioTab.check(R.id.rb_tab_home)
                             1 -> mBinding.radioTab.check(R.id.rb_tab_travel)
@@ -175,7 +178,7 @@ class MainFragment: BaseFragment<FragmentMain1Binding, MainModel>() {
         checkLocation()
     }
 
-    public fun checkLocation() {
+    fun checkLocation() {
         XXPermissions.with(activity)
             .permission(Permission.Group.LOCATION) //不指定权限则自动获取清单中的危险权限
             .request(object : OnPermission {

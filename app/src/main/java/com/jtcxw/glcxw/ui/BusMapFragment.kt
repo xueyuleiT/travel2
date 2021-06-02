@@ -68,6 +68,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
     ) {
     }
 
+    // 添加收藏成功的presenter回调
     override fun onAddCollectionSucc(jsonObject: JsonObject) {
         if (mLineDetailBean != null) {
             if (jsonObject.get("Status").asBoolean) {
@@ -122,6 +123,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                 mBinding.vHeart.setImageResource(R.mipmap.icon_heart_red)
             }
 
+            //取消收藏后通知所有的这个id的收藏进行状态改变
             val event = CollectEvent()
             event.id = mLineDetailBean!!.lineId
             event.collectionId = mLineDetailBean!!.collectionId
@@ -140,6 +142,9 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         }
     }
 
+    /**
+     * 将到站的车辆信息与目前的线路信息进行匹配，并绘制到站车辆信息
+     */
     override fun onForcastArriveQuerySucc(busArriveListBean: BusArriveListBean,type:Int) {
         if (busArriveListBean.stationLineList != null && busArriveListBean.stationLineList.isNotEmpty()) {
 
@@ -148,6 +153,11 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
             }
             var lastTime = ""
             val list = ArrayList<BusArriveListBean.StationLineListBean.ForcastArriveVehsBean>()
+            /**
+             * 站点信息和当前选中的站点进行匹配
+             * 根据当前站点的stationId 和 lineId 匹配车辆信息busArriveListBean.stationLineList 得到他们一个
+             * 即将入站的车辆集合，绘制在线路上
+             */
                 busArriveListBean.stationLineList.forEach { j ->
                     if (type == 0) {
                         if (mStationId == j.stationId && mLineId == j.lineId) {
@@ -189,7 +199,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         ).scale(DimensionUtil.dpToPx(22).toInt(), DimensionUtil.dpToPx(22).toInt())
                     )
                     val latLng = LatLng(vehs.lat, vehs.lon)
-                    list.add(MarkerOptions().position(latLng).icon(icon).zIndex(500f))
+                    list.add(MarkerOptions().position(latLng).icon(icon).zIndex(500f)) // zindex = 500 表示不可被点击
                 }
                 mBinding.vMap.map.addMarkers(list, false)
             } else {
@@ -270,6 +280,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         }
     }
 
+    //设置最快进展的车辆
     fun setRecentlyBus(data:BusArriveListBean.StationLineListBean.ForcastArriveVehsBean,tv1:TextView,tv2:TextView) {
         var index = 1
         for (i in 0 until mBinding.busView.busLineData.size) {
@@ -322,6 +333,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
     }
     var mPresenter:BusMapPresenter?= null
     var mCollectionPresenter: CollectionPresenter?= null
+    //开始查询车辆到站信息
     private fun startTimer() {
 
         runnable = Runnable{
@@ -358,6 +370,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         timer!!.post(runnable)
     }
 
+    //停止查询车辆到站信息
     private fun stopTimer() {
         timer?.removeCallbacks(runnable)
         timer = null
@@ -389,6 +402,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         mBinding.vMap.map.myLocationStyle = myLocationStyle//设置定位蓝点的Style
         mBinding.vMap.map.uiSettings.isTiltGesturesEnabled = false
         mBinding.vMap.map.isMyLocationEnabled = true
+        //地图定位信息回调
         mBinding.vMap.map.addOnMyLocationChangeListener {
             UserUtil.getUser().latitude = it.latitude.toString()
             UserUtil.getUser().longitude = it.longitude.toString()
@@ -455,13 +469,14 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
         })
     }
-    var mStationId = ""
-    var mSelectedStationId = ""
+    var mStationId = ""//末站id
+    var mSelectedStationId = ""//当前选中的站点id
     private fun init() {
         mBinding.vMap.map.clear()
         mData.clear()
         mSelectedData.clear()
         mLineId = arguments!!.getString(BundleKeys.KEY_LINE_ID,"")
+        //判断是否是点击线路进来的 如果是非线路就直接展示站点信息
         if (TextUtils.isEmpty(mLineId)) {
             mBinding.bottomSheet.visibility = View.GONE
             mBinding.rlRecycler.visibility = View.VISIBLE
@@ -569,7 +584,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                 }
 
             })
-        } else {
+        } else {//线路点击进来展示线路信息
             val select = arguments!!.getParcelable<AnnexBusBean.StationListBean>(BundleKeys.KEY_SELECTION_BEAN)
             if (select != null) {
                 mSelectedData.add(select)
@@ -591,14 +606,15 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     }
 
+    //查询线路信息
     private fun queryLine(json: JsonObject) {
         json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
 
         val dialog = DialogUtil.getLoadingDialog(fragmentManager)
         HttpUtil.addSubscription(ApiClient.retrofit().queryLineDetail(json),object : ApiCallback<LineDetailBean, Response<BaseBean<LineDetailBean>>>(){
             override fun onSuccess(model: BaseBean<LineDetailBean>) {
-                var isInit = true
-                var seleted:BusLineItem? = null
+                var isInit = true //底部巴士站点是否初始化
+                var seleted:BusLineItem? = null //底部巴士站点是否选中
                 if (mBinding.busView.busLineData == null || mBinding.busView.busLineData.isEmpty()) {
                     isInit = false
                 } else {
@@ -637,9 +653,13 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
                 val lineList = ArrayList<BusLineItem>()
                 mData.clear()
+                /**
+                 * 将lineStations转化为busView所需要的数据BusLineItem 和 当前线路的mData
+                 */
                 mLineDetailBean!!.lineStations.forEach {
                     val bean = AnnexBusBean.StationListBean()
                     bean.stopList = ArrayList()
+                    //转为页面线路mData元素StopListBean
                     val stopListBean = AnnexBusBean.StopListBean()
                     stopListBean.lat = it.lat
                     stopListBean.stopId = it.stationId
@@ -648,6 +668,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     bean.stopList.add(stopListBean)
                     bean.stationName = it.stationName
                     bean.stationLineInfo = ArrayList<AnnexBusBean.StationListBean.StationLineInfoBean>()
+                    //转为busView的数据模型BusLineItem
                     val busLineItem = BusLineItem()
                     busLineItem.lat = it.lat
                     busLineItem.lon = it.lon
@@ -669,14 +690,17 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
                 mBinding.busView.busLineData = lineList
 
+                //底部巴士站点信息点击监听
                 mBinding.busView.setOnBusStationClickListener { view, item ->
                     mSelectedStationId = item.stationId
                     mBinding.tvSelected.text = item.name
                     stopTimer()
                     startTimer()
                     mBinding.vMap.map.mapScreenMarkers.forEach {
+                        //zindex != 500 != 0 表示可被点击,是站点信息
                         if (it.zIndex != 500f && it.zIndex != 0f)  {
                             if (it.position.latitude == item.lat && it.position.longitude == item.lon) {
+                                //设置当前marker为选中状态
                                 it.setIcon(
                                     BitmapDescriptorFactory.fromBitmap(
                                         BitmapFactory
@@ -686,7 +710,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                                             )
                                     )
                                 )
-                                it.showInfoWindow()
+                                it.showInfoWindow() //显示位置提示框
                                 mBinding.vMap.map.animateCamera(CameraUpdateFactory.changeLatLng(it.position))
                             } else {
                                 it.setIcon(
@@ -782,14 +806,14 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(13f))
                 }
 
-
+                //站点点击监听
                 mBinding.vMap.map.setOnMarkerClickListener {
                     if (it.zIndex == 0f) {
                         return@setOnMarkerClickListener true
                     }
                     if (mBinding.bottomSheet.visibility == View.GONE) {
                         mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
-
+                            //zindex != 500 != 0 表示可被点击,是站点信息
                             if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                                 it1.setIcon(
                                     BitmapDescriptorFactory.fromBitmap(
@@ -806,13 +830,15 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         if (it.zIndex != 400f) {
                             return@setOnMarkerClickListener true
                         }
+                        //设置当前marker为选中状态
                         it.setIcon(
                             BitmapDescriptorFactory.fromBitmap(
                                 BitmapFactory
                                     .decodeResource(resources, R.mipmap.icon_station_checked)
                             )
                         )
-                        it.showInfoWindow()
+                        it.showInfoWindow() //显示位置提示框
+                        //找到当前选中的站点
                         mData.forEach { it2 ->
                             var index = 0
                             it2.stopList?.forEach { it3 ->
@@ -832,11 +858,12 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         return@setOnMarkerClickListener true
                     }
 
-                    if (it.zIndex == 500f)  {
+                    if (it.zIndex == 500f)  { //zindex == 500  表示不可被点击,是车辆信息
                        return@setOnMarkerClickListener false
                     }
                     mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
 
+                        //zindex != 500 != 0 表示可被点击,是站点信息
                         if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                             it1.setIcon(
                                 BitmapDescriptorFactory.fromBitmap(
@@ -850,11 +877,11 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         }
                     }
 
-
+                    //设置当前marker为选中状态
                     it.setIcon(BitmapDescriptorFactory.fromBitmap(
                         BitmapFactory
                             .decodeResource(resources,R.mipmap.icon_station_checked)))
-                    it.showInfoWindow()
+                    it.showInfoWindow() //显示位置提示框
                     mBinding.busView.busLineData.forEach { it2 ->
                         it2.isCurrentPosition = false
                         if (it2.lat == it.position.latitude && it2.lon == it.position.longitude) {
@@ -883,6 +910,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         },this@BusMapFragment,null)
     }
 
+    //绘制线路的箭头路线
     private fun drawMap():ArrayList<LatLng> {
         val latLngs = ArrayList<LatLng>()
 
@@ -905,6 +933,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         return latLngs
     }
 
+    //查询反向线路
     private fun queryLineByOpposite() {
         val dialog = DialogUtil.getLoadingDialog(fragmentManager)
         val json = JsonObject()
@@ -943,6 +972,9 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
                 val lineList = ArrayList<BusLineItem>()
                 mData.clear()
+                /**
+                 * 将lineStations转化为busView所需要的数据BusLineItem 和 当前线路的mData
+                 */
                 mLineDetailBean!!.lineStations.forEach {
                     val bean = AnnexBusBean.StationListBean()
                     bean.stopList = ArrayList()
@@ -981,6 +1013,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     stopTimer()
                     startTimer()
                     mBinding.vMap.map.mapScreenMarkers.forEach {
+                        //zindex != 500 != 0 表示可被点击,是站点信息
                         if (it.zIndex != 500f && it.zIndex != 0f)  {
                             if (it.position.latitude == item.lat && it.position.longitude == item.lon) {
                                 it.setIcon(
@@ -992,7 +1025,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                                             )
                                     )
                                 )
-                                it.showInfoWindow()
+                                it.showInfoWindow() //显示位置提示框
                                 mBinding.vMap.map.animateCamera(CameraUpdateFactory.changeLatLng(it.position))
                             } else {
                                 it.setIcon(
@@ -1067,7 +1100,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     }
                     if (mBinding.bottomSheet.visibility == View.GONE) {
                         mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
-
+                            //zindex != 500 != 0 表示可被点击,是站点信息
                             if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                                 it1.setIcon(
                                     BitmapDescriptorFactory.fromBitmap(
@@ -1084,10 +1117,12 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                             return@setOnMarkerClickListener true
                         }
 
+                        //设置当前marker为选中状态
                         it.setIcon(BitmapDescriptorFactory.fromBitmap(
                             BitmapFactory
                                 .decodeResource(resources,R.mipmap.icon_station_checked)))
-                        it.showInfoWindow()
+                        it.showInfoWindow() //显示位置提示框
+                        //找到当前选中的站点
                         mData.forEach { it2 ->
                             var index = 0
                             it2.stopList?.forEach { it3 ->
@@ -1107,10 +1142,12 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         }
                         return@setOnMarkerClickListener true
                     }
+                    //zindex == 500 表示不可被点击,是站点信息
                     if (it.zIndex == 500f)  {
                         return@setOnMarkerClickListener false
                     }
                     mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
+                        //zindex != 500 != 0 表示可被点击,是站点信息
                         if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                             it1.setIcon(
                                 BitmapDescriptorFactory.fromBitmap(
@@ -1123,10 +1160,11 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                             }
                         }
                     }
+                    //设置当前marker为选中状态
                     it.setIcon(BitmapDescriptorFactory.fromBitmap(
                         BitmapFactory
                             .decodeResource(resources,R.mipmap.icon_station_checked)))
-                    it.showInfoWindow()
+                    it.showInfoWindow() //显示位置提示框
                     mBinding.busView.busLineData.forEach { it2 ->
                         it2.isCurrentPosition = false
                         if (it2.lat == it.position.latitude && it2.lon == it.position.longitude) {
@@ -1156,6 +1194,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         },this@BusMapFragment,null)
     }
 
+    //添加查询搜索监听
     private fun addSearchListener() {
         mBinding.etSearch.setOnClickListener {
             if (parentFragment is QueryMainFragment) {
@@ -1192,6 +1231,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
         mBinding.vMap.map.animateCamera(CameraUpdateFactory.zoomTo(14f))
 
         drawMarkers()
+        //线路站点信息点击监听
         mBinding.vMap.map.setOnMarkerClickListener {
             if (it.zIndex == 0f) {
                 return@setOnMarkerClickListener true
@@ -1199,6 +1239,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
             if (mBinding.bottomSheet.visibility == View.GONE) {
                 mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
 
+                    //zindex != 500 != 0 表示可被点击,是站点信息
                     if (it1.zIndex != 500f && it1.zIndex != 0f)  {
                         it1.setIcon(
                             BitmapDescriptorFactory.fromBitmap(
@@ -1215,12 +1256,14 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     return@setOnMarkerClickListener true
                 }
 
+                //设置当前marker为选中状态
                 it.setIcon(BitmapDescriptorFactory.fromBitmap(
                     BitmapFactory
                         .decodeResource(resources,R.mipmap.icon_station_checked)))
-                it.showInfoWindow()
+                it.showInfoWindow() //显示站点提示框
                 mData.forEach { it2 ->
                     var index = 0
+                    //找到当前选中的站点
                     it2.stopList?.forEach { it3 ->
                         if (it3.lat == it.position.latitude && it3.lon == it.position.longitude) {
                             mBinding.bottomSheet.visibility = View.GONE
@@ -1237,6 +1280,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                 }
                 return@setOnMarkerClickListener true
             }
+            //zindex == 500 表示不可被点击,是车辆信息
             if (it.zIndex != 500f)  {
                 return@setOnMarkerClickListener false
             }
@@ -1244,6 +1288,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                 return@setOnMarkerClickListener false
             }
             mBinding.vMap.map.mapScreenMarkers.forEach { it1 ->
+                //zindex != 500 != 0 表示可被点击,是站点信息
                 if (it1.zIndex != 500f && it1.zIndex != 0f) {
                     it1.setIcon(
                         BitmapDescriptorFactory.fromBitmap(
@@ -1259,6 +1304,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
             mData.forEach { it2 ->
                 var index = 0
+                //找到当前选中的站点
                 it2.stopList?.forEach { it3 ->
                     if (it3.lat == it.position.latitude && it3.lon == it.position.longitude) {
                         mBinding.bottomSheet.visibility = View.GONE
@@ -1278,6 +1324,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
 
     }
 
+    //绘制站点icon信息
     private fun drawMarkers() {
         val list = ArrayList<MarkerOptions>()
         mData.forEach {
@@ -1306,6 +1353,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                     if (list.size > 0) {
                         list.removeAt(0)
                     }
+                    //绘制起始站点
                     if (mLineDetailBean!!.lineStations.size > 1) {
                         var icon =  BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.icon_trans_start))
                         var latLng = LatLng(mLineDetailBean!!.lineStations[0].lat,mLineDetailBean!!.lineStations[0].lon)
@@ -1314,6 +1362,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         if (list.size > 1) {
                             list.removeAt(list.size - 2)
                         }
+                        //绘制结束站点
                         icon =  BitmapDescriptorFactory.fromBitmap(
                             BitmapFactory
                                 .decodeResource(resources,R.mipmap.icon_trans_end))
@@ -1321,6 +1370,7 @@ class BusMapFragment: BaseFragment<FragmentBusMapBinding, BusModel>(), BusMapVie
                         list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[mLineDetailBean!!.lineStations.size - 1].stationName).icon(icon).zIndex(400f))
 
                     } else {
+                        //绘制起始站点
                         var icon =  BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.icon_trans_start))
                         var latLng = LatLng(mLineDetailBean!!.lineStations[0].lat,mLineDetailBean!!.lineStations[0].lon)
                         list.add(MarkerOptions().position(latLng).title(mLineDetailBean!!.lineStations[0].stationName).icon(icon).zIndex(400f))

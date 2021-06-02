@@ -42,6 +42,8 @@ class BaseUtil {
             return drawable
         }
 
+
+        //当前是否是夜间模式
         fun isDarkMode():Boolean{
             val nightModeFlags = sTopAct!!.resources.configuration.uiMode and
                     Configuration.UI_MODE_NIGHT_MASK

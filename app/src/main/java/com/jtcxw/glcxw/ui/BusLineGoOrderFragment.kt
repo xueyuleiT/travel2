@@ -42,7 +42,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.min
 
-
+/**
+ * 定制公交下单页面
+ */
 class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonModel>(),BusLineGoOrderView {
     override fun onAddOrderSucc(addOrderBean: AddOrderBean) {
         ToastUtil.toastSuccess("下单成功")
@@ -106,6 +108,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
     var mDialog:LoadingDialog?= null
     var hasInit = false
 
+    //获取车票信息
     private fun getRouteInfo(rideDate: String,backRideDate: String) {
         mDialog = DialogUtil.getLoadingDialog(fragmentManager)
         if (arguments!!.getString(BundleKeys.KEY_ROUTE_TYPE) == "0") {
@@ -226,6 +229,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
 
         mBinding.tabLayout.getTabAt(0)!!.select()
 
+        //添加日历的滑动监听 实现拖拽效果
         mBinding.vDrag.setOnTouchListener { view, motionEvent ->
             if (mBinding.vDrag.alpha == 0f) {
                 return@setOnTouchListener true
@@ -379,6 +383,9 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
         mValueAnimator!!.start()
     }
 
+    /**
+     * 初始化日历控件
+     */
     private fun initCalendar() {
         mBinding.weekCalendar.setGetViewHelper(object : GetViewHelper {
             override fun getDayView(
@@ -398,6 +405,9 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
                 val tvWeek = view!!.findViewById<TextView>(R.id.tv_week)
                 val llContent = view!!.findViewById<LinearLayout>(R.id.ll_content)
                 tvDay.text = dateTime!!.toString("MM-dd")
+                /**
+                 * 将数字转化为周一到周末
+                 */
                 when (dateTime.dayOfWeek) {
                     1 -> {
                         tvWeek.text = "周一"
@@ -462,6 +472,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
             }
 
         })
+        //设置日历的最小时间
         mBinding.calendar.newState().setMinimumDate(LocalDate.now()).commit()
         mBinding.calendar.setOnDateChangedListener { widget, date, selected ->
 
@@ -488,7 +499,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
         val date = Date()
         val arr = SimpleDateFormat("yyyy-MM-dd").format(date).split("-")
         val selected = CalendarDay.from(arr[0].toInt(),arr[1].toInt(),arr[2].toInt())
-        mBinding.calendar.selectedDate = selected
+        mBinding.calendar.selectedDate = selected //设置当前默认选中的日期
 
         mBinding.weekCalendar.setDateSelectListener {
 
@@ -506,9 +517,10 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
             val date = it.toDate()
             val arr = SimpleDateFormat("yyyy-MM-dd").format(date).split("-")
             val selected = CalendarDay.from(arr[0].toInt(),arr[1].toInt(),arr[2].toInt())
-            mBinding.calendar.selectedDate = selected
+            mBinding.calendar.selectedDate = selected //设置当前默认选中的日期
             mBinding.calendar.currentDate = selected
 
+            // 获取车票信息 包括去和来的来回车辆信息
             if (mBinding.vPager.currentItem == 0) {
                 mDialog?.dismiss()
                 mDialog = DialogUtil.getLoadingDialog(fragmentManager)

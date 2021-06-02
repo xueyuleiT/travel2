@@ -303,6 +303,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
         })
     }
 
+    //获取当前二维码开通的状态， 0-账户未开通 1-账户余额不足 2-生成乘车码成功 3-生成乘车码失败
     private fun checkQr(dialog: LoadingDialog?) {
         val json = JsonObject()
         json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)

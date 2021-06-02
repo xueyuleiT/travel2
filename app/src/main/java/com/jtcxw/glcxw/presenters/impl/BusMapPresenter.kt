@@ -21,6 +21,9 @@ class BusMapPresenter:IBusMap {
         iView = view
     }
 
+    /**
+     * 获取附近即将进站的车辆信息
+     */
     override fun forcastArriveQuery(jsonObject: JsonObject,type:Int) {
         val fragment = (iView as BaseFragment<*, *>)
         HttpUtil.addSubscription(ApiClient.retrofit().forcastArriveQuery(jsonObject),object :

@@ -131,6 +131,7 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
         mApi!!.sendReq(req)
     }
 
+    //微信支付
     private fun wxPay(weChatAPPResult: PayBean.WeChatOrderInfo) {
         if (!mApi!!.isWXAppInstalled) {
             ToastUtil.toastWaring("您的设备未安装微信客户端")
@@ -147,6 +148,7 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
         mApi!!.sendReq(req)
     }
 
+    //支付宝支付
     private fun aliPay(orderId: String, dialog: LoadingDialog) {
         val payRunnable = Runnable {
             val payTask = PayTask(activity)
@@ -192,12 +194,13 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
     var mPresenter:OrderPayPresenter?= null
     var mMyPresenter:MyPresenter?= null
     var mData = ArrayList<PayTypeBean.TypeArrayBean>()
-    private val mRxList = ArrayList<Subscription>()
+    private val mRxList = ArrayList<Subscription>() //订阅列表
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolBar("订单支付")
 
+        //添加微信支付订阅
         mRxList.add(RxBus.getDefault().toObservable(WxPayEvent::class.java).subscribe {
 
             if (arguments!!.getString(BundleKeys.KEY_PAY_TYPE) == "glcx_paytype") {

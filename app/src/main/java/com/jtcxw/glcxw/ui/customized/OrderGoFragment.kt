@@ -67,6 +67,7 @@ class OrderGoFragment:BaseFragment<FragmentOrderGoBinding,CommonModel>(), OrderD
 
     }
 
+    // 返回当前被选中的车票
     override fun getSelectedDate(): FrequencyBean.scheduleListBean {
         return mFrequencyBean!!.schedule_list[mSelectedIndex]
     }
@@ -83,6 +84,7 @@ class OrderGoFragment:BaseFragment<FragmentOrderGoBinding,CommonModel>(), OrderD
     }
     var mTicketCount = 0
 
+    //余票信息
     override fun onRoundTikmodelListSucc(ticketBean: TicketBean,id:String) {
         mFrequencyBean!!.schedule_list.forEach {
             if (id == it.schedule_id.toString()) {
@@ -236,6 +238,7 @@ class OrderGoFragment:BaseFragment<FragmentOrderGoBinding,CommonModel>(), OrderD
     }
 
 
+    //更新余票信息页面
     fun notifyDate(frequencyBean: FrequencyBean) {
         mFrequencyBean = frequencyBean
 
@@ -290,7 +293,6 @@ class OrderGoFragment:BaseFragment<FragmentOrderGoBinding,CommonModel>(), OrderD
                 model: FrequencyBean.scheduleListBean?,
                 position: Int
             ) {
-
 
                 mFrequencyBean!!.schedule_list.forEach {
                     it.isSelected = false

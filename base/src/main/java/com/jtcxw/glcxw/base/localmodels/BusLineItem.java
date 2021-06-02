@@ -4,9 +4,6 @@ import android.graphics.RectF;
 
 import java.util.List;
 
-/**
- * Created by jacpy.may@gmail.com on 2016/8/24 10:56.
- */
 public class BusLineItem {
 
     public static final int BUS_STATION_LENGTH = 100;
