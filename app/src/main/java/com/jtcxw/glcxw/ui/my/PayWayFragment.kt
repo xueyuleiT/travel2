@@ -9,6 +9,7 @@ import com.jtcxw.glcxw.databinding.FragmentPayWayBinding
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.SupportFragment
 
+// 支付方式设置
 class PayWayFragment:BaseFragment<FragmentPayWayBinding,CommonModel>() {
     override fun getVariableId(): Int {
         return BR.common

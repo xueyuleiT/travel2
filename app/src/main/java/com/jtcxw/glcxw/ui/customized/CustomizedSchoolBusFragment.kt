@@ -122,6 +122,7 @@ class CustomizedSchoolBusFragment : BaseFragment<FragmentCustomizedBinding, Comm
             mPresenter!!.getLines(jsonObject,mBinding.swipeLayout)
         }
 
+        // 设置城市列表集合
         mRootView!!.findViewById<TextView>(R.id.tv_center_title).setOnClickListener {
             if (mCitys.isEmpty()) {
                 return@setOnClickListener
@@ -166,6 +167,7 @@ class CustomizedSchoolBusFragment : BaseFragment<FragmentCustomizedBinding, Comm
         val adapter = CustomizedBusAdapter(context!!,mDatas)
         adapter.setOnItemClickListener(object : BaseRecyclerAdapter.OnItemClickListener<LineBean.RouteListBean>{
             override fun onItemClick(view: View?, model: LineBean.RouteListBean?, position: Int) {
+                //查询票价信息 跳订票页面
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_ROUTE_ID,model!!.route_id.toString())
                 bundle.putString(BundleKeys.KEY_ROUTE_NAME,model!!.end_station_name)

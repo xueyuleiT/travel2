@@ -9,7 +9,7 @@ import com.jtcxw.glcxw.base.constant.BundleKeys
 import com.jtcxw.glcxw.databinding.FragmentPermissionBinding
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.SupportFragment
-
+// 权限管理页面 不重要
 class PermissionFragment: BaseFragment<FragmentPermissionBinding, CommonModel>()  {
     override fun getVariableId(): Int {
         return BR.common
@@ -41,19 +41,19 @@ class PermissionFragment: BaseFragment<FragmentPermissionBinding, CommonModel>()
     override fun onClick(v: View?) {
         super.onClick(v)
         when (v?.id) {
-            R.id.ll_location -> {
+            R.id.ll_location -> {// 位置权限
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_PERMISSION_TYPE,"position")
                 PermissionDetailFragment.newInstance(this,bundle)
             }
 
-            R.id.ll_camera -> {
+            R.id.ll_camera -> {//相机权限
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_PERMISSION_TYPE,"camera")
                 PermissionDetailFragment.newInstance(this,bundle)
             }
 
-            R.id.tv_save -> {
+            R.id.tv_save -> { // 存储权限
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_PERMISSION_TYPE,"photo")
                 PermissionDetailFragment.newInstance(this,bundle)

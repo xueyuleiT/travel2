@@ -10,7 +10,7 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.ScenicBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
-
+// 热门景点适配器
 class HotAdapter (context: Context, data: List<ScenicBean.ScenicInfoBean>) : BaseRecyclerAdapter<ScenicBean.ScenicInfoBean>(context, data) {
     override fun onClick(
         view: View?,

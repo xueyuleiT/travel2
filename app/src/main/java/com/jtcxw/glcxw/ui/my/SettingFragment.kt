@@ -20,7 +20,7 @@ import com.jtcxw.glcxw.ui.login.AgreementFragment
 import com.jtcxw.glcxw.ui.login.FindPwdFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.SupportFragment
-
+// 设置页面
 class SettingFragment:BaseFragment<FragmentSettingBinding,CommonModel>() {
     override fun getVariableId(): Int {
         return BR.common
@@ -39,11 +39,11 @@ class SettingFragment:BaseFragment<FragmentSettingBinding,CommonModel>() {
         super.onClick(v)
         when(v?.id) {
 
-            R.id.tv_safe -> {
+            R.id.tv_safe -> { // 安全设置
                 SafeFragment.newInstance(this,null)
             }
 
-            R.id.tv_about -> {
+            R.id.tv_about -> { // 关于我们
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_TREATY_TYPE,"3")
                 AgreementFragment.newInstance(this,bundle)
@@ -72,7 +72,7 @@ class SettingFragment:BaseFragment<FragmentSettingBinding,CommonModel>() {
                     .show()
             }
 
-            R.id.tv_pwd -> {
+            R.id.tv_pwd -> {// 密码设置
                 val bundle = Bundle()
                 if (!TextUtils.isEmpty(UserUtil.getUserInfoBean().telphoneNo)) {
                     bundle.putString(BundleKeys.KEY_PHONE,UserUtil.getUserInfoBean().telphoneNo.replace("+86",""))
@@ -84,15 +84,15 @@ class SettingFragment:BaseFragment<FragmentSettingBinding,CommonModel>() {
                 FindPwdFragment.newInstance(this,bundle)
             }
 
-            R.id.ll_real_name -> {
+            R.id.ll_real_name -> { // 实名
                 AuthFragment.newInstance(this,null)
             }
 
-            R.id.tv_service -> {
+            R.id.tv_service -> { // 客服
                 ServiceFragment.newInstance(this,null)
             }
 
-            R.id.ll_version -> {
+            R.id.ll_version -> { // 版本更新
                 VersionFragment.newInstance(this,null)
             }
 

@@ -23,7 +23,7 @@ import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.RecruitView
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
-
+// 招募页面
 class RecruitFragment:BaseFragment<FragmentRecruitBinding,CommonModel>(),RecruitView {
     override fun onCancelRejoinRecruitSucc(recruitResultBean: RecruitResultBean) {
         ToastUtil.toastSuccess(recruitResultBean.rtrurnMsg)

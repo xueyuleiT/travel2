@@ -18,7 +18,7 @@ import com.jtcxw.glcxw.views.TurnBackTicketView
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 import java.text.SimpleDateFormat
-
+// 退票页面
 class TurnBackFragment:BaseFragment<FragmentTurnBackTicketBinding,CommonModel>(),TurnBackTicketView {
     override fun onTicketRefund(turnBackBean: TurnBackBean) {
         setFragmentResult(ISupportFragment.RESULT_OK, Bundle())
@@ -57,11 +57,11 @@ class TurnBackFragment:BaseFragment<FragmentTurnBackTicketBinding,CommonModel>()
         giveCount = 0
         if (mOrder!!.passenger_info != null) {
             mOrder!!.passenger_info.forEach {
-                if (it.tikcet_state == "T") {
+                if (it.tikcet_state == "T") { // 退票
                     returnCount ++
                 }
 
-                if (it.tikcet_state == "Y") {
+                if (it.tikcet_state == "Y") { // 验票
                     checkCount ++
                 }
 
@@ -104,6 +104,7 @@ class TurnBackFragment:BaseFragment<FragmentTurnBackTicketBinding,CommonModel>()
             }
 
             mBinding.tvConfirm.setOnClickListener {
+                // 检查是否有足够的票可以退
                 if (mBinding.tvReturnCount.text.toString().toInt() > mOrder!!.passenger_info.size - returnCount - checkCount){
                     ToastUtil.toastWaring("可退票数不足"+mBinding.tvReturnCount.text.toString()+"张")
                     return@setOnClickListener
@@ -116,6 +117,7 @@ class TurnBackFragment:BaseFragment<FragmentTurnBackTicketBinding,CommonModel>()
             }
         } else {
             mBinding.tvConfirm.setOnClickListener {
+                // 检查是否有足够的票可以退
                 if (mBinding.tvReturnCount.text.toString().toInt() > mOrder!!.passenger_info.size - returnCount - checkCount){
                     ToastUtil.toastWaring("可退票数不足")
                     return@setOnClickListener

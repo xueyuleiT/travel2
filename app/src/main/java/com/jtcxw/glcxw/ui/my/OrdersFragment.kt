@@ -23,6 +23,9 @@ import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.OrdersView
 import me.yokeyword.fragmentation.SupportFragment
 
+/**
+ * 订单页面
+ */
 class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersView{
     override fun onGetMemberOrderFailed() {
         if (mPage == 1) {
@@ -35,7 +38,7 @@ class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersVi
         getMemberOrder()
     }
 
-
+    //订单数据获取
     override fun onGetMemberOrderSucc(orderMixBean: OrderMixBean) {
         if (mPage == 1) {
             mDatas.clear()
@@ -68,6 +71,7 @@ class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersVi
 
         mBinding.tagView.removeAll()
         val list = ArrayList<Tag>()
+        //设置tags数据， mTagValue == it.itemValue.toInt() 设置为选中状态
         mTags.forEach {
             val tag = Tag(it.itemName)
             if (mTagValue == it.itemValue.toInt()) {
@@ -94,6 +98,7 @@ class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersVi
 
             mBinding.tagView.removeAll()
             val list = ArrayList<Tag>()
+            //设置tags数据， mTagValue == it.itemValue.toInt() 设置为选中状态
             mTags.forEach {
                 val tag = Tag(it.itemName)
                 if (it.itemValue.toInt() == mTagValue) {
@@ -108,6 +113,7 @@ class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersVi
             }
             mBinding.tagView.addTags(list)
 
+            // 点击后重新刷新数据
             mBinding.swipeLayout.autoRefresh()
         }
 
@@ -194,6 +200,7 @@ class OrdersFragment:BaseFragment<FragmentOrdersBinding,CommonModel>() ,OrdersVi
 
     }
 
+    // 获取订单信息
     private fun getMemberOrder() {
         val json = JsonObject()
         val orderClassType = arguments!!.getString(BundleKeys.KEY_ORDER_CLASS_TYPE,"")

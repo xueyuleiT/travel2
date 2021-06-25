@@ -80,6 +80,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
         ToastUtil.toastSuccess("上传成功")
     }
 
+    // 实名认证成功回调
     override fun onAuthenticationSucc(jsonObject: JsonObject) {
         if(jsonObject.get("Status").asString == "true") {
             UserUtil.getUserInfoBean().realNameVerifyFlag = "1"
@@ -129,6 +130,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
 
     private fun init() {
 
+        // 判断是否已经实名
         if (UserUtil.getUserInfoBean().realNameVerifyFlag == "1") {
             mBinding.vAuth.isEnabled = false
             mBinding.etName.isEnabled = false
@@ -188,7 +190,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
     override fun onClick(v: View?) {
         super.onClick(v)
         when(v?.id) {
-            R.id.tv_id_type -> {
+            R.id.tv_id_type -> {//选择身份证
                 hideSoftInput()
                 if (mList.isEmpty()){
                     mList.add(KVBean("1","身份证"))
@@ -202,7 +204,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
 
                     }).show(fragmentManager!!,"KVTypeDialog")
             }
-            R.id.iv_back -> {
+            R.id.iv_back -> {// 选择身份证背面
                 MaterialDialog(context!!)
                     .title(null,"提示")
                     .message(null, "请选择图片")
@@ -225,7 +227,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
                     .show()
             }
 
-            R.id.iv_font -> {
+            R.id.iv_font -> {// 身份证前面照片
                 MaterialDialog(context!!)
                     .title(null,"提示")
                     .message(null, "请选择图片")
@@ -248,7 +250,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
                     .show()
             }
 
-            R.id.tv_confirm -> {
+            R.id.tv_confirm -> { // 确认发起校验，成功后进行实名
                 if (TextUtils.isEmpty(mBinding.etName.text.toString())) {
                     ToastUtil.toastWaring("请输入姓名")
                     return
@@ -366,6 +368,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
     override fun doAfterAnim() {
     }
 
+    // 拿到相机图片，开始缩放裁剪图片
     private fun startPhotoZoom(uri: Uri?, requestCode: Int, pathName:String) {
         val intent = Intent("com.android.camera.action.CROP")
         // crop为true是设置在开启的intent中设置显示的view可以剪裁
@@ -402,6 +405,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
         startActivityForResult(intent, requestCode)
     }
 
+    // 获取照片的文件地址
     private fun getPhotoFile(fileName :String): File {
         val fileDir = File(activity!!.filesDir.path + "/photoCover" + File.separator)
         if (!fileDir.exists()) {
@@ -420,6 +424,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
         return photoFile
     }
 
+    // 相机和照片媒体资源的回调
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != -1) {
@@ -427,28 +432,28 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
         }
         when (requestCode) {
 
-            RC_CHOOSE_PHOTO_ID -> {
+            RC_CHOOSE_PHOTO_ID -> {//裁剪相册身份证图片
                 if (data != null && data.data != null) {
                     startPhotoZoom(data!!.data, CROP_ALBUM_PHOTO_ID, ID_FONT_PATH_NAME)
                 }
             }
-            CROP_ALBUM_PHOTO_ID -> {
+            CROP_ALBUM_PHOTO_ID -> {//相册身份证图片裁剪完成
                 mBinding.ivFont.setImageBitmap(BitmapFactory.decodeFile(getPhotoFile(ID_FONT_PATH_NAME).absolutePath))
                 authenticationImage(getPhotoFile(ID_FONT_PATH_NAME).absolutePath,0)
 
             }
 
-            RC_CHOOSE_PHOTO_ID_BACK -> {
+            RC_CHOOSE_PHOTO_ID_BACK -> { //选择身份证背面图片完成
                 if (data != null && data.data != null) {
                     startPhotoZoom(data!!.data, CROP_ALBUM_PHOTO_ID_BACK, ID_BACK_PATH_NAME)
                 }
             }
-            CROP_ALBUM_PHOTO_ID_BACK -> {
+            CROP_ALBUM_PHOTO_ID_BACK -> {//选择身份证前面图片
                 mBinding.ivBack.setImageBitmap(BitmapFactory.decodeFile(getPhotoFile(ID_BACK_PATH_NAME).absolutePath))
                 authenticationImage(getPhotoFile(ID_BACK_PATH_NAME).absolutePath,1)
             }
 
-            REQUEST_CODE_CAMERA -> {
+            REQUEST_CODE_CAMERA -> { //相机拍照结果回调
                 if (data != null) {
                     val contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE)
                     val filePath = FileUtils.getSaveFile(context,contentType).absolutePath
@@ -470,6 +475,7 @@ class AuthFragment:BaseFragment<FragmentAuthBinding,CommonModel>() ,AuthView{
         }
     }
 
+    // 身份证图片认证
     private fun authenticationImage(file:String, side: Int) {
         var originBitmap = FileUtils.getimage(file)
         ImageUtil.compressImage(originBitmap, 500, object : CompressCallback {

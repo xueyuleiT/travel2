@@ -18,7 +18,8 @@ import com.jtcxw.glcxw.presenters.impl.MyPresenter
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.MyView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 充值结果展示页面，充值结束后不一定马上拿到结果，这里将会轮询几次，几次之后拿不到结果就提示系统正在处理本次充值业务
+// 拿到结果则展示可在余额明细界面查看充值记录
 class ChargeResultFragment : BaseFragment<FragmentChargeResultBinding,CommonModel>(),MyView {
     override fun onOrderStatisticsSucc(extraOrderBean: ExtraOrderBean) {
     }

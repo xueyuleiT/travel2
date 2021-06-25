@@ -36,7 +36,7 @@ import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 import java.text.SimpleDateFormat
 import java.util.*
-
+// 订单信息详情页面
 class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>() ,OrderConfirmView{
     companion object {
         var timer: Handler?= null
@@ -48,7 +48,8 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
             fragment.start(orderConfirmFragment)
         }
     }
-   
+
+    // 赠票成功，跳浏览器分享赠票地址
     override fun onComplimentaryTicketSucc(complimentaryTicketBean: ComplimentaryTicketBean) {
         ToastUtil.toastSuccess("成功")
         val cm = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
@@ -71,12 +72,14 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
             .show()
     }
 
+    // 取消订单成功
     override fun onOrderCancelSucc(orderCancelBean: OrderCancelBean) {
         ToastUtil.toastSuccess("已取消订单")
         refresh()
     }
 
     var mOrder: OrderConfirmBean ?= null
+    // 获取订单信息成功
     override fun onOrderDetailSucc(orderConfirmBean: OrderConfirmBean) {
         mOrder = orderConfirmBean
 
@@ -184,6 +187,7 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
         return mOrder!!.passenger_info[i]
     }
 
+    // 订单数据可能是多个订票数据，所以要用pager页面左右滑动切换展示
     val mFragments = ArrayList<Fragment>(2)
     @SuppressLint("ClickableViewAccessibility")
     private fun initViewPager(passengerInfo: MutableList<OrderConfirmBean.PassengerInfoBean>) {
@@ -289,6 +293,7 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
             if (passengerInfo.size < 2){
                 mBinding.tabLayout.visibility = View.GONE
             } else {
+                // 设置当前选中的dot
                 mBinding.tabLayout.visibility = View.VISIBLE
                 mBinding.tabLayout.getTabAt(0)!!.customView!!.findViewById<View>(R.id.v_dot).setBackgroundResource(R.drawable.shape_dot_green)
             }
@@ -324,12 +329,12 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
             return
         }
         when(v?.id) {
-            R.id.tv_return -> {
+            R.id.tv_return -> { // 退票
                 val bundle = Bundle()
                 bundle.putParcelable(BundleKeys.KEY_ORDER,mOrder)
                 TurnBackFragment.newInstance(this,bundle)
             }
-            R.id.tv_give -> {
+            R.id.tv_give -> { // 赠票
 //                if (getPassengerInfo(mBinding.vPager.currentItem).free_ticket == "1") {
 //                    return
 //                }
@@ -339,14 +344,14 @@ class OrderConfirmFragment:BaseFragment<FragmentOrderConfirmBinding,CommonModel>
                 json.addProperty("TicketNo", getPassengerInfo(mBinding.vPager.currentItem).ticket_no)
                 mPresenter!!.complimentaryTicket(json)
             }
-            R.id.tv_pay -> {
+            R.id.tv_pay -> { // 支付
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_PAY_TYPE,"glcx_custombuspay")
                 bundle.putString(BundleKeys.KEY_ORDER_ID,arguments!!.getString(BundleKeys.KEY_ORDER_ID))
                 bundle.putString(BundleKeys.KEY_ORDER_AMOUNT, mOrder!!.order_price.toString())
                 OrderPayFragment.newInstance(this,bundle)
             }
-            R.id.tv_cancel -> {
+            R.id.tv_cancel -> { // 取消订单
                 OrderCancelDialog()
                     .setOrderCancelCallback(object : OrderCancelCallback{
                         override fun onOrderCancel() {

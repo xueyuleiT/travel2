@@ -47,6 +47,7 @@ class OpenQrFragment:BaseFragment<FragmentOpenQrBinding,CommonModel>() ,OpenQrVi
         }
     }
 
+    // 短信发送成功
     override fun onSendSmsCodeSucc(smsBean: SmsBean) {
         if (smsBean.SendFlag) {
             ToastUtil.toastSuccess(smsBean.Notice)
@@ -56,6 +57,7 @@ class OpenQrFragment:BaseFragment<FragmentOpenQrBinding,CommonModel>() ,OpenQrVi
         }
     }
 
+    //短信校验成功
     override fun onVerifySmsCodeSucc(verifySmsBean: VerifySmsBean) {
         ToastUtil.toastSuccess(verifySmsBean.notice)
         val json = JsonObject()

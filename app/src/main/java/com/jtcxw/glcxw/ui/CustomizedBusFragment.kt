@@ -120,6 +120,7 @@ class CustomizedBusFragment:BaseFragment<FragmentCustomizedBinding,CommonModel>(
             mPresenter!!.getLines(jsonObject,mBinding.swipeLayout)
         }
 
+        //城市集合展示，目前只支持桂林，可不用在意这里
         mRootView!!.findViewById<TextView>(R.id.tv_center_title).setOnClickListener {
             if (mCitys.isEmpty()) {
                 return@setOnClickListener

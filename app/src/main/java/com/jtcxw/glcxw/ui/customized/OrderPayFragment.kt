@@ -90,6 +90,7 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
         }
     }
 
+    // 获取后台配置的支付类型数据
     override fun onGetPayTypeSucc(payTypeBean: PayTypeBean) {
         mData!!.clear()
         mData.addAll(payTypeBean.typeArray)
@@ -115,6 +116,7 @@ class OrderPayFragment:BaseFragment<FragmentPayBinding,CommonModel>() ,OrderPayV
     var mApi: IWXAPI?= null
 
 
+    // 发起微信支付
     private fun wxPay(weChatAPPResult: PayRechargeBean.WeChatAPPResultBean) {
         if (!mApi!!.isWXAppInstalled) {
             ToastUtil.toastWaring("您的设备未安装微信客户端")

@@ -34,6 +34,7 @@ import com.jtcxw.glcxw.views.TravelView
 import com.youth.banner.indicator.CircleIndicator
 
 class TravelFragment: LocationFragment<FragmentTravelBinding, CommonModel>(),TravelView {
+    //顶部banner数据
     override fun onGetBannerSucc(bannerBean: BannerBean) {
         mBannerList.clear()
         mBannerList.addAll(bannerBean.bannerList)
@@ -72,6 +73,7 @@ class TravelFragment: LocationFragment<FragmentTravelBinding, CommonModel>(),Tra
         (mFragment[0] as HotSpotFragment).onDataChange(scenicBean)
     }
 
+    // 风景列表刷新结束
     override fun onScenicInfoListFinish() {
         mFinishCount --
         if (mFinishCount <= 0) {
@@ -136,6 +138,7 @@ class TravelFragment: LocationFragment<FragmentTravelBinding, CommonModel>(),Tra
 
 
 
+        // banner参数设置
         mBinding.banner.adapter = HomeBannerAdapter(mBannerList, 10)
         mBinding.banner.addBannerLifecycleObserver(this)
         mBinding.banner.indicator = CircleIndicator(context)
@@ -159,7 +162,8 @@ class TravelFragment: LocationFragment<FragmentTravelBinding, CommonModel>(),Tra
         addSearchListener()
     }
 
-   fun refreshData() {
+    // 刷新酒店和风景的列表数据
+   private fun refreshData() {
        var json = JsonObject()
        json.addProperty("IsSearchHot","1")
        json.addProperty("Longitude",UserUtil.getUser().longitude)

@@ -26,33 +26,33 @@ class AccountRecordAdapter(context: Context,list: List<MemberAccountHistoryBean.
         val tvTransAmount = holder!!.getView<TextView>(R.id.tv_trans_amount)
 
         when (data!!.changeType) {
-            1 -> {
+            1 -> { // 支付宝支付
                 ivType.setImageResource(R.mipmap.icon_pay_ali)
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
             }
-            8 -> {
+            8 -> { // 微信充值
                 ivType.setImageResource(R.mipmap.icon_pay_wx_recharge)
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
             }
 
-            7 -> {
+            7 -> { // 微信充值
                 ivType.setImageResource(R.mipmap.icon_pay_wx_recharge)
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
             }
 
-            2 -> {
+            2 -> { //乘车
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
                 ivType.setImageResource(R.mipmap.icon_order_bus)
             }
-            98 -> {
+            98 -> { // 老版本充值
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.red_ff3737))
                 ivType.setImageResource(R.mipmap.icon_recharge_old)
             }
-            99 -> {
+            99 -> { // 老版本消费
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.black_263238))
                 ivType.setImageResource(R.mipmap.icon_consumer_old)
             }
-            101 -> {
+            101 -> { // 老版本客服处理
                 tvTransAmount.setTextColor(tvTransAmount.resources.getColor(R.color.black_263238))
                 ivType.setImageResource(R.mipmap.icon_pay_kefu)
             }

@@ -116,7 +116,9 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
             val json = JsonObject()
             json.addProperty("MemberId",UserUtil.getUser().userInfoBean.memberId)
             json.addProperty("TripType",mTripType)
+            //路线id
             json.addProperty("RouteId",arguments!!.getString(BundleKeys.KEY_ROUTE_ID))
+            //乘坐日期
             json.addProperty("RideDate",rideDate)
             mPresenter!!.getFrequencys(json,mDialog!!)
         } else {
@@ -124,14 +126,18 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
             var json = JsonObject()
             json.addProperty("MemberId",UserUtil.getUser().userInfoBean.memberId)
             json.addProperty("TripType",mTripType)
+            //路线id
             json.addProperty("RouteId",arguments!!.getString(BundleKeys.KEY_ROUTE_ID))
+            //乘坐日期
             json.addProperty("RideDate",rideDate)
             mPresenter!!.getFrequencys(json,mDialog!!)
 
             json = JsonObject()
             json.addProperty("MemberId",UserUtil.getUser().userInfoBean.memberId)
             json.addProperty("TripType",mTripType)
+            //路线id
             json.addProperty("RouteId",arguments!!.getString(BundleKeys.KEY_BACK_ROUTE_ID))
+            //乘坐日期
             json.addProperty("RideDate",backRideDate)
             mPresenter!!.getFrequencys(json,mDialog!!)
         }
@@ -143,6 +149,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
     @SuppressLint("ClickableViewAccessibility")
     private fun initViewPager() {
 
+        //初始化去和来的订单页面
         if (arguments!!.getString(BundleKeys.KEY_ROUTE_TYPE) == "0") {
             mFragments.add(OrderGoFragment())
             mTitles.add("去往")
@@ -345,6 +352,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
         }
     }
     private var mValueAnimator:ValueAnimator ?= null
+    //使用动画将日历弹出和收起
     private fun animOut(from: Int,to: Int) {
         if (mValueAnimator != null && mValueAnimator!!.isRunning) {
             return
@@ -581,6 +589,7 @@ class BusLineGoOrderFragment:BaseFragment<FragmentBuslineGoorderBinding,CommonMo
         }
     }
 
+    //重新刷新页面
     private fun refresh() {
         if (mBinding.vPager.currentItem == 0) {
 //            mDialog = DialogUtil.getLoadingDialog(fragmentManager)

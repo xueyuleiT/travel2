@@ -31,7 +31,7 @@ import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.SmsLoginView
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
-
+// 短信登录
 class SmsLoginFragment:
     BaseFragment<FragmentSmsLoginBinding, CommonModel>(),SmsLoginView {
     override fun onSendSmsCodeSucc(smsBean: SmsBean) {
@@ -60,6 +60,7 @@ class SmsLoginFragment:
                 if (BaseUtil.sTopAct is MainActivity){
                     mBinding.etCode.postDelayed({
                         RxBus.getDefault().post(LoginEvent())
+                        // 登录成功后需要处理登录前点击了哪个按钮，登录后自动处理登录前的点击，跳转到页面 通过MySingleCall.getInstance().doCall()实现
                         MySingleCall.getInstance().doCall()
                     },300)
                     popTo(MainFragment::class.java,false)

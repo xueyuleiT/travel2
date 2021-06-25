@@ -180,7 +180,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
     override fun onClick(v: View?) {
         super.onClick(v)
         when(v?.id) {
-            R.id.btn_next -> {
+            R.id.btn_next -> { // 数据校验 发起更新个人信息
 //                if (TextUtils.isEmpty(mBinding.tvNick.text.toString())){
 //                    ToastUtil.toastWaring("请输入昵称")
 //                    return
@@ -262,7 +262,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
 
 
             }
-            R.id.ll_head -> {
+            R.id.ll_head -> { // 头像设置
                 BottomDialogUtil.showHeadDialog(context,object :DialogCallback{
                     override fun onDialogCallback(type: Int) {
                         if (type == 1) {
@@ -276,13 +276,13 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
                 })
             }
 
-            R.id.ll_name -> {
+            R.id.ll_name -> { // 更换昵称
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_NICK,mBinding.tvNick.text.toString())
                 NickNameFragment.newInstance(this,bundle)
             }
 
-            R.id.ll_sex -> {
+            R.id.ll_sex -> { // 性别设置
                 if (mSexList.isEmpty()) {
                     mPresenter!!.getSexList()
                     return
@@ -296,7 +296,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
                     .show(fragmentManager!!,"KVTypeDialog")
             }
 
-            R.id.ll_country -> {
+            R.id.ll_country -> { // 国家设置
                 if (mCountryList.isEmpty()) {
                     mPresenter!!.getCountryList()
                     return
@@ -310,13 +310,13 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
                     .show(fragmentManager!!,"KVTypeDialog")
             }
 
-            R.id.ll_address -> {
+            R.id.ll_address -> { // 地址
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_ADDRESS,mBinding.tvAddress.text.toString())
                 AddressFragment.newInstance(this,bundle)
             }
 
-            R.id.ll_profession -> {
+            R.id.ll_profession -> { // 职业
                 if (mOccupationList.isEmpty()) {
                     mPresenter!!.getOccupationList()
                     return
@@ -330,7 +330,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
                     .show(fragmentManager!!,"KVTypeDialog")
             }
 
-            R.id.ll_birthday -> {
+            R.id.ll_birthday -> { // 生日
                 hideSoftInput()
                 val timePickerView =
                     TimePickerView.Builder(context!!,
@@ -369,7 +369,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
     private var cropImgUri: Uri? = null
 
 
-
+    // 拍摄头像照片
     private fun takePhoto(type :String){
 
         //拍摄身份证反面
@@ -404,6 +404,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
     }
 
 
+    // 从相册选择头像照片
     private fun choosePhoto(requestCode: Int) {
 
         XXPermissions.with(activity)
@@ -558,6 +559,7 @@ class UserInfoFragment:BaseFragment<FragmentUserInfoBinding,CommonModel>() ,User
     }
 
 
+    // 缩放照片
     private fun startPhotoZoom(uri: Uri?, requestCode: Int, pathName:String) {
         val intent = Intent("com.android.camera.action.CROP")
         // crop为true是设置在开启的intent中设置显示的view可以剪裁

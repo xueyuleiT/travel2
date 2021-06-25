@@ -20,7 +20,7 @@ import com.jtcxw.glcxw.presenters.impl.AppVersionPresenter
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.AppVersionView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 版本更新检查
 class VersionFragment:BaseFragment<FragmentVersionBinding,CommonModel>() ,AppVersionView{
     var mVersionBean:VersionBean?= null
     override fun onAppVersionSucc(versionBean: VersionBean) {

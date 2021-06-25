@@ -46,6 +46,7 @@ class ChargeFragment:BaseFragment<FragmentChargeBinding,CommonModel>() ,ChargeVi
     override fun onMemberInfoFinish() {
     }
 
+    // 获取账户信息成功
     override fun onMemberInfoSucc(userInfoBean: UserInfoBean) {
         UserUtil.getUser().save(userInfoBean)
         if (ismBindingInitialized()) {
@@ -92,6 +93,7 @@ class ChargeFragment:BaseFragment<FragmentChargeBinding,CommonModel>() ,ChargeVi
 
         mBinding.tvCash.text = UserUtil.getUserInfoBean().ownerAmount.toString()
 
+        // 充值输入框限制未2位小数点
         mBinding.etCash.addTextChangedListener(DecimalInputTextWatcher(mBinding.etCash,2))
 
 
@@ -142,6 +144,7 @@ class ChargeFragment:BaseFragment<FragmentChargeBinding,CommonModel>() ,ChargeVi
     var mList = ArrayList<GoodListBean.GoodsListBean>()
 
     var mSelf:GoodListBean.GoodsListBean ?= null
+    // 充值列表数据获取成功
     override fun onGetGoodsInfoSucc(goodListBean: GoodListBean) {
         mList.clear()
         mList.addAll(goodListBean.goodsList)
@@ -157,10 +160,10 @@ class ChargeFragment:BaseFragment<FragmentChargeBinding,CommonModel>() ,ChargeVi
                     it.isChecked = false
                 }
                 model!!.isChecked = true
-                if (model.goodsType == "自主定价") {
+                if (model.goodsType == "自主定价") {// 自主定价表示要从上面设置的输入框输入发起充值
                     mSelf = model
                     mBinding.llInput.visibility = View.VISIBLE
-                } else {
+                } else { // 根据选择的充值金额发起充值
                     mBinding.llInput.visibility = View.GONE
                     mAmount = model.price
                     val bundle = Bundle()
@@ -198,6 +201,8 @@ class ChargeFragment:BaseFragment<FragmentChargeBinding,CommonModel>() ,ChargeVi
     }
 
     var hasInit = false
+    // 每次离开页面回来后到要刷新当前页面的信息
+    // 所以这里要再次执行刷新操作
     override fun onSupportVisible() {
         super.onSupportVisible()
         if (ismBindingInitialized()) {

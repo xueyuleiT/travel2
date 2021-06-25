@@ -70,6 +70,7 @@ import kotlin.system.exitProcess
 class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     OnLoadNextPageListener,HomeView, AppVersionView,
     OnRefreshListener,View.OnClickListener{
+    // 获取首页按钮相关的配置信息
     override fun onModuleConfigSucc(moduleConfigBean: ModuleConfigBean) {
         if (moduleConfigBean.funId == "1") {
             mModuleConfigBean = moduleConfigBean
@@ -111,6 +112,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     override fun onMemberInfoFinish() {
     }
 
+    // pager信息获取成功
     override fun onGetContentTypeListSucc(dictionaryInfoBean: DictionaryInfoBean) {
         initPager(dictionaryInfoBean)
     }
@@ -122,6 +124,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         }
     }
 
+    // banner信息数据获取成功
     override fun onGetBannerSucc(bannerBean: BannerBean) {
         mBannerList.clear()
         mBannerList.addAll(bannerBean.bannerList)
@@ -135,6 +138,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         }
     }
 
+    // 处理登出
     override fun onLogout() {
         mModuleConfigBean = null
         mNewsModuleConfigBean = null
@@ -148,6 +152,8 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     override fun refresh() {
         mBinding.swipeLayout.autoRefresh()
     }
+
+    // 风景数据获取成功
     override fun onScenicInfoListSucc(scenicBean: ScenicBean) {
         mSpotList.clear()
         mSpotList.addAll(scenicBean.scenicInfoList)
@@ -156,6 +162,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
         }
     }
 
+    // 酒店数据获取成功
     override fun onHotelInfoListSucc(hotelBean: HotelBean) {
         mHotelList.clear()
         mHotelList.addAll(hotelBean.hotelInfoList)
@@ -186,6 +193,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
     }
 
 
+    // 定位信息发生改变
     override fun onLocationChange(aMapLocation: AMapLocation) {
 //        mBinding.tvCity.text = aMapLocation.city.substring(0,aMapLocation.city.length - 1)
         mBinding.tvCity.text = UserUtil.getUser().city
@@ -293,7 +301,7 @@ class HomeFragment: LocationFragment<FragmentHomeBinding, HomeModel>() ,
                         json.addProperty("MemberId", UserUtil.getUserInfoBean().memberId)
                         mPresenter!!.h5ModuleConfig(json)
                     } else {
-
+                        // 触发小程序 需要判断是否安装微信
                         val api = WXAPIFactory.createWXAPI(context, Constant.APP_ID_WE_CHAT)
                         if (!api!!.isWXAppInstalled) {
                             ToastUtil.toastWaring("您的设备未安装微信客户端")

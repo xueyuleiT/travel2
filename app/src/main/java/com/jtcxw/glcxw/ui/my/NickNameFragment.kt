@@ -14,6 +14,9 @@ import com.jtcxw.glcxw.viewmodel.CommonModel
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 
+/**
+ * 设置昵称
+ */
 class NickNameFragment:BaseFragment<FragmentNicknameBinding,CommonModel>() {
     override fun getVariableId(): Int {
         return BR.common

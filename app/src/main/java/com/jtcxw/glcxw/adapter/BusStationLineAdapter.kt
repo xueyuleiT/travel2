@@ -47,7 +47,7 @@ class BusStationLineAdapter(
 
     override fun convert(holder: CommonRecyclerViewHolder?, data: BusSiteOrLineBean?, position: Int) {
         when {
-            getItemViewType(position) == 0 -> {
+            getItemViewType(position) == 0 -> { //0 站点site 1 线路line
                 val tvStation = holder!!.getView<TextView>(R.id.tv_station)
                 val tvDistance = holder!!.getView<TextView>(R.id.tv_distance)
                 tvStation.text = data!!.siteDataBean.stationName
@@ -78,6 +78,7 @@ class BusStationLineAdapter(
                     divider.visibility = View.GONE
                 }
 
+                // 如果站点的状态是打开则展示列表 否则展示折叠状态
                 if (!data!!.isFold) {
                     ivArrow.setImageResource(R.mipmap.icon_arrow_up_green)
                     recyclerView.layoutManager = manager
@@ -112,6 +113,7 @@ class BusStationLineAdapter(
                     tagView.adapter = adapter
                 }
             }
+            // 1表示线路 直接展示线路列表
             getItemViewType(position) == 1 -> {//展开
                 val tvStation = holder!!.getView<TextView>(R.id.tv_station)
                 val recyclerView = holder!!.getView<RecyclerView>(R.id.recycler_view)

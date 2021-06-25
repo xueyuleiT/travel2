@@ -11,7 +11,7 @@ import com.jtcxw.glcxw.ui.CustomizedBusFragment
 import com.jtcxw.glcxw.viewmodel.MainModel
 import me.yokeyword.fragmentation.SupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
-
+// 定制公交页面入口
 class CustomizedMainFragment:BaseFragment<FragmentMainCustomizedBinding,MainModel>() {
 
     companion object {

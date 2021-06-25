@@ -107,10 +107,12 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
     }
 
     var mFinishCount = 1
+    // 获取收藏的景点酒店线路和站点数据
     override fun onCollectionInfoSucc(collectInfoBean: CollectionInfoBean) {
         mCollectInfoBean.addAll(collectInfoBean.collectInfo)
     }
 
+    // 查询站点信息数据成功
     override fun onQuerySiteSucc(
         s: List<AnnexBusBean.StationListBean>,
         stationId: String
@@ -178,6 +180,7 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
 
         mBinding.recyclerView.adapter = CollectionAdapter(context!!, mList,object :CollectCancelCallback{
             override fun onDialogCallback(type: Int, id: String) {
+                // adapter内部点击取消收藏回调
                 val json = JsonObject()
                 json.addProperty("CollectionId",id)
                 mCollectPresenter!!.cancelCollection(json)
@@ -185,6 +188,7 @@ class CollectionFragment:BaseFragment<FragmentCollectionBinding,CommonModel>(),C
 
         },object :StationClick {
             override fun onStationClick(id: String) {
+                // adapter内部点击站点回调
                 val json = JsonObject()
                 json.addProperty("Longitude",UserUtil.getUser().longitude)
                 json.addProperty("Latitude",UserUtil.getUser().latitude)

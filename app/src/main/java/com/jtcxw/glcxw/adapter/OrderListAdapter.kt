@@ -43,7 +43,7 @@ class OrderListAdapter(context: Context,fragment: OrderListFragment,data: List<O
         tvDelete.setOnClickListener(null)
         tvPay.setOnClickListener(null)
         when {
-            data!!.order_state == 0 -> {
+            data!!.order_state == 0 -> { // 未支付的订单
                 vTime.setImageResource(R.mipmap.icon_order_start_time)
                 tvPayStatus.setTextColor(tvPayStatus.resources.getColor(R.color.green_light))
                 tvType.setTextColor(tvPayStatus.resources.getColor(R.color.black_263238))
@@ -80,7 +80,7 @@ class OrderListAdapter(context: Context,fragment: OrderListFragment,data: List<O
                     OrderPayFragment.newInstance(mFragment.parentFragment as SupportFragment,bundle)
                 }
             }
-            data!!.order_state == 16 -> {
+            data!!.order_state == 16 -> { // 已经取消的订单
                 vTime.setImageResource(R.mipmap.icon_order_start_time_gray)
                 tvPayStatus.setTextColor(tvPayStatus.resources.getColor(R.color.gray_9))
                 tvType.setTextColor(tvPayStatus.resources.getColor(R.color.gray_9))

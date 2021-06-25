@@ -16,7 +16,7 @@ import com.jtcxw.glcxw.views.AgreementView
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import me.yokeyword.fragmentation.SupportFragment
-
+// 协议页面
 class AgreementFragment1: BaseFragment<FragmentAgreement1Binding, CommonModel>(), AgreementView {
     override fun onMemberTreatyFailed() {
         mBinding.progressBar.visibility = View.GONE

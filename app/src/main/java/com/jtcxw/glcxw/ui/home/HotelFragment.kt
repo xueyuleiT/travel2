@@ -19,7 +19,7 @@ import com.jtcxw.glcxw.utils.SwipeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.HotelView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 酒店页面
 class HotelFragment: BaseFragment<FragmentHotelBinding, CommonModel>(),HotelView {
     override fun onHotelInfoListSucc(hotelBean: HotelBean) {
         mDatas.clear()

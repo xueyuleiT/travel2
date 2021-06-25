@@ -25,7 +25,7 @@ import com.jtcxw.glcxw.ui.WelcomeActivity
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.ResetPwdView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 重置密码
 class ResetPwdFragment:
     BaseFragment<FragmentResetPwdBinding, CommonModel>(),ResetPwdView {
     override fun onResetPwdSucc(resetPwdBean: ResetPwdBean) {

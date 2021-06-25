@@ -46,6 +46,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, CommonModel>(),LoginView
         ToastUtil.toastSuccess(userInfoBean.loginMsg)
         UserUtil.getUser().save(userInfoBean)
         UserUtil.isShowLogin = false
+        // 登录成功后需要处理登录前点击了哪个按钮，登录后自动处理登录前的点击，跳转到页面 通过MySingleCall.getInstance().doCall()实现
         if (BaseUtil.sTopAct is MainActivity){
             mBinding.etCode.postDelayed({
                 RxBus.getDefault().post(LoginEvent())

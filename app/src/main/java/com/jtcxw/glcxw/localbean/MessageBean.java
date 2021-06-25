@@ -27,7 +27,7 @@ public class MessageBean {
     public String PushType;
 
     @Property
-    public int read = 0;
+    public int read = 0;// 0 表示未读 1表示已读
 
     @Property
     public String  time;

@@ -66,6 +66,7 @@ class JPushReceiver: JPushMessageReceiver() {
         val id = (System.currentTimeMillis() / 1000).toInt()
         //判断8.0，若为8.0型号的手机进行创下一下的通知栏
         var pendingIntent: PendingIntent?
+        //跳MainActivity MainActivity的onNewIntent判断是通知消息则弹出全屏通知
         val intent = Intent(p0, MainActivity::class.java)
         intent.putExtra("type", "message")
         intent.putExtra("pushType", messageEvent.pushType)

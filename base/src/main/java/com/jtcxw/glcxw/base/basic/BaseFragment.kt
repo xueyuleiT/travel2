@@ -39,6 +39,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         hideSoftInput()
+        // 设置状态栏的参数
         if (Build.VERSION.SDK_INT >= 21) {
             val window = activity!!.window
             activity!!.window.navigationBarColor = navigationBarColor()
@@ -214,11 +215,12 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
         super.onDestroy()
     }
 
-
+    // 是否要让状态栏颜色变深
     open fun isBarStatusDark(): Boolean{
         return !BaseUtil.isDarkMode()
     }
 
+    // 状态栏颜色
     open fun statusBarColor(): Int{
         return R.color.back_white
     }
@@ -259,6 +261,7 @@ open abstract class BaseFragment<VB : ViewDataBinding,VM : BaseObservable> : Abs
         }
     }
 
+    //返回按钮处理
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home){
             pop()

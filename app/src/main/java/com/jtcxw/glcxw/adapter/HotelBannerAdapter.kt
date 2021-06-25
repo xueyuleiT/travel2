@@ -9,7 +9,7 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.HotelDetailBean
 import com.youth.banner.adapter.BannerAdapter
 
-
+// 酒店banner适配器
 class HotelBannerAdapter(data: List<HotelDetailBean.HotelPhotoListBean>, corners: Int): BannerAdapter<HotelDetailBean.HotelPhotoListBean, HotelBannerAdapter.BannerViewHolder>(data) {
 
     var corners = corners

@@ -10,7 +10,7 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.ContentListBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
-
+// 首页景点列表适配器
 class HomeHSpotAdapter (context: Context, data: List<ContentListBean.ContentListInfoBean>) : BaseRecyclerAdapter<ContentListBean.ContentListInfoBean>(context, data) {
     override fun onClick(
         view: View?,

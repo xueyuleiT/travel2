@@ -15,7 +15,7 @@ import com.jtcxw.glcxw.listeners.CollectCancelCallback
 import com.jtcxw.glcxw.listeners.InnerClickListener
 import com.jtcxw.glcxw.listeners.InnerWithLineClickListener
 import me.yokeyword.fragmentation.SupportFragment
-
+// 地图底部的站点线路信息列表
 class BusMapAdapter(fragment: SupportFragment, data: List<AnnexBusBean.StationListBean>, innerClickListener: InnerWithLineClickListener, collectCancelCallback: CollectCancelCallback): BaseRecyclerAdapter<AnnexBusBean.StationListBean>(fragment.context, data)  {
     var mFragment = fragment
     var mSelected = 0

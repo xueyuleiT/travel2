@@ -51,6 +51,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
     override fun onVerifySmsCodeSucc(verifySmsBean: VerifySmsBean) {
     }
 
+    // 开通二维码成功
     override fun onOpenQRCodeSucc(jsonObject: JsonObject) {
         if (jsonObject.has("Flag") && jsonObject.get("Flag").asString == "true") {
             ToastUtil.toastSuccess("开通成功")
@@ -58,6 +59,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
         }
     }
 
+    // 登出回调
     override fun onLogout() {
         stopTimer()
         mBinding.ivQr.setImageBitmap(null)
@@ -78,6 +80,8 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
     override fun refresh() {
 
     }
+
+    // 位置改变
     override fun onLocationChange(aMapLocation: AMapLocation) {
     }
 
@@ -136,6 +140,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
         var runnable:Runnable?= null
     }
 
+    // 二维码刷新倒计时
     private fun startTimer() {
         if (mTimerRunning || !isSupportVisible) {
             return
@@ -158,6 +163,7 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
         timer!!.postDelayed(runnable,15000)
     }
 
+    // 停止二维码倒计时
     private fun stopTimer() {
         mTimerRunning = false
         timer?.removeCallbacks(runnable)
@@ -176,19 +182,19 @@ class QRFragment: LocationFragment<FragmentQrBinding, CommonModel>() , OpenQrVie
     override fun onClick(v: View?) {
         super.onClick(v)
         when(v?.id) {
-            R.id.ll_bucket -> {
+            R.id.ll_bucket -> {//支付方式设置
                 PayListFragment.newInstance(parentFragment as SupportFragment,null)
             }
-            R.id.tv_help -> {
+            R.id.tv_help -> {//帮助页面
                 val bundle = Bundle()
                 bundle.putString(BundleKeys.KEY_TITLE,"乘车码帮助")
                 bundle.putString(BundleKeys.KEY_FQA_TYPE,"1")
                 FQAFragment.newInstance(parentFragment as SupportFragment,bundle)
             }
-            R.id.tv_refresh -> {
+            R.id.tv_refresh -> {//刷新二维码
                 refreshQr(DialogUtil.getLoadingDialog(fragmentManager))
             }
-            R.id.tv_open -> {
+            R.id.tv_open -> {//开通二维码
                 if (isOpen && UserUtil.getUserInfoBean().realNameVerifyFlag == "0") {
                     if (UserUtil.getUserInfoBean().ownerAmount < 2) {//充值
                         ChargeFragment.newInstance(parentFragment as SupportFragment, null)

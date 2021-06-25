@@ -11,7 +11,7 @@ import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
 import com.jtcxw.glcxw.localbean.MessageBean
 import java.text.SimpleDateFormat
 import java.util.*
-
+// 消息适配器
 class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapter<MessageBean>(context,list) {
     override fun getConvertViewId(viewType: Int): Int {
         return R.layout.item_message
@@ -31,7 +31,7 @@ class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapte
 
         if (!TextUtils.isEmpty(data.PushType) && data.PushType == "2") {
             when {
-                data.MessageType == "1" -> {
+                data.MessageType == "1" -> {// 支付宝支付
                     if(data!!.read == 1) {
                         vType.setImageResource(R.mipmap.icon_pay_ali_read)
                     } else {
@@ -39,7 +39,7 @@ class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapte
                     }
                 }
 
-                data.MessageType == "7" || data.MessageType == "8" -> {
+                data.MessageType == "7" || data.MessageType == "8" -> {//微信支付
                     if(data!!.read == 1) {
                         vType.setImageResource(R.mipmap.icon_message_wx_read)
                     } else {
@@ -47,7 +47,7 @@ class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapte
                     }
                 }
 
-                data.MessageType == "101" -> {
+                data.MessageType == "101" -> {//客服
                     if(data!!.read == 1) {
                         vType.setImageResource(R.mipmap.icon_message_kefu_read)
                     } else {
@@ -55,14 +55,14 @@ class MessageAdapter(context: Context,list:List<MessageBean>):BaseRecyclerAdapte
                     }
                 }
 
-                data.MessageType == "2" -> {
+                data.MessageType == "2" -> {//bus
                     if(data!!.read == 1) {
                         vType.setImageResource(R.mipmap.icon_order_bus_read)
                     } else {
                         vType.setImageResource(R.mipmap.icon_order_bus_unread)
                     }
                 }
-                data.MessageType == "3" -> {
+                data.MessageType == "3" -> {//二维码乘车
                     if (data!!.read == 1) {
                         vType.setImageResource(R.mipmap.icon_order_qr_read)
                     } else {

@@ -7,6 +7,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 
 class SwipeUtil {
     companion object{
+        //初始化refresh的颜色值
         fun initHeader(header: MaterialHeader){
             header.setColorSchemeColors(ContextCompat.getColor(header.context, R.color.green_light)
                 , ContextCompat.getColor(header.context,R.color.gray_6))

@@ -15,7 +15,7 @@ import com.jtcxw.glcxw.ui.travel.ScenicDetailFragment
 import com.youth.banner.adapter.BannerAdapter
 import me.yokeyword.fragmentation.SupportFragment
 
-
+// 首页banner景点适配器
 class HomeScenicBannerAdapter(
     data: List<ScenicBean.ScenicInfoBean>,
     corners: Int,

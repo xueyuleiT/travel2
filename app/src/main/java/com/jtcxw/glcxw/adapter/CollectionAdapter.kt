@@ -24,6 +24,12 @@ class CollectionAdapter(context: Context,list:List<MyCollectionBean>,callback: C
     private var mCallback = callback
     private var mStationClick = click
 
+    /**
+     * 这里采用的是三段式拼接处理，
+     * 0，3表示上半圆背景
+     * 2表示下半圆背景
+     * 其他表示正常的item 完整的矩形
+     */
     override fun getConvertViewId(viewType: Int): Int {
         return when(viewType) {
             0 -> {
@@ -67,16 +73,16 @@ class CollectionAdapter(context: Context,list:List<MyCollectionBean>,callback: C
                 llLayout.setBackgroundResource(R.drawable.shape_r10_cw_top)
                 tvTitle.text = data!!.collectInfoBean.typeName
                 when {
-                    data!!.collectInfoBean.type == 1 -> {
+                    data!!.collectInfoBean.type == 1 -> { // 站点
                         vType.setImageResource(R.mipmap.icon_collect_station)
                     }
-                    data!!.collectInfoBean.type == 2 -> {
+                    data!!.collectInfoBean.type == 2 -> { // 线路
                         vType.setImageResource(R.mipmap.icon_collect_line)
                     }
-                    data!!.collectInfoBean.type == 3 -> {
+                    data!!.collectInfoBean.type == 3 -> { // 酒店
                         vType.setImageResource(R.mipmap.icon_collect_hotel)
                     }
-                    data!!.collectInfoBean.type == 4 -> {
+                    data!!.collectInfoBean.type == 4 -> { // 风景
                         vType.setImageResource(R.mipmap.icon_collect_scenic)
                     }
                 }
@@ -101,16 +107,16 @@ class CollectionAdapter(context: Context,list:List<MyCollectionBean>,callback: C
                 llLayout.setBackgroundResource(R.drawable.shape_r10_cw)
                 tvTitle.text = data!!.collectInfoBean.typeName
                 when {
-                    data!!.collectInfoBean.type == 1 -> {
+                    data!!.collectInfoBean.type == 1 -> { // 站点
                         vType.setImageResource(R.mipmap.icon_collect_station)
                     }
-                    data!!.collectInfoBean.type == 2 -> {
+                    data!!.collectInfoBean.type == 2 -> { // 线路
                         vType.setImageResource(R.mipmap.icon_collect_line)
                     }
-                    data!!.collectInfoBean.type == 3 -> {
+                    data!!.collectInfoBean.type == 3 -> { // 酒店
                         vType.setImageResource(R.mipmap.icon_collect_hotel)
                     }
-                    data!!.collectInfoBean.type == 4 -> {
+                    data!!.collectInfoBean.type == 4 -> { // 风景
                         vType.setImageResource(R.mipmap.icon_collect_scenic)
                     }
                 }

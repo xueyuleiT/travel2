@@ -19,7 +19,7 @@ import com.jtcxw.glcxw.utils.SwipeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.ScenicView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 景点页面
 class ScenicFragment: BaseFragment<FragmentHotelBinding, CommonModel>(), ScenicView {
     override fun onScenicInfoListFinish() {
         mBinding.swipeLayout.finishRefresh(0)

@@ -20,7 +20,7 @@ import com.jtcxw.glcxw.presenters.impl.TicketPresenter
 import com.jtcxw.glcxw.utils.QRCodeUtil
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.TicketView
-
+// 检票页面
 class TicketFragment:BaseFragment<FragmentTicketBinding,CommonModel>,TicketView {
     override fun onTicketCheckingSucc(jsonObject: JsonObject) {
         ToastUtil.toastSuccess("验票成功")

@@ -16,43 +16,43 @@ import com.jtcxw.glcxw.presenters.impl.GoodsInfoPresenter
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.GoodsInfoView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 订单详情页面
 class OrderDetailFragment:BaseFragment<FragmentOrderDetailBinding,CommonModel>(),GoodsInfoView {
     override fun onGetGoodsInfoSucc(goodsInfoBean: GoodsInfoBean) {
         mGoodsInfoBean = goodsInfoBean
         when {
-            goodsInfoBean.changeType == 1 -> {
+            goodsInfoBean.changeType == 1 -> {// 支付宝
                 mBinding.vType.setImageResource(R.mipmap.icon_pay_ali)
                 mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
             }
-            goodsInfoBean.changeType == 8 -> {
+            goodsInfoBean.changeType == 8 -> {// 微信
                 mBinding.vType.setImageResource(R.mipmap.icon_pay_wx_recharge)
                 mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
             }
 
-            goodsInfoBean.changeType == 7 -> {
+            goodsInfoBean.changeType == 7 -> { // 微信
                 mBinding.vType.setImageResource(R.mipmap.icon_pay_wx_recharge)
                 mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
             }
 
-            goodsInfoBean.changeType == 2 -> {
+            goodsInfoBean.changeType == 2 -> { // 出行
                 mBinding.tvTransAmount.setTextColor(resources.getColor(R.color.red_ff3737))
                 mBinding.vType.setImageResource(R.mipmap.icon_order_bus)
             }
-            goodsInfoBean.changeType == 3 -> mBinding.vType.setImageResource(R.mipmap.icon_order_qr)
-            goodsInfoBean.changeType == 4 -> mBinding.vType.setImageResource(R.mipmap.icon_order_bus)
+            goodsInfoBean.changeType == 3 -> mBinding.vType.setImageResource(R.mipmap.icon_order_qr) // 出行
+            goodsInfoBean.changeType == 4 -> mBinding.vType.setImageResource(R.mipmap.icon_order_bus) // 出行
 
-            goodsInfoBean!!.changeType == 98 -> {
+            goodsInfoBean!!.changeType == 98 -> { // 老版本充值
                 mBinding.tvTransAmount.setTextColor(mBinding.tvTransAmount.resources.getColor(R.color.red_ff3737))
                 mBinding.vType.setImageResource(R.mipmap.icon_recharge_old)
             }
 
-            goodsInfoBean!!.changeType == 99 -> {
+            goodsInfoBean!!.changeType == 99 -> { // 老版本消费
                 mBinding.tvTransAmount.setTextColor(mBinding.tvTransAmount.resources.getColor(R.color.black_263238))
                 mBinding.vType.setImageResource(R.mipmap.icon_consumer_old)
             }
 
-            goodsInfoBean!!.changeType == 101 -> {
+            goodsInfoBean!!.changeType == 101 -> { // 老版本客服处理
                 mBinding.tvTransAmount.setTextColor(mBinding.tvTransAmount.resources.getColor(R.color.black_263238))
                 mBinding.vType.setImageResource(R.mipmap.icon_pay_kefu)
             }
@@ -121,6 +121,7 @@ class OrderDetailFragment:BaseFragment<FragmentOrderDetailBinding,CommonModel>()
 
     }
 
+    // 获取页面数据
     override fun doAfterAnim() {
         val json = JsonObject()
         json.addProperty("BusinessId",arguments!!.getString(BundleKeys.KEY_BUSINESS_ID))

@@ -20,6 +20,9 @@ import com.jtcxw.glcxw.views.ComplaintView
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 
+/**
+ * 投诉反馈页面
+ */
 class ComplaintFragment:BaseFragment<FragmentComplaintBinding,CommonModel>(),ComplaintView {
     override fun onInsertCusServerSucc(jsonObject: JsonObject) {
         if (jsonObject.get("Status").asBoolean) {
@@ -31,6 +34,7 @@ class ComplaintFragment:BaseFragment<FragmentComplaintBinding,CommonModel>(),Com
         }
     }
 
+    // 获取投诉类型数据
     override fun onGetCusServerTypeSucc(dictionaryInfoBean: DictionaryInfoBean) {
         if (mList == null) {
             mList = ArrayList()
@@ -110,7 +114,7 @@ class ComplaintFragment:BaseFragment<FragmentComplaintBinding,CommonModel>(),Com
                 json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
                 mPresenter!!.insertCusServer(json)
             }
-            R.id.rl_type -> {
+            R.id.rl_type -> { // 投诉类型
                 if (mList == null || mList!!.isEmpty()) {
                     mList = ArrayList()
                     mPresenter!!.getCusServerType(JsonObject())

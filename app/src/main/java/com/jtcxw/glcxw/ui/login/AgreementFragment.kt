@@ -17,7 +17,7 @@ import com.jtcxw.glcxw.views.AgreementView
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import me.yokeyword.fragmentation.SupportFragment
-
+// 协议页面
 class AgreementFragment:
     BaseFragment<FragmentAgreementBinding, CommonModel>(),AgreementView {
     override fun onMemberTreatyFailed() {
@@ -88,6 +88,7 @@ class AgreementFragment:
         }
     }
 
+    // webview参数设置
     private fun initWebViewSettings() {
 
         mBinding.webView.setBackgroundColor(0) // 设置背景色

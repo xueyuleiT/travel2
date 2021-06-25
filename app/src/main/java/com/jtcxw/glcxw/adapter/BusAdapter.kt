@@ -98,6 +98,7 @@ class BusAdapter(context: Context, data: List<AnnexBusBean.StationListBean>,inne
 
     }
 
+    // 内部折叠的adapter
     private fun initAdapter(recyclerView: RecyclerView, list:List<AnnexBusBean.StationListBean.StationLineInfoBean>, position: Int) {
         val adapter = BusInnerAdapter(recyclerView.context,list)
         adapter.setOnItemClickListener(object : OnItemClickListener<AnnexBusBean.StationListBean.StationLineInfoBean> {

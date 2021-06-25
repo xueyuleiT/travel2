@@ -10,7 +10,7 @@ import com.jtcxw.glcxw.R
 import com.jtcxw.glcxw.base.respmodels.HotelBean
 import com.jtcxw.glcxw.base.views.recyclerview.BaseRecyclerAdapter
 import com.jtcxw.glcxw.base.views.recyclerview.CommonRecyclerViewHolder
-
+// 热门酒店适配器
 class HotHotelAdapter (context: Context, data: List<HotelBean.HotelInfoListBean>) : BaseRecyclerAdapter<HotelBean.HotelInfoListBean>(context, data) {
     override fun onClick(
         view: View?,

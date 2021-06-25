@@ -22,7 +22,7 @@ import com.jtcxw.glcxw.ui.travel.ScenicDetailFragment
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.HomeSpotView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 首页景点页面
 class HomeSpotFragment : BaseFragment<FragmentHotBinding, CommonModel> ,HomeSpotView{
 
     constructor(type: Int) {

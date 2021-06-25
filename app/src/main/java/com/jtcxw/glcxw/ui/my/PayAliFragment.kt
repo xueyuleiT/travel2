@@ -143,7 +143,8 @@ class PayAliFragment:BaseFragment<FragmentPayAliBinding,CommonModel>() ,PayAliVi
     }
 
 
-    fun isAliPayInstalled(context: Context): Boolean {
+    // 判断是否安装支付宝
+    private fun isAliPayInstalled(context: Context): Boolean {
         val uri = Uri.parse("alipays://platformapi/startApp")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         val componentName = intent.resolveActivity(context.packageManager)

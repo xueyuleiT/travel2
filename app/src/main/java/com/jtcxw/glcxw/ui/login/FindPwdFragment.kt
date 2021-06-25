@@ -25,7 +25,7 @@ import com.jtcxw.glcxw.presenters.impl.FindPwdPresenter
 import com.jtcxw.glcxw.viewmodel.CommonModel
 import com.jtcxw.glcxw.views.FindPwdView
 import me.yokeyword.fragmentation.SupportFragment
-
+// 找回密码
 class FindPwdFragment: BaseFragment<FragmentFindPwdBinding, CommonModel>(),FindPwdView {
     companion object {
         fun newInstance(fragment:SupportFragment,bundle: Bundle?){
@@ -45,6 +45,7 @@ class FindPwdFragment: BaseFragment<FragmentFindPwdBinding, CommonModel>(),FindP
 
 
 
+    // 验证码校验成功
     override fun onVerifySmsCodeSucc(verifySmsBean: VerifySmsBean) {
         if (verifySmsBean.isVerifyFlag) {
             ToastUtil.toastSuccess(verifySmsBean.notice)
@@ -90,12 +91,14 @@ class FindPwdFragment: BaseFragment<FragmentFindPwdBinding, CommonModel>(),FindP
         mBinding.btnNext.setOnClickListener(this)
 
 
+        // 每次打开页面都要检查验证码是否还在倒计时
         if (System.currentTimeMillis() -  CacheUtil.getInstance().getProperty(SPKeys.SP_KEY_SMS_TIME + mCodeType, 0L) < Constant.SMS_TIME * 1000) {
             mBinding.tvTime.task.start(
                 Constant.SMS_TIME - (System.currentTimeMillis() -  CacheUtil.getInstance().getProperty(
                     SPKeys.SP_KEY_SMS_TIME + mCodeType, 0L)) / (1000))
         }
 
+        // 检查是否有手机号，有则显示
         if (arguments != null) {
             mBinding.etPhone.setText(arguments!!.getString(BundleKeys.KEY_PHONE,""))
             if (!TextUtils.isEmpty(UserUtil.getUserInfoBean().realTelphoneNo) && !TextUtils.isEmpty(UserUtil.getUserInfoBean().memberId)) {
@@ -136,7 +139,7 @@ class FindPwdFragment: BaseFragment<FragmentFindPwdBinding, CommonModel>(),FindP
     override fun onClick(v: View?) {
         super.onClick(v)
         when(v?.id) {
-            R.id.tv_time -> {
+            R.id.tv_time -> { // 发送验证码
                 if (!RuleUtil.isPhone(mBinding.etPhone.text.toString())) {
                     ToastUtil.toastWaring("请输入正确的手机号")
                     return
@@ -157,7 +160,7 @@ class FindPwdFragment: BaseFragment<FragmentFindPwdBinding, CommonModel>(),FindP
                 mPresenter!!.sendSmsCode(json)
             }
 
-            R.id.btn_next -> {
+            R.id.btn_next -> { // 找回密码
                 if (!RuleUtil.isPhone(mBinding.etPhone.text.toString())) {
                     ToastUtil.toastWaring("请输入正确的手机号")
                     return

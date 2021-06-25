@@ -20,6 +20,7 @@ import com.jtcxw.glcxw.views.AccountRecordView
 import me.yokeyword.fragmentation.SupportFragment
 
 class AccountRecordFragment:BaseFragment<FragmentAccountRecordBinding,CommonModel>(),AccountRecordView {
+   // 获取历史账户信息
     override fun onGetMemberAccountHistory(memberAccountHistoryBean: MemberAccountHistoryBean) {
         if (mPage == 1) {
             mDatas.clear()
@@ -98,7 +99,7 @@ class AccountRecordFragment:BaseFragment<FragmentAccountRecordBinding,CommonMode
         mBinding.recyclerView.adapter = adapter
         mBinding.recyclerView.setOnLoadNextPageListener {
             mPage ++
-
+            // 加载下一页账户交易数据
             val json = JsonObject()
             json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
             json.addProperty("Records",mRecords)

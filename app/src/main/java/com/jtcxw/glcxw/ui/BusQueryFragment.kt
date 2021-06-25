@@ -68,6 +68,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
         }
     }
 
+    //历史查询接口回调方法
     override fun onListHistorySucc(siteOrLineBean: SiteOrLineBean) {
         if (mBinding.recyclerView.visibility == View.VISIBLE) {
             return
@@ -108,6 +109,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
         mBinding.recyclerViewHistory.setNewData(mHistoryDatas,false)
     }
 
+    //路线查询结果
     override fun onBusInquiryAnnexBusSucc(siteOrLineBean: SiteOrLineBean) {
         mBinding.llHistory.visibility = View.GONE
         mBinding.recyclerView.visibility = View.VISIBLE
@@ -158,7 +160,8 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
         mPresenter = BusQueryPresenter(this)
 
 
-        addSearchListener()
+        addSearchListener()//添加搜索监听
+        //清除历史记录
         mBinding.ivClear.setOnClickListener {
             showConfirmDialog("提示","请确认是否清除查询历史记录？","确认","取消",object :DialogCallback{
                 override fun invoke(p1: MaterialDialog) {
@@ -187,6 +190,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
         val historyAdapter = BusHistoryAdapter(context!!,mHistoryDatas)
         historyAdapter.setOnItemClickListener(object :BaseRecyclerAdapter.OnItemClickListener<BusSiteOrLineHistoryBean>{
             override fun onItemClick(view: View?, data: BusSiteOrLineHistoryBean?, position: Int) {
+                // type == 0 表示查询站点信息 否则表示查询路线信息
                 if (mHistoryDatas[position].type == 0) {
 //                    mBinding.llHistory.visibility = View.GONE
 //                    mBinding.recyclerView.visibility = View.VISIBLE
@@ -201,7 +205,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
                     json.addProperty("MemberId",UserUtil.getUserInfoBean().memberId)
                     mPresenter!!.querySite(json,mHistoryDatas[position].stationId)
 
-                } else {
+                } else { //查询路线信息
                     val bundle = Bundle()
                     bundle.putString(
                         BundleKeys.KEY_LINE_ID,
@@ -238,7 +242,8 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
             //内部list的点击事件
             override fun onInnerClickListener(position: Int, outPosition: Int) {
                 var lineId: String
-                if (mDatas[outPosition].type == 1){
+                // type == 0 表示查询站点信息 否则表示查询路线信息
+                if (mDatas[outPosition].type == 1){ // 查询路线信息 跳到地图页面
                     val bundle = Bundle()
                     lineId = mDatas[outPosition].lineDateBean.lineDirection[position].lineId
                     bundle.putString(BundleKeys.KEY_LINE_ID,
@@ -314,6 +319,7 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
 
                 stationBean.stopList = ArrayList()
 
+                //洗数据，后台数据格式改成通用数据模型
                 model!!.siteDataBean.stopList?.forEach {
                     val stopListBean = AnnexBusBean.StopListBean()
                     stopListBean.lat = it.lat
@@ -432,7 +438,8 @@ class BusQueryFragment:BaseFragment<FragmentBusQueryBinding,CommonModel>(),BusQu
 
     }
 
-    var hasInit = false
+    var hasInit = false // onSupportVisible 在第一次页面打开也会调用，所以要屏蔽第一次的调用，
+    // 后续的onSupportVisible可认为是从不可见变成可见
     override fun onSupportVisible() {
         super.onSupportVisible()
         if (hasInit) {

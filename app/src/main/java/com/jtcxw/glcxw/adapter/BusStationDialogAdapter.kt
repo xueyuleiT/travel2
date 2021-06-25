@@ -27,13 +27,13 @@ class BusStationDialogAdapter(context: Context, data: List<FrequencyBean.schedul
 
         tvName.text = data!!.station_name + "（" + data!!.ride_time + "）"
 
-        if (data!!.type == 0) {
+        if (data!!.type == 0) {// 起点
             if (position == 0) {
                 ride.setImageResource(R.mipmap.icon_trans_start)
             } else {
                 ride.setImageResource(R.mipmap.icon_station_ride)
             }
-        } else {
+        } else { // 终点
             if (position == mDatas.size - 1) {
                 ride.setImageResource(R.mipmap.icon_trans_end)
             } else {
